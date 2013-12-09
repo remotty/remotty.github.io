@@ -4,7 +4,7 @@
   <title><![CDATA[My Octopress Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-09T21:28:38+09:00</updated>
+  <updated>2013-12-09T21:43:56+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Your Name]]></name>
@@ -18,7 +18,65 @@
     <link href="http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/"/>
     <updated>2013-12-09T21:28:37+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post</id>
-    <content type="html"><![CDATA[
+    <content type="html"><![CDATA[<p>Octopress 블로그에 글 작성하는 방법을 정리해 봅니다.</p>
+
+<ul>
+<li>Github 저장소를 clone 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@github.com:remotty/remotty.github.io.git</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치로 checkout 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git checkout source</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>아래의 명령을 실행하여 Github Pages로 배포를 위한 준비작업을 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>글을 작성하고 저장한 후 아래의 명령을 실행하면 바로 Github 저장소로 배포됩니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .
+</span><span class='line'>$ git ci -m "새글 추가함"
+</span><span class='line'>$ git push origin source</span></code></pre></td></tr></table></div></figure>
+
 ]]></content>
   </entry>
   
