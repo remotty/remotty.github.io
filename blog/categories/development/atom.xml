@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Remotty Tech Blog]]></title>
-  <link href="http://remotty.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Development | Remotty Tech Blog]]></title>
+  <link href="http://remotty.github.io/blog/categories/development/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
   <updated>2013-12-09T21:47:11+09:00</updated>
   <id>http://remotty.github.io/</id>
@@ -27,24 +27,6 @@
 <li>bootstrap3</li>
 </ul>
 
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[2nd Post]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/09/2nd-post/"/>
-    <updated>2013-12-09T19:48:29+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/09/2nd-post</id>
-    <content type="html"><![CDATA[<p>두번째 글을 추가합니다.</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Getting Started]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/09/getting-started/"/>
-    <updated>2013-12-09T19:16:52+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/09/getting-started</id>
-    <content type="html"><![CDATA[<p>Remotty.com의 Tech Blog를 시작합니다.</p>
 ]]></content>
   </entry>
   
