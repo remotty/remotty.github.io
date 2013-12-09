@@ -9,10 +9,9 @@
   <meta name="author" content="Remotty Group">
 
   
-  <meta name="description" content="Shomney Development Stack ruby on rails 4
-angularjs 1.2.x
-sqlite3(dev)/mysql(production)
-bootstrap3 ">
+  <meta name="description" content="Octopress 블로그에 글 작성하는 방법을 정리해 봅니다. Github 저장소를 clone 합니다. 1
+$ git clone git@github.com:remotty/remotty.github.io.git source 브랜치로 checkout 합니다. 1
+$ &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -68,6 +67,103 @@ bootstrap3 ">
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog/2013/12/09/how-to-make-a-new-post/">How to Make a New Post</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-09T21:28:37+09:00" pubdate data-updated="true">Dec 9<span>th</span>, 2013</time>
+        
+           | <a href="/blog/2013/12/09/how-to-make-a-new-post/#disqus_thread"
+             data-disqus-identifier="http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>Octopress 블로그에 글 작성하는 방법을 정리해 봅니다.</p>
+
+<ul>
+<li>Github 저장소를 clone 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@github.com:remotty/remotty.github.io.git</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치로 checkout 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git checkout source</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>아래의 명령을 실행하여 Github Pages로 배포를 위한 준비작업을 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake setup_github_pages</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>글을 작성하고 저장한 후 아래의 명령을 실행하면 바로 Github 저장소로 배포됩니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .
+</span><span class='line'>$ git ci -m "새글 추가함"
+</span><span class='line'>$ git push origin source</span></code></pre></td></tr></table></div></figure>
+
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -205,6 +301,10 @@ bootstrap3 ">
     <section>
   <h1>Recent Posts</h1>
   <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/blog/2013/12/09/how-to-make-a-new-post/">How to Make a New Post</a>
+      </li>
     
       <li class="post">
         <a href="/blog/2013/12/09/sebeonjjae-teseuteu-geulibnida/">세번째 테스트 글입니다.</a>

@@ -2,26 +2,30 @@
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
         <loc>http://remotty.github.io/blog/2013/12/09/getting-started/</loc>
-        <lastmod>2013-12-09T21:45:31+09:00</lastmod>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
     </url>
     <url>
         <loc>http://remotty.github.io/blog/2013/12/09/2nd-post/</loc>
-        <lastmod>2013-12-09T21:45:31+09:00</lastmod>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
     </url>
     <url>
         <loc>http://remotty.github.io/blog/2013/12/09/sebeonjjae-teseuteu-geulibnida/</loc>
-        <lastmod>2013-12-09T21:45:31+09:00</lastmod>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
+    </url>
+    <url>
+        <loc>http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/</loc>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
     </url>
     <url>
         <loc>http://remotty.github.io/blog/archives/</loc>
-        <lastmod>2013-12-09T21:45:31+09:00</lastmod>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
     </url>
     <url>
         <loc>http://remotty.github.io/</loc>
-        <lastmod>2013-12-09T21:45:31+09:00</lastmod>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
     </url>
     <url>
         <loc>http://remotty.github.io/robots.txt</loc>
-        <lastmod>2013-12-09T21:45:31+09:00</lastmod>
+        <lastmod>2013-12-09T22:09:36+09:00</lastmod>
     </url>
 </urlset>
