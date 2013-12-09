@@ -1,16 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
+  <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-09T18:23:15+09:00</updated>
+  <updated>2013-12-09T19:26:42+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Remotty Group]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/09/getting-started/"/>
+    <updated>2013-12-09T19:16:52+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/09/getting-started</id>
+    <content type="html"><![CDATA[<p>Remotty.com의 Tech Blog를 시작합니다.</p>
+]]></content>
+  </entry>
   
 </feed>
