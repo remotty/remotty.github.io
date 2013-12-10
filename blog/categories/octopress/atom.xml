@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Octopress | Remotty Tech Blog]]></title>
+  <title><![CDATA[Category: octopress | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-10T23:06:40+09:00</updated>
+  <updated>2013-12-10T23:23:36+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -12,6 +12,44 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[install theme]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/install-theme/"/>
+    <updated>2013-12-10T23:00:55+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/install-theme</id>
+    <content type="html"><![CDATA[<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+<!--more-->
+
+
+<p>일단 theme 리스트는 다음 링크에서 확인하시고..</p>
+
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></p>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/</a></p>
+
+<p>설치는 아래와 같이 하면 됩니다.</p>
+
+<p><code>
+cd [octopress directory]
+git clone [theme git주소] .themes/[theme 이름]
+rake install['theme 이름']
+rake generate
+</code></p>
+
+<p>zsh 사용시 에러가 발생한다면</p>
+
+<p><code>
+cd [octopress directory]
+git clone [theme git주소] .themes/[theme 이름]
+rake "install[theme 이름]"
+rake generate
+</code></p>
+
+<p>다음과 같이 합니다.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Insert Author]]></title>
@@ -44,7 +82,7 @@ categories: [octopress]</p>
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How to Make a New Post]]></title>
+    <title type="html"><![CDATA[How to make a new post]]></title>
     <link href="http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/"/>
     <updated>2013-12-09T21:28:37+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post</id>

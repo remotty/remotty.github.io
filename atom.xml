@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-10T23:06:40+09:00</updated>
+  <updated>2013-12-10T23:23:36+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -12,6 +12,50 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[install theme]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/install-theme/"/>
+    <updated>2013-12-10T23:00:55+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/install-theme</id>
+    <content type="html"><![CDATA[<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+<!--more-->
+
+
+<p>일단 theme 리스트는 다음 링크에서 확인하시고..</p>
+
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></p>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/</a></p>
+
+<p>설치는 아래와 같이 하면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd [octopress directory]
+</span><span class='line'>git clone [theme git주소] .themes/[theme 이름]
+</span><span class='line'>rake install['theme 이름']
+</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
+
+
+<p>zsh 사용시 에러가 발생한다면</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd [octopress directory]
+</span><span class='line'>git clone [theme git주소] .themes/[theme 이름]
+</span><span class='line'>rake "install[theme 이름]"
+</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
+
+
+<p>다음과 같이 합니다.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Insert Author]]></title>
@@ -50,7 +94,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[Insert 'More' Link]]></title>
+    <title type="html"><![CDATA[Insert 'more' link]]></title>
     <link href="http://remotty.github.io/blog/2013/12/10/insert-more-link/"/>
     <updated>2013-12-10T22:17:53+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/10/insert-more-link</id>
@@ -74,7 +118,7 @@
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
     <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#x61;&#x64;&#109;&#105;&#110;&#x40;&#114;&#x65;&#x6d;&#111;&#116;&#116;&#x79;&#x2e;&#99;&#x6f;&#109;">&#97;&#100;&#x6d;&#x69;&#x6e;&#64;&#x72;&#101;&#109;&#111;&#x74;&#116;&#x79;&#x2e;&#x63;&#111;&#109;</a></p>
+<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x61;&#x64;&#109;&#105;&#110;&#64;&#x72;&#101;&#x6d;&#x6f;&#116;&#x74;&#x79;&#46;&#x63;&#x6f;&#x6d;">&#x61;&#100;&#x6d;&#x69;&#x6e;&#64;&#114;&#x65;&#109;&#111;&#116;&#x74;&#x79;&#x2e;&#x63;&#x6f;&#x6d;</a></p>
 
 <!-- more -->
 
@@ -129,7 +173,7 @@ Jira, Redmine과 같은 이슈트래커 도구는 태스크 관리 도구로는 
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[How to Make a New Post]]></title>
+    <title type="html"><![CDATA[How to make a new post]]></title>
     <link href="http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/"/>
     <updated>2013-12-09T21:28:37+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post</id>
@@ -234,6 +278,18 @@ Jira, Redmine과 같은 이슈트래커 도구는 태스크 관리 도구로는 
     <updated>2013-12-09T19:16:52+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/09/getting-started</id>
     <content type="html"><![CDATA[<p>Remotty.com의 Tech Blog를 시작합니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Tywin Lannister Quote]]></title>
+    <link href="http://remotty.github.io/blog/2013/06/15/tywin-lannister-quote/"/>
+    <updated>2013-06-15T09:28:00+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/06/15/tywin-lannister-quote</id>
+    <content type="html"><![CDATA[<p>A nice quote by Tywin Lannister taken from <em>A Storm of Sword</em> book.</p>
+
+<blockquote><p>The greatest fools are ofttimes more clever then the men who laugh at them.</p><footer><strong>Tywin Lannister</strong> <cite>A Storm of Swords</cite></footer></blockquote>
+
 ]]></content>
   </entry>
   

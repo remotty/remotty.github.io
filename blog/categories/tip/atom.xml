@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Tip | Remotty Tech Blog]]></title>
+  <title><![CDATA[Category: tip | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/tip/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-10T23:06:40+09:00</updated>
+  <updated>2013-12-10T23:23:36+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Insert 'More' Link]]></title>
+    <title type="html"><![CDATA[Insert 'more' link]]></title>
     <link href="http://remotty.github.io/blog/2013/12/10/insert-more-link/"/>
     <updated>2013-12-10T22:17:53+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/10/insert-more-link</id>
