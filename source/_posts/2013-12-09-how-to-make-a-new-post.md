@@ -13,7 +13,7 @@ Octopress 블로그에 글 작성하는 방법을 정리해 봅니다.
 ``` 
 $ git clone git@github.com:remotty/remotty.github.io.git
 ```
-<-- more -->
+<!-- more -->
 * source 브랜치로 checkout 합니다. 
 
 ``` 
