@@ -1,18 +1,56 @@
 ---
-layout: default
+layout: page
+title: "This is the title for you homepage"
+date: 2013-08-16 23:48
+comments: true
+show_title: false
+sidebar: false
+hero_unit: true
+is_homepage: true
 ---
 
-{% assign index = true %}
-{% for post in paginator.posts %}
-{% assign content = post.content %}
-    <article class="post">{% include article.html %}</article>
-{% endfor %}
-<nav id="pagenavi">
-    {% if paginator.previous_page %}
-        <a href="{{paginator.previous_page}}" class="prev">Prev</a>
-    {% endif %}
-    {% if paginator.next_page %}
-        <a href="{{paginator.next_page}}" class="next">Next</a>
-    {% endif %}
-    <div class="center"><a href="{{ root_url }}/blog/archives">Blog Archives</a></div>
-</nav>
+<div class="grid-wrapper">
+  <div class="grid">
+    <div class="grid__item one-third lap-one-whole palm-one-whole usp">
+      <div class="grid">
+        <div class="grid__item one-whole lap-one-third">
+          <span class="icon">
+            <i class="icon-laptop"></i>
+          </span>
+        </div>
+
+        <div class="grid__item one-whole lap-two-thirds">
+          {% include custom/grid_item_left.html %}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid__item one-third lap-one-whole palm-one-whole usp">
+      <div class="grid">
+        <div class="grid__item one-whole lap-one-third">
+          <span class="icon">
+            <i class="icon-search"></i>
+          </span>
+        </div>
+
+        <div class="grid__item one-whole lap-two-thirds">
+          {% include custom/grid_item_middle.html %}
+        </div>
+      </div>
+    </div>
+
+    <div class="grid__item one-third lap-one-whole palm-one-whole usp">
+      <div class="grid">
+        <div class="grid__item one-whole lap-one-third">
+          <span class="icon">
+            <i class="icon-coffee"></i>
+          </span>
+        </div>
+		 
+        <div class="grid__item one-whole lap-two-thirds">
+         {% include custom/grid_item_right.html %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
