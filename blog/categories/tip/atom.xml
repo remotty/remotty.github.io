@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tip | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/tip/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-10T21:35:10+09:00</updated>
+  <updated>2013-12-10T22:21:50+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -14,10 +14,26 @@
 
   
   <entry>
-    <title type="html"><![CDATA[세번째 테스트 글입니다.]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/09/sebeonjjae-teseuteu-geulibnida/"/>
+    <title type="html"><![CDATA[Insert 'More' Comment]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/insert-more-comment/"/>
+    <updated>2013-12-10T22:17:53+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/insert-more-comment</id>
+    <content type="html"><![CDATA[<p>블로그 인덱스 페이지에서는 각 포스트의 한 문장만 보이게 방법이 있습니다.
+인덱스 페이지에서 해당 포스트의 모든 내용이 보이면 한 화면에서 여러개의 포스트를 볼 수 없겠죠.</p>
+
+<p>요령은 글 내용 중에서 한 문장이 끝나는 다음 줄에 아래의 표시를 삽입해 주면 인덱스 페이지에서는 자동으로 <code>more</code> 링크가 생성되면 한 문장만 보이게 됩니다. <code>more</code>버튼을 클릭하면 전체 글 내용을 볼 수 있게 됩니다.</p>
+
+<p><code>
+&lt;-- more --&gt;
+</code></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shomney Development Stack]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/09/shomney-development-stack/"/>
     <updated>2013-12-09T20:48:17+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/09/sebeonjjae-teseuteu-geulibnida</id>
+    <id>http://remotty.github.io/blog/2013/12/09/shomney-development-stack</id>
     <content type="html"><![CDATA[<p>Shomney Development Stack</p>
 
 <ul>
