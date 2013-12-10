@@ -98,3 +98,18 @@ google_analytics_tracking_id:
 
 # Facebook Like
 facebook_like: true
+
+
+# Social Sidebar for "Oscailte" theme
+social:
+  title: # Defaults to "Follow me!" if not present
+  adn: # App.net
+  dribbble: 
+  facebook: https://www.facebook.com/groups/599997776716423/
+  github: https://github.com/remotty
+  googleplus: 
+  linkedin: 
+  pinterest: 
+  stackoverflow: 
+  twitter: 
+  youtube: 
