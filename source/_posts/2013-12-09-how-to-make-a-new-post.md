@@ -4,7 +4,7 @@ title: "How to make a new post"
 date: 2013-12-09 21:28:37 +0900
 comments: true
 categories: [octopress]
-author: 최효성, 김충섭
+author: 최효성, 서비큐라
 ---
 
 Octopress 블로그에 글 작성하는 방법을 정리해 봅니다. 

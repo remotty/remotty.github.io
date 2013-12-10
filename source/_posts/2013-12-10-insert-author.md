@@ -4,7 +4,7 @@ title: "Insert Author"
 date: 2013-12-10 22:46:31 +0900
 comments: true
 categories: [octopress]
-author: 김충섭
+author: 서비큐라
 ---
 
 octopress는 한 블로그에 글쓴이가 여러명일 경우 작성자를 따로 입력할 수 있습니다.
