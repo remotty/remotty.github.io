@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Tip | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/tip/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-10T22:21:50+09:00</updated>
+  <updated>2013-12-10T22:23:55+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -14,10 +14,10 @@
 
   
   <entry>
-    <title type="html"><![CDATA[Insert 'More' Comment]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/10/insert-more-comment/"/>
+    <title type="html"><![CDATA[Insert 'More' Link]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/insert-more-link/"/>
     <updated>2013-12-10T22:17:53+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/10/insert-more-comment</id>
+    <id>http://remotty.github.io/blog/2013/12/10/insert-more-link</id>
     <content type="html"><![CDATA[<p>블로그 인덱스 페이지에서는 각 포스트의 한 문장만 보이게 방법이 있습니다.
 인덱스 페이지에서 해당 포스트의 모든 내용이 보이면 한 화면에서 여러개의 포스트를 볼 수 없겠죠.</p>
 
