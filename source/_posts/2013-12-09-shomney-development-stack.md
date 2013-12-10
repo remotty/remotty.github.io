@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "세번째 테스트 글입니다."
+title: "Shomney Development Stack"
 date: 2013-12-09 20:48:17 +0900
 comments: true
 categories: [tip, development]
