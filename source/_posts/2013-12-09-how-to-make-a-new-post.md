@@ -3,7 +3,7 @@ layout: post
 title: "How to make a new post"
 date: 2013-12-09 21:28:37 +0900
 comments: true
-categories: 
+categories: [octopress]
 author: 최효성, 김충섭
 ---
 
