@@ -51,7 +51,7 @@
     text-align: center;
     img {
       @include border-radius(100%);
-      border: 10px solid $primary-color;
+      // border: 10px solid $primary-color;
     }
   }
 
