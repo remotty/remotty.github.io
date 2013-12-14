@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Remotty Tech Blog]]></title>
+  <link href="http://remotty.github.io/atom.xml" rel="self"/>
+  <link href="http://remotty.github.io/"/>
+  <updated>2013-12-14T17:44:59+09:00</updated>
+  <id>http://remotty.github.io/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[install theme]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/install-theme/"/>
+    <updated>2013-12-10T23:00:55+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/install-theme</id>
+    <content type="html"><![CDATA[<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+<!--more-->
+
+
+<p>일단 theme 리스트는 다음 링크에서 확인하시고..</p>
+
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></p>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/</a></p>
+
+<p>설치는 아래와 같이 하면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd [octopress directory]
+</span><span class='line'>git clone [theme git주소] .themes/[theme 이름]
+</span><span class='line'>rake install['theme 이름']
+</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
+
+
+<p>zsh 사용시 에러가 발생한다면</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd [octopress directory]
+</span><span class='line'>git clone [theme git주소] .themes/[theme 이름]
+</span><span class='line'>rake "install[theme 이름]"
+</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
+
+
+<p>다음과 같이 합니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Insert Author]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/insert-author/"/>
+    <updated>2013-12-10T22:46:31+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/insert-author</id>
+    <content type="html"><![CDATA[<p>octopress는 한 블로그에 글쓴이가 여러명일 경우 작성자를 따로 입력할 수 있습니다.</p>
+
+<!--more-->
+
+
+<p>post글 상단 정보에 <code>author: Your Name</code>을 입력하면 되고</p>
+
+<p>글 수정시에는 author에 이름을 추가하는 식으로 작업하면 될 것 같습니다.</p>
+
+<p>지금 이 글을 예로 들면 다음과 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'>layout: post
+</span><span class='line'>title: "Insert Author"
+</span><span class='line'>date: 2013-12-10 22:46:31 +0900
+</span><span class='line'>comments: true
+</span><span class='line'>categories: [octopress]
+</span><span class='line'>author: 김충섭
+</span><span class='line'>---</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Insert 'more' link]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/insert-more-link/"/>
+    <updated>2013-12-10T22:17:53+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/insert-more-link</id>
+    <content type="html"><![CDATA[<p>블로그 인덱스 페이지에서는 각 포스트의 한 문장만 보이게 방법이 있습니다.
+인덱스 페이지에서 해당 포스트의 모든 내용이 보이면 한 화면에서 여러개의 포스트를 볼 수 없겠죠.</p>
+
+<p>요령은 글 내용 중에서 한 문장이 끝나는 다음 줄에 아래의 표시를 삽입해 주면 인덱스 페이지에서는 자동으로 <code>more</code> 링크가 생성되면 한 문장만 보이게 됩니다. <code>more</code>버튼을 클릭하면 전체 글 내용을 볼 수 있게 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- more --&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remotty하게 일하기]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi/"/>
+    <updated>2013-12-10T21:27:30+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
+    <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
+혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
+<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#97;&#x64;&#109;&#x69;&#110;&#64;&#x72;&#101;&#109;&#x6f;&#x74;&#116;&#121;&#46;&#99;&#x6f;&#x6d;">&#x61;&#100;&#109;&#105;&#x6e;&#64;&#114;&#x65;&#x6d;&#x6f;&#116;&#116;&#x79;&#x2e;&#99;&#111;&#x6d;</a></p>
+
+<!-- more -->
+
+
+<h5>잡다구리한 이야기들</h5>
+
+<p>가벼운 생각들, 각종 팁, 유용한 지식 등 온갖 잡다구리한 정보들은 <strong>페이스북 그룹에 포스팅</strong> 한다.<br/>
+멤버들은 각자 자신의 생각들을 댓글을 통해 등록을 하면서 점점 그 생각들을 발전시켜 나간다.<br/>
+무언가를 결정할 사항이 생겼을 땐, 페이스북 설문조사 기능을 활용한다.<br/>
+아이디어로 이어가고 싶은 것들은 trello에 등록을 하여 점점 구체화시켜 나간다.</p>
+
+<h5>대화 &amp; 논의</h5>
+
+<p>대화를 통해 실시간 논의가 필요한 경우는 가겹게 <strong>페이스북 메신저</strong>를 활용한다.<br/>
+대부분의 이야기들이 페이스북 타임라인에서 오고가기 때문에 페이스북 메신저를 사용하여 대화하는 것이 편리하다.<br/>
+페이스북 메신저를 통한 대화는 시간, 장소에 관계없이 필요성을 느끼는 누군가가 먼저 시작을 하면 된다.<br/>
+좀 더 진지하게 집중적으로 논의를 해야 할 경우엔 <strong>구글 행아웃</strong>을 활용한다.</p>
+
+<h5>태스크 관리</h5>
+
+<p>태스크 관리는 <strong>trello</strong>를 활용한다.<br/>
+Jira, Redmine과 같은 이슈트래커 도구는 태스크 관리 도구로는 쓸데없이 무겁다.<br/>
+태스크 관리 뿐만 아니라, 구체화 시켜나갈 아이디어가 있을때에도 trello에 등록을 한다.</p>
+
+<h5>문서 공유</h5>
+
+<p>문서 공유는 에버노트와 구글드라이브를 사용한다.<br/>
+<strong>임시적인 성격의 문서, 메모등의 글들은 에버노트를 사용</strong>하고, <strong>산출물 성격의 문서들은 구글 드라이브를 사용한</strong>다.<br/>
+에버노트가 문서를 작성하기는 편하지만, 공동 작업이 불가능한 단점이 있다.<br/>
+그래서 산출물 성격의 문서는 구글드라이브로 관리한다.</p>
+
+<h5>기타 파일 공유</h5>
+
+<p>소스코드, 문서 이외의 기타 파일은 <strong>dropbox</strong>를 사용한다.<br/>
+주로 디자이너와 협업을 위한 파일 공유로 많이 사용한다.</p>
+
+<h5>단체코딩</h5>
+
+<p><strong>MadEye</strong>(<a href="https://madeye.io">https://madeye.io</a>)를 통해 정기적으로 단체 코딩을 한다.<br/>
+여러 사람이 같은 화면을 보며 함께 코딩을 할 수 있고, 구글 행아웃과도 연결되기 때문에 서로 대화하면 함께 코딩할 수 있다.<br/>
+굉장히 재밌고 편리하게 pair programming을 할 수 있는 도구이다.</p>
+
+<h5>소스 관리</h5>
+
+<p>소스 관리는 <strong>github</strong>가 정답이다. 이보다 편할 순 없다!</p>
+
+<h5>블로그</h5>
+
+<p>그룹 내에서 습득한 지식은 가능한 tech blog에 정리하여 공유하고 있다.<br/>
+<strong>octopress</strong>를 사용하여 작성을 하고 github page(<a href="http://remotty.github.io">http://remotty.github.io</a>)에 올려 공유한다.</p>
+
+<h4>시도중</h4>
+
+<p>현재 시도중이며 아직 확정되지 않은 방안들입니다.</p>
+
+<h5>1주일에 한번씩 한일/할일 공유</h5>
+
+<p>기본적으로 일주일에 한번 토요일밤에 행아웃을 통해 화상회의를 진행합니다.
+그전에 facebook을 통해 각자 한일과 다음주에 할일을 적습니다.
+이것은 정확하고 강압적으로 적는것이 아니라 우리가 <strong>함께 일하고 있다</strong>라는 걸 상기시켜주는 목적이 더 큽니다.
+부담갖지 말아요~</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to make a new post]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/"/>
+    <updated>2013-12-09T21:28:37+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post</id>
+    <content type="html"><![CDATA[<p>Octopress 블로그에 글 작성하는 방법을 정리해 봅니다.</p>
+
+<!-- more -->
+
+
+<ul>
+<li>Github 저장소를 clone 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone git@github.com:remotty/remotty.github.io.git</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치로 checkout 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git checkout source</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>아래의 명령을 실행하여 Github Pages로 배포를 위한 준비작업을 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ bundle install
+</span><span class='line'>$ git clone git@github.com:remotty/remotty.github.io.git _deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake new_post</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>글을 작성하고 확인해 봅니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake generate
+</span><span class='line'>$ rake preview</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>글을 작성하고 저장한 후 아래의 명령을 실행하면 바로 Github 저장소로 배포됩니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rake deploy</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git add .
+</span><span class='line'>$ git ci -m "새글 추가함"
+</span><span class='line'>$ git push origin source</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shomney Development Stack]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/09/shomney-development-stack/"/>
+    <updated>2013-12-09T20:48:17+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/09/shomney-development-stack</id>
+    <content type="html"><![CDATA[<p>Shomney Development Stack</p>
+
+<ul>
+<li>ruby on rails 4</li>
+<li>angularjs 1.2.x</li>
+<li>sqlite3(dev)/mysql(production)</li>
+<li>bootstrap3</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/09/getting-started/"/>
+    <updated>2013-12-09T19:16:52+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/09/getting-started</id>
+    <content type="html"><![CDATA[<p>Remotty.com의 Tech Blog를 시작합니다.</p>
+]]></content>
+  </entry>
+  
+</feed>
