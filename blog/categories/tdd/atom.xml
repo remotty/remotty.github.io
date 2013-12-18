@@ -4,7 +4,7 @@
   <title><![CDATA[Category: TDD | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/tdd/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-18T10:31:11+09:00</updated>
+  <updated>2013-12-18T10:42:31+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -20,6 +20,9 @@
     <id>http://remotty.github.io/blog/2013/12/18/model-spec</id>
     <content type="html"><![CDATA[<p>Rails 어플리케이션에서 모델은 해당 어플리케이션의 주요 핵심 로직으로 구성되어 있습니다.
 따라서, TDD를 이용한 Test 기반 개발을 할 때도 모델에 대한 Test를 중점적으로 시행하는 것은 당연한 일일 것입니다.</p>
+
+<!--more-->
+
 
 <p>이를 위해서는, TDD에 관한 여러 가지 책이 있지만, 저의 경우는 Aaron Sumner의 &ldquo;Everday Rails Testing with RSpec(<a href="https://leanpub.com/everydayrailsrspec">https://leanpub.com/everydayrailsrspec</a>)"가 쉽게 이해가 되더군요.</p>
 
