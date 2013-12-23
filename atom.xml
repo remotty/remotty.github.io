@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-20T00:16:44+09:00</updated>
+  <updated>2013-12-23T10:50:25+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -74,6 +74,9 @@
     <updated>2013-12-15T01:07:20+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/15/meeting</id>
     <content type="html"><![CDATA[<p>오늘 6명(+1명)이 행아웃을 하면서 느낀점입니다.</p>
+
+<!-- more -->
+
 
 <p>행아웃은 리모트로 일하면서 유일하게 얼굴을 보면서 이야기 할 수 있는 시간 입니다.
 흔치 않은 기회(?)라 다양한 이야기를 나누게 되는데 그러다 보니 의도치 않게 시간이 너무 걸립니다.
@@ -189,7 +192,7 @@
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
     <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#109;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#x61;&#x64;&#109;&#x69;&#x6e;&#64;&#x72;&#x65;&#109;&#111;&#x74;&#116;&#121;&#x2e;&#x63;&#111;&#x6d;">&#x61;&#100;&#x6d;&#x69;&#110;&#x40;&#114;&#101;&#109;&#111;&#116;&#116;&#x79;&#x2e;&#x63;&#111;&#x6d;</a></p>
+<a href="&#109;&#97;&#105;&#x6c;&#116;&#111;&#58;&#x61;&#100;&#109;&#105;&#x6e;&#x40;&#114;&#x65;&#x6d;&#x6f;&#x74;&#116;&#121;&#46;&#x63;&#x6f;&#x6d;">&#x61;&#x64;&#x6d;&#105;&#110;&#64;&#114;&#101;&#109;&#111;&#x74;&#116;&#121;&#46;&#x63;&#x6f;&#109;</a></p>
 
 <!-- more -->
 
