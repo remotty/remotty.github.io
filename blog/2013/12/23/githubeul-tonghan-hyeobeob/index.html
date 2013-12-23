@@ -3,11 +3,14 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Categories - Remotty Tech Blog</title>
+	<title>github을 통한 협업 - Remotty Tech Blog</title>
 	<meta name="author" content="Remotty Group">
 
 	
-	<meta name="description" content=" Development [ 1 ] Tip [ 2 ] Octopress [ 3 ] Remote [ 2 ] Rspec [ 1 ] Tdd [ 1 ] ">
+	<meta name="description" content="github을 통합 협업시 필요한 셋팅입니다. 원본 repository를 본인 계정으로 fork하고 작업합니다.
+user.name &amp; user.email 설정 github 정보와 동일하게 user.name과 user.email을 설정합니다. 1
+2
+$ git &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -75,36 +78,99 @@
 	
 		
 	
-	<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">Categories</h1>
-    
-    <div class="entry-content"><ul>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Github을 통한 협업</h2>
+	<div class="entry-content"><p>github을 통합 협업시 필요한 셋팅입니다.</p>
 
-    <li><a href="/blog/categories/development/">Development</a> [ 1 ]</li>
+<!-- more -->
 
-    <li><a href="/blog/categories/tip/">Tip</a> [ 2 ]</li>
 
-    <li><a href="/blog/categories/octopress/">Octopress</a> [ 3 ]</li>
+<ul>
+<li><p>원본 repository를 본인 계정으로 fork하고 작업합니다.</p></li>
+<li><p>user.name &amp; user.email 설정</p>
 
-    <li><a href="/blog/categories/remote/">Remote</a> [ 2 ]</li>
+<ul>
+<li>github 정보와 동일하게 user.name과 user.email을 설정합니다.</li>
+</ul>
+</li>
+</ul>
 
-    <li><a href="/blog/categories/RSpec/">Rspec</a> [ 1 ]</li>
 
-    <li><a href="/blog/categories/TDD/">Tdd</a> [ 1 ]</li>
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config user.name “subicura<span class="err">&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git config user.email “subicura@subicura.com”
+</span></code></pre></td></tr></table></div></figure>
 
+
+<ul>
+<li><p>upstream 설정</p>
+
+<ul>
+<li>원본 repository와 소스를 동기화 하기 위해 upstream을 설정합니다.</li>
+<li><a href="https://help.github.com/articles/syncing-a-fork">https://help.github.com/articles/syncing-a-fork</a></li>
+</ul>
+</li>
+<li><p>pull request 관련 설정</p>
+
+<ul>
+<li>git의 branch를 이용해서 테스트해볼 수 있습니다.</li>
+<li><a href="https://gist.github.com/piscisaureus/3342247">https://gist.github.com/piscisaureus/3342247</a></li>
+</ul>
+</li>
 </ul>
 
 </div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T22:17:44+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time></div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/remote/'>remote</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
 </article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
 
 
 <section id="comment">
-    <h1 class="title">Comments</h1>
+    <h2 class="title">Comments</h2>
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
 </section>
-
 </div>
 	<footer id="footer" class="inner">Copyright &copy; 2013
 
@@ -125,8 +191,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://remotty.github.io/blog/categories/index.html';
-        var disqus_url = 'http://remotty.github.io/blog/categories/index.html';
+        var disqus_identifier = 'http://remotty.github.io/blog/2013/12/23/githubeul-tonghan-hyeobeob/';
+        var disqus_url = 'http://remotty.github.io/blog/2013/12/23/githubeul-tonghan-hyeobeob/';
         var disqus_script = 'embed.js';
       
     (function () {

@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-23T22:12:39+09:00</updated>
+  <updated>2013-12-23T22:59:32+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -12,6 +12,54 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[github을 통한 협업]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/23/githubeul-tonghan-hyeobeob/"/>
+    <updated>2013-12-23T22:17:44+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/23/githubeul-tonghan-hyeobeob</id>
+    <content type="html"><![CDATA[<p>github을 통합 협업시 필요한 셋팅입니다.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>원본 repository를 본인 계정으로 fork하고 작업합니다.</p></li>
+<li><p>user.name &amp; user.email 설정</p>
+
+<ul>
+<li>github 정보와 동일하게 user.name과 user.email을 설정합니다.</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config user.name “subicura<span class="err">&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git config user.email “subicura@subicura.com”
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>upstream 설정</p>
+
+<ul>
+<li>원본 repository와 소스를 동기화 하기 위해 upstream을 설정합니다.</li>
+<li><a href="https://help.github.com/articles/syncing-a-fork">https://help.github.com/articles/syncing-a-fork</a></li>
+</ul>
+</li>
+<li><p>pull request 관련 설정</p>
+
+<ul>
+<li>git의 branch를 이용해서 테스트해볼 수 있습니다.</li>
+<li><a href="https://gist.github.com/piscisaureus/3342247">https://gist.github.com/piscisaureus/3342247</a></li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[model_spec]]></title>
@@ -192,7 +240,7 @@
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
     <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#58;&#97;&#x64;&#109;&#x69;&#x6e;&#64;&#114;&#101;&#x6d;&#111;&#116;&#116;&#121;&#x2e;&#99;&#x6f;&#109;">&#97;&#x64;&#x6d;&#105;&#110;&#64;&#x72;&#101;&#109;&#111;&#116;&#116;&#121;&#46;&#99;&#111;&#x6d;</a></p>
+<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x61;&#100;&#x6d;&#x69;&#110;&#64;&#114;&#101;&#109;&#111;&#x74;&#x74;&#x79;&#46;&#99;&#111;&#x6d;">&#x61;&#x64;&#x6d;&#x69;&#110;&#64;&#x72;&#101;&#109;&#111;&#x74;&#116;&#121;&#46;&#x63;&#111;&#x6d;</a></p>
 
 <!-- more -->
 
