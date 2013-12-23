@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-23T10:58:20+09:00</updated>
+  <updated>2013-12-23T22:12:39+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -96,67 +96,71 @@ categories: [octopress]</p>
 </ul>
 
 
-<p><code>
-$ git clone git@github.com:remotty/remotty.github.io.git
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/remotty.github.io.git
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
 <li>source 브랜치로 checkout 합니다.</li>
 </ul>
 
 
-<p><code>
-$ git checkout source
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
 <li>아래의 명령을 실행하여 Github Pages로 배포를 위한 준비작업을 합니다.</li>
 </ul>
 
 
-<p><code>
-$ bundle install
-$ git clone git@github.com:remotty/remotty.github.io.git _deploy
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install
+</span><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/remotty.github.io.git _deploy
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
 <li>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</li>
 </ul>
 
 
-<p><code>
-$ rake new_post
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
 <li>글을 작성하고 확인해 봅니다.</li>
 </ul>
 
 
-<p><code>
-$ rake generate
-$ rake preview
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'><span class="nv">$ </span>rake preview
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
 <li>글을 작성하고 저장한 후 아래의 명령을 실행하면 바로 Github 저장소로 배포됩니다.</li>
 </ul>
 
 
-<p><code>
-$ rake deploy
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
 <li>source 브랜치의 변경내용을 커밋하고 git push 합니다.</li>
 </ul>
 
 
-<p><code>
-$ git add .
-$ git ci -m "새글 추가함"
-$ git push origin source
-</code></p>
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git ci -m &amp;ldquo;새글 추가함&amp;rdquo;
+</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
 ]]></content>
   </entry>
   
