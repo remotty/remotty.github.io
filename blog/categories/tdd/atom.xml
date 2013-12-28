@@ -4,7 +4,7 @@
   <title><![CDATA[Category: TDD | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/tdd/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-29T03:27:43+09:00</updated>
+  <updated>2013-12-29T07:41:51+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -14,7 +14,7 @@
 
   
   <entry>
-    <title type="html"><![CDATA[model_spec]]></title>
+    <title type="html"><![CDATA[모델 Spec 작성하기]]></title>
     <link href="http://remotty.github.io/blog/2013/12/18/model-spec/"/>
     <updated>2013-12-18T09:17:57+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/18/model-spec</id>

@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-29T03:27:43+09:00</updated>
+  <updated>2013-12-29T07:41:51+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -12,6 +12,60 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[비디오 동영상 쪼개기]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/29/split-video/"/>
+    <updated>2013-12-29T07:31:32+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/29/split-video</id>
+    <content type="html"><![CDATA[<p>맥 환경에서는 <code>homebrew</code>를 이용하면 <code>ffmpeg</code>를 쉽게 설치할 수 있습니다.</p>
+
+<!--more-->
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install ffmpeg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>제법 시간이 걸리지만 기다릴만 합니다.</p>
+
+<p>동영상을 쪼개는 command line 명령과 옵션은 아래와 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y
+</span><span class='line'>  -i [original file name]
+</span><span class='line'>  -vcodec copy -acodec copy -ss 00:00:00 -t 00:25:00 -sn [split1 file name]
+</span><span class='line'>  -vcodec copy -acodec copy -ss 00:25:00 -t 00:54:25 -sn [split2 file name]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>아래에 이를 이용한 예를 소개 합니다.</p>
+
+<p>ex 1) 1시간 44분 25초 크기의 remotty_3rd_hangout.mp4 동영상 파일을 50분 크기로 쪼개고자 할 때.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y -i remotty_3rd_hangout.mp4 -vcodec copy -acodec copy -ss 00:00:00 -t 00:50:00 -sn remotty3_1.mp4 -vcodec copy -acodec copy -ss 00:50:00 -t 01:44:25 -sn remotty3_2.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ex 2) 50분짜리 remotty3_1.mp4 동영상 파일을 25분 크기로 쪼개고자 할 때</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y -i remotty3_1.mp4 -vcodec copy -acodec copy -ss 00:00:00 -t 00:25:00 -sn remotty3_part1.mp4 -vcodec copy -acodec copy -ss 00:25:00 -t 00:50:00 -sn remotty3_part2.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ex 3) 54분 25초 크기의 remotty3_2.mp4 동영상 파일을 25분 크기로 쪼개고자 할 때</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y -i remotty3_2.mp4 -vcodec copy -acodec copy -ss 00:00:00 -t 00:25:00 -sn remotty3_part3.mp4 -vcodec copy -acodec copy -ss 00:25:00 -t 00:54:25 -sn remotty3_part4.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>정말 순식간에 re-rendering 과정없이 동영상 파일이 쪼개지는군요. ㅎㅎㅎ</h4>
+
+<p>레퍼런스 : <a href="http://stackoverflow.com/a/19300561/1217633">http://stackoverflow.com/a/19300561/1217633</a></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[github을 통한 협업]]></title>
@@ -62,7 +116,7 @@
   </entry>
   
   <entry>
-    <title type="html"><![CDATA[model_spec]]></title>
+    <title type="html"><![CDATA[모델 Spec 작성하기]]></title>
     <link href="http://remotty.github.io/blog/2013/12/18/model-spec/"/>
     <updated>2013-12-18T09:17:57+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/18/model-spec</id>
@@ -102,8 +156,6 @@
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure>
 
-
-<p></p>
 
 <p>각 모델에 대해서는 아래의 3가지 정도를 test해 보면 됩니다.</p>
 
@@ -240,7 +292,7 @@
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
     <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#97;&#100;&#109;&#x69;&#x6e;&#x40;&#114;&#x65;&#109;&#x6f;&#x74;&#116;&#121;&#46;&#x63;&#111;&#109;">&#97;&#x64;&#x6d;&#x69;&#x6e;&#64;&#x72;&#x65;&#x6d;&#111;&#x74;&#x74;&#121;&#46;&#x63;&#x6f;&#x6d;</a></p>
+<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#97;&#x64;&#x6d;&#x69;&#x6e;&#x40;&#114;&#x65;&#x6d;&#111;&#116;&#116;&#121;&#x2e;&#99;&#111;&#109;">&#97;&#100;&#109;&#105;&#110;&#x40;&#x72;&#101;&#109;&#x6f;&#116;&#116;&#x79;&#x2e;&#99;&#111;&#109;</a></p>
 
 <!-- more -->
 
