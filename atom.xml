@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-28T22:01:18+09:00</updated>
+  <updated>2013-12-28T20:54:28+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -113,6 +113,15 @@
 <li>해당 모델의 클래스 메소드나 인스턴스 메소드가 원하는 대로 결과를 만들어 냄.</li>
 </ul>
 
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Rails에서 TDD 환경 만들기]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/16/railseseo-tdd-hwangyeong-mandeulgi/"/>
+    <updated>2013-12-16T20:25:02+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/16/railseseo-tdd-hwangyeong-mandeulgi</id>
+    <content type="html"><![CDATA[
 ]]></content>
   </entry>
   
@@ -240,7 +249,7 @@
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
     <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#97;&#100;&#109;&#x69;&#x6e;&#64;&#x72;&#101;&#109;&#111;&#116;&#x74;&#x79;&#x2e;&#x63;&#111;&#109;">&#x61;&#x64;&#109;&#x69;&#x6e;&#x40;&#114;&#x65;&#109;&#x6f;&#116;&#116;&#121;&#x2e;&#99;&#111;&#x6d;</a></p>
+<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#x61;&#x64;&#109;&#105;&#x6e;&#x40;&#x72;&#x65;&#109;&#x6f;&#116;&#116;&#121;&#x2e;&#99;&#x6f;&#x6d;">&#x61;&#x64;&#x6d;&#105;&#110;&#64;&#114;&#101;&#109;&#x6f;&#x74;&#116;&#x79;&#46;&#x63;&#111;&#x6d;</a></p>
 
 <!-- more -->
 
