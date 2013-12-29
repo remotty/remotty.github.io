@@ -106,7 +106,7 @@ compdef git=hub
 아래와 같이 자동 완성이 적용된 것을 확인할 수 있습니다.
 
 ```
-$ hub pull<TAB>
+$ git pull<TAB>
 pull          -- fetch from and merge with another rep....
 pull-request  -- open a pull request on GitHub
 ```
@@ -185,7 +185,7 @@ $ git pull-request
 `git pull-request` 명령어를 실행시키면 현재 디렉토리의 github 저장소와 브랜치를 기준으로 풀리퀘스트를 보내기 위한 메시지를 입력할 수 있도록 기본 에디터를 실행해줍니다.
 
 ```
-Add hello.rb
+First pull-request
 
 # Requesting a pull to nacyot:master from nacyot:pull-request
 #
