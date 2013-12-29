@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2013-12-29T22:02:38+09:00</updated>
+  <updated>2013-12-29T22:27:03+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -143,7 +143,7 @@
 <figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>hub pull&lt;TAB&gt;
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git pull&lt;TAB&gt;
 </span><span class='line'>pull          -- fetch from and merge with another rep....
 </span><span class='line'>pull-request  -- open a pull request on GitHub
 </span></code></pre></td></tr></table></div></figure>
@@ -255,7 +255,7 @@
 <span class='line-number'>4</span>
 <span class='line-number'>5</span>
 <span class='line-number'>6</span>
-</pre></td><td class='code'><pre><code class='sh'><span class='line'>Add hello.rb
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>First pull-request
 </span><span class='line'>
 </span><span class='line'><span class="c"># Requesting a pull to nacyot:master from nacyot:pull-request</span>
 </span><span class='line'><span class="c">#</span>
@@ -571,7 +571,7 @@
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
     <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#x3a;&#97;&#100;&#x6d;&#x69;&#x6e;&#x40;&#114;&#101;&#x6d;&#111;&#x74;&#x74;&#121;&#46;&#x63;&#111;&#x6d;">&#x61;&#100;&#x6d;&#105;&#110;&#x40;&#114;&#x65;&#109;&#111;&#x74;&#x74;&#121;&#46;&#99;&#111;&#x6d;</a></p>
+<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#58;&#97;&#100;&#109;&#105;&#x6e;&#64;&#114;&#x65;&#109;&#111;&#x74;&#x74;&#121;&#x2e;&#99;&#111;&#x6d;">&#97;&#x64;&#109;&#x69;&#x6e;&#x40;&#x72;&#101;&#x6d;&#111;&#116;&#116;&#x79;&#46;&#99;&#x6f;&#109;</a></p>
 
 <!-- more -->
 
