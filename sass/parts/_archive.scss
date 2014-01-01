@@ -53,7 +53,7 @@
 				@include link-colors($color-gray02, $color-gray01);
 				@include transition(0.3s);
 			}
-			.date, .tags, .comments{
+			.date, .author, .tags, .comments{
 				padding-left: 30px;
 				position: relative;
 				&:before{
@@ -69,6 +69,7 @@
 				}
 			}
 			.date:before{content: "\f073";}
+			.author:before{content: "\f007";}
 			.tags:before{content: "\f02c";}
 			.comments:before{content: "\f075";}
 		}
