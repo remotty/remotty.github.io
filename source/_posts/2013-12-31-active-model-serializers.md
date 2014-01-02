@@ -140,7 +140,7 @@ end
 {% endcodeblock %}
 
 Attributes
----
+===
 
 attributes로 명시한 속성들에 대해서 serializer는 `render :json` 호출시에 넘겨준 액티브레코드 객체에 대해서 해당 속성들을 찾아보게 됩니다. 이 때 serializer는, `ActiveRecord` 객체가 속성을 조회하기 위해서는 사용하는 `read_attribute_for_serialization` 메소드를 이용하게 됩니다.
 
