@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gem | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/gem/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2014-01-03T07:01:27+09:00</updated>
+  <updated>2014-01-03T07:03:28+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -221,7 +221,7 @@
 </span><span class='line'><span class="k">end</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
-<h2>Attributes</h2>
+<h1>Attributes</h1>
 
 <p>attributes로 명시한 속성들에 대해서 serializer는 <code>render :json</code> 호출시에 넘겨준 액티브레코드 객체에 대해서 해당 속성들을 찾아보게 됩니다. 이 때 serializer는, <code>ActiveRecord</code> 객체가 속성을 조회하기 위해서는 사용하는 <code>read_attribute_for_serialization</code> 메소드를 이용하게 됩니다.</p>
 
