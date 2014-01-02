@@ -551,7 +551,7 @@ class TestPostSerializer < Minitest::Test
   def test_special_json_for_api
     assert_equal '{"post":{"id":123,"title":"some title","body":"some text"}}', @serializer.to_json
   end
-  ```
+```
 
 RSpec
 ---
@@ -566,7 +566,7 @@ end
 ```
 
 
-
+수고하셨습니다.
 
 
 
