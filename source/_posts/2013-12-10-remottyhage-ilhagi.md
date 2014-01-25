@@ -3,8 +3,16 @@ layout: post
 title: "Remotty하게 일하기"
 date: 2013-12-10 21:27:30 +0900
 comments: true
-categories: 
+categories: communication
+author: 장재휴
 ---
+
+> 아래 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.  
+나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데  
+가장 큰 문제는 **사용해야 할 도구가 너무 많아 커뮤니케이션이 분산**된다는 것이었다.  
+최근 협업 방식에 대해 [Remotty하게 일하기 2](/blog/2014/01/24/rimotihage-ilhagi-2/)라는 제목으로 새로운 포스트를 올렸다.  
+Remotty 그룹의 협업 방식에 대해서는 [Remotty하게 일하기 2](/blog/2014/01/24/rimotihage-ilhagi-2/) 글을 참조하길 바란다.
+
 
 
 이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.  
