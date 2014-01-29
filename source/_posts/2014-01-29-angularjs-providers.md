@@ -47,7 +47,9 @@ app.controller('ctrl', function (movieTitle) {
 
 AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.
 
-    app.constant('movieTitle', 'The Matrix');
+```javascript
+app.constant('movieTitle', 'The Matrix');
+```
 
 ##Value
 `value`는 `configuration(설정)`로 주입할 수 없지만 값을 변경할 수는 있다.
