@@ -4,7 +4,7 @@
   <title><![CDATA[Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2014-01-03T08:07:29+09:00</updated>
+  <updated>2014-01-29T14:34:50+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -12,6 +12,402 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Angularjs Providers]]></title>
+    <link href="http://remotty.github.io/blog/2014/01/29/angularjs-providers/"/>
+    <updated>2014-01-29T13:55:27+09:00</updated>
+    <id>http://remotty.github.io/blog/2014/01/29/angularjs-providers</id>
+    <content type="html"><![CDATA[<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
+
+<p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
+
+<!--more-->
+
+
+<p>provider vs factory vs service</p>
+
+<h3>Provider란 무엇인가?</h3>
+
+<p>AngularJS docs 에는 아래와 같이 정의되어 있다.</p>
+
+<blockquote><p>$get 메소드를 가지는 하나의 객체이다. injector는 바로 이 $get 메소드를 호출해서 새로운 서비스를 생성하게 되는 것이다. <code>provider</code>는 설정을 통해서 이와 같은 메소드를 추가할 수 있다.</p></blockquote>
+
+<p>AngularJS는 <code>$provide</code>를 이용해서 새로운 <code>provider</code>를 등록한다. <code>provider</code>는 기본적으로 새로운 인스턴스를 생성하지만 <code>provider</code>당 하나의 인스턴스만 만들게 된다(singleton). <code>$provide</code>는 6개의 메소드를 사용해서 커스텀 <code>provider</code>를 생성하게 되는데, 각각에 대해서 샘플 코드와 함께 설명할 것이다. 아래의 <code>provider</code>는 $provide` 상에서 사용할 수 있다.</p>
+
+<ul>
+<li>constant</li>
+<li>value</li>
+<li>service</li>
+<li>factory</li>
+<li>decorator</li>
+<li>provider</li>
+</ul>
+
+
+<h2>Constant</h2>
+
+<p><code>constant(상수)</code>는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.</p>
+
+<pre><code>var app = angular.module('app', []);
+
+app.config(function ($provide) {
+  $provide.constant('movieTitle', 'The Matrix');
+});
+
+app.controller('ctrl', function (movieTitle) {
+  expect(movieTitle).toEqual('The Matrix');
+});
+</code></pre>
+
+<p>AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<pre><code>app.constant('movieTitle', 'The Matrix');
+</code></pre>
+
+<h2>Value</h2>
+
+<p><code>value</code>는 <code>configuration(설정)</code>로 주입할 수 없지만 값을 변경할 수는 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movieTitle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movieTitle</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 <code>value</code>를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Service</h2>
+
+<p><code>service</code>란 주입이 가능한 <code>constructor(생성자)</code>이다. 원할 경우, 함수에 필요한 dependency를 명시할 수 있다. <code>service</code>는 하나의 singleton이기 때문에 AngularJS가 한번만 생성하게 될 것이다. <code>service</code>는 데이터를 공유하는 것 같은 컨트롤러간의 통신을 위한 좋은 방법이다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span> <span class="p">,[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movie</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 <code>service</code>를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Factory</h2>
+
+<p><code>factory</code>는 주입이 가능한 함수이다. <code>factory</code>는 singleton이고 dependency를 함수내에 명시할 수 있다는 점에서 <code>service</code>와 많은 부분에서 흡사하다. 차이점은 <code>factory</code>는 일반 함수를 주입해서 AngularJS가 호출하도록 하는 것이고 <code>service</code>는 <code>constructor</code>를 주입한다는 것이다. <code>constructor</code>는 새로운 객체를 만들기 때문에 <code>service</code>내에서는 <code>new</code> 메소드를 호출하지만, <code>factory</code>를 사용하면 함수가 어떤 형태의 것이라고 반환할 수 있도록 해 준다. 나중에 알게 되겠지만, <code>factory</code>는 <code>$get</code> 메소드만을 가지는 <code>provider</code>이다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movie</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 <code>factory</code>를 생성하는 편리한 방법을 제고해 주어 아래와 같이 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Decorator</h2>
+
+<p><code>decorator</code>는 다른 <code>provider</code>를 변경하거나 encapulation할 수 있다. 그러나 하나의 예외가 있는데, <code>constant</code>는 decorate 할 수 없다는 것이다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">decorator</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$delegate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">$delegate</span> <span class="o">+</span> <span class="s1">&#39; - starring Keanu Reeves&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myController&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movieTitle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movieTitle</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix - starring Keanu Reeves&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Provider</h2>
+
+<p><code>provider</code>는 모든 <code>provider</code> 중에서 가장 유연한 메소드이다. 이 메소드를 이용하면 복잡한 생성 함수에 다양한 옵션을 가지도록 할 수 있다. <code>provider</code>는 실제로 구성을 변경할 수 있는 <code>factory</code>이다. <code>provider</code>는 하나의 객체나 <code>constructor</code>를 취하게 된다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">provider</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">version</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">setVersion</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">version</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="nx">$get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The Matrix&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">version</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">movieProvider</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">movieProvider</span><span class="p">.</span><span class="nx">setVersion</span><span class="p">(</span><span class="s1">&#39;Reloaded&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movie</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix Reloaded&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>요약</h2>
+
+<ul>
+<li>모든 <code>providers</code>들은 단 한번만 인스턴스화 된다. 즉, singleton 이라는 것이다.</li>
+<li><code>constant</code>를 제외한 모든 <code>provider</code>는 decorate할 수 있다.</li>
+<li><code>constant</code>은 어느 곳이나 주입할 수 있는 값을 가지만, 수정할 수 없다.</li>
+<li><code>value</code>는 간단하게 주입할 수 있는 값이다.</li>
+<li><code>service</code>는 주입할 수 있는 <code>constructor</code>이다.</li>
+<li><code>factory</code>는 주입할 수 있는 함수이다.</li>
+<li><code>decorator</code>는 <code>constant</code>를 제외한 모든 <code>provider</code>를 변경하거나 encapuslation할 수 있다.</li>
+<li><code>provider</code>는 구성요소를 설정할 수 있는 <code>factory</code>이다.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[리모티하게 일하기 2]]></title>
+    <link href="http://remotty.github.io/blog/2014/01/24/rimotihage-ilhagi-2/"/>
+    <updated>2014-01-24T13:49:15+09:00</updated>
+    <id>http://remotty.github.io/blog/2014/01/24/rimotihage-ilhagi-2</id>
+    <content type="html"><![CDATA[<p>약 한달 전  <a href="http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi/">Remotty하게 일하기</a>라는 제목으로, Remotty 그룹의 일하는 방식에 대해 포스팅을 했었다.<br/>
+포스트에서 소개한 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.</p>
+
+<!--more-->
+
+
+<p>나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데<br/>
+가장 큰 문제는 <strong>사용해야 할 도구가 너무 많아 커뮤니케이션이 분산</strong>된다는 것이었다.</p>
+
+<p>페이스북, 트렐로, 구글 드라이브, 에버노트&hellip;<br/>
+모두 다 좋은 도구다. 잘만 활용한다면 좋은 커뮤니케이션 도구로 사용할 수 있다.<br/>
+하지만 개발자들간의 협업에 있어서 소스코드가 제일 중요할 수 밖에 없고,<br/>
+그 커뮤니케이션의 중심에 github가 있는 것은 당연지사.</p>
+
+<p>결국 github로 돌아오게 되더라.<br/>
+이슈 관리도, 일정 관리도, 대화도, 각종 문서 정리도, 대화도&hellip;<br/>
+모든 커뮤니케이션을 github안에서 해결할 수 있는 방법을 찾게 되었다.</p>
+
+<p>그래서 결론을 얘기하면, 현재는 아래와 같은 방식으로 협업을 하고 있다.</p>
+
+<ul>
+<li><p>태스크 관리<br/>
+<del>트렐로</del> github 이슈 + <a href="https://waffle.io/">Waffle</a></p></li>
+<li><p>문서 공유<br/>
+<del>에버노트 or 구글 드라이브</del> github 위키</p></li>
+<li><p>단체 코딩<br/>
+MadEye</p></li>
+<li><p>소스 관리<br/>
+github</p></li>
+<li><p>잡다구리한 이야기들 + 각종 대화 &amp; 논의 + 그 외 모든 의사소통<br/>
+<del>페이스북 포스트 or 메신저</del> <a href="https://www.hipchat.com">HipChat</a></p></li>
+<li><p>기타 파일 공유<br/>
+<del>드롭박스</del> HipChat으로 전달. 파일 관리는 따로 안함.<br/>
+정말 지속적으로 관리할 필요가 있는 파일이 있다면 github에 올려도 될 것 같음</p></li>
+<li><p>오프라인 모임</p>
+
+<ul>
+<li>공식 모임<br/>
+월 1회<br/>
+지난 한달간 진행상황 점검 &amp; 향후 한달 계획 수립<br/>
+각종 의사결정 및 이슈 정리</li>
+<li>비공식 모임<br/>
+매주 토요일<br/>
+그냥 모여서 다 같이 코딩</li>
+</ul>
+</li>
+</ul>
+
+
+<p>여기 <a href="http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi/">이전 포스트</a>에 소개되지 않았던 새로운 도구가 등장한다.<br/>
+바로 <a href="https://waffle.io/">Waffle</a>과 <a href="https://www.hipchat.com">HipChat</a>이다.
+이 두가지를 한번 소개해본다.</p>
+
+<h3>Waffle</h3>
+
+<p>쉽게 말해서 github의 이슈들을 dashboard 형태로 보여주는 도구이다.<br/>
+그것이 전부이다.<br/>
+github 이슈는 단순히 목록 형태로 쭉 펼쳐져서 보이기 때문에,<br/>
+원하는 것들을 필터링 해서 보거나 한눈에 dashboard 형태로 보기가 어렵다.<br/>
+그러한 불편함을 해소해주는 도구가 바로 Waffle이다.<br/>
+눈에 보기 쉽게 Column을 만들고 그 안에 github에 등록된 이슈들이 list 형태로 뿌려진다.<br/>
+얼핏 보기엔 trello와 비슷해 보인다.<br/>
+github의 이슈들이 trello의 card 형태로 나타나고, drag&amp;drop으로 쉽게 상태를 변경할 수 있다.<br/>
+Waffle에서 생성한 Column은 github 이슈의 라벨로 나타난다.<br/>
+Waffle에서도 이슈를 등록할 수 있고, 당연히 github 이슈에도 등록이 된다.<br/>
+백날 얘기해봤자 머리속의 상상만으로는 잘 이해가 안된다. 아래 사진을 보면 딱 이해가 될 것이다.</p>
+
+<p><img src="http://remotty.github.io/images/waffle.png" title="waffle" alt="waffle" /></p>
+
+<h3>HipChat</h3>
+
+<p>기본적으로 메신저는 실시간성이다.<br/>
+온라인상의 누군가에게 메시지를 보내고 그것을 본 누군가는 응답을 한다. 이것이 메신저의 기본 개념.<br/>
+하지만 단체 채팅의 경우는 상황이 좀 다르다.<br/>
+대화가 오고 갈때 온라인상에 없었던 사용자는 그 대화에 참여할 수 없게 되고 그때 오고 갔던 대화의 내용들은 놓치게 된다.<br/>
+물론 스크롤을 쭉~ 올려서 찾아서 읽으면 된다.<br/>
+당연히 그렇게 필요한 사람이 내가 놓친 내용을 꼼꼼히 스스로 찾아 읽으면 되지만, 잘 되지 않는다.<br/>
+그리고 지난 대화들을 찾아서 본다 하더라도 이미 마무리 된 대화를 또다시 개진하려면 좀 뒷북치는 느낌이다. ;;<br/>
+물론 하면 되지만, 대부분의 메신저 도구들은 실시간성에 UI가 맞추어져 있다.</p>
+
+<p>그렇다. 우리에게 필요한 것은 바로 <strong>비동기 채팅</strong>이다.<br/>
+비동기 채팅이란, 한마디로 <strong>&ldquo;로그를 읽는다&rdquo;</strong>라는 개념이다. <strong>대화의 기록</strong>을 보고 자신의 생각을 그냥 얘기하면 된다.<br/>
+IRC가 바로 이러한 비동기 채팅에 적합한 도구이다. 하지만 왠지 irc는 말만 들어도 겁이 난다.(왜일까&hellip; ㅡ,.ㅡ;;)<br/>
+이러한 용도로 최적화 된 툴이 바로 HipChat이다.</p>
+
+<p>HipChat은 개발자들에게 좀 특화된 메신저 도구여서, 대화창에 각종 코드도 쓸 수 있다.<br/>
+&ldquo;/code&#8221;라고 prefix를 붙히면, 뒤에 따라오는 코드는 포맷팅이 되어 읽기 쉽게 나타난다.</p>
+
+<p>뿐만 아니라 github와도 연동을 시킬 수 있어서, github에서 일어나는 모든 event를 hipchat에서 받을 수 있다.<br/>
+hipchat의 api가 공개되어 있어서, github외에 다른 이벤트들도 hipchat에 전달하도록 구현할 수 있다.<br/>
+여러 환경에서 활용 가능하도록, 각 언어별로 library를 제공하고 있다.(참고: <a href="https://www.hipchat.com/docs/api/libraries">HipChat Libraries &amp; Plugins</a>)<br/>
+ruby 코드로 2줄이면 hipchat에 message를 날릴 수 있다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>client = HipChat::Client.new(api_token)
+</span><span class='line'>client['my room'].send('username', 'I talk')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>HipChat이 제공하는 또다른 killer 기능이 있다. 바로 notify 기능이다.<br/>
+대화를 할때 &lsquo;@&rsquo; 표시와 함께 대상자에 대한 mention을 표기할 수 있는데, @로 mention을 날리면 상대방에게 notify가 간다.<br/>
+상대방이 온라인이 아니더라도 mention을 받게 되면 notify가 오게 되고, 그때 대화에 동참하면 된다.<br/>
+그리고 notify는 메일로도 전송되기 때문에, 내가 없는 자리에서 나와 관련된 중요한 대화가 오고 갔는지를 알 수 있다.<br/>
+내가 없는 자리에서 오고 갔던 대화 히스토리에 나에게 mention 표시가 되어 있는 전/후의 내용을 좀 더 주의 깊게 보면 된다.<br/>
+mention은 @all 이런 식으로 사용할 수도 있다. 당연히 모든 멤버에게 mention을 날린다는 의미다.<br/>
+대화 중, 특정 누군가에게 또는 모두에게 공유해야 할 내용이 있을 때, @로 mention을 날리면 된다.</p>
+
+<p>비동기 채팅에 notify 기능이 합쳐지고, 코드에 대한 마크업 기능까지&hellip;<br/>
+remote로 일하는 개발 그룹에 꼭 필요한 도구이다!</p>
+
+<p>하지만 단점이 있다.<br/>
+5명 이상인 경우엔 유료라는 것. (매월 1명당 2$씩)<br/>
+한달에 2$면 커피한잔 가격도 안된다.<br/>
+효과적인 커뮤니케이션을 위해 한달에 커피 한잔 정도는 절약하는건 어떨까? ^^</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[active_model_serializers 젬 사용하기]]></title>
@@ -1416,9 +1812,15 @@
     <link href="http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi/"/>
     <updated>2013-12-10T21:27:30+09:00</updated>
     <id>http://remotty.github.io/blog/2013/12/10/remottyhage-ilhagi</id>
-    <content type="html"><![CDATA[<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
+    <content type="html"><![CDATA[<blockquote><p>아래 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.<br/>
+나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데<br/>
+가장 큰 문제는 <strong>사용해야 할 도구가 너무 많아 커뮤니케이션이 분산</strong>된다는 것이었다.<br/>
+최근 협업 방식에 대해 <a href="http://remotty.github.io/blog/2014/01/24/rimotihage-ilhagi-2/">Remotty하게 일하기 2</a>라는 제목으로 새로운 포스트를 올렸다.<br/>
+Remotty 그룹의 협업 방식에 대해서는 <a href="http://remotty.github.io/blog/2014/01/24/rimotihage-ilhagi-2/">Remotty하게 일하기 2</a> 글을 참조하길 바란다.</p></blockquote>
+
+<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#x61;&#x64;&#109;&#105;&#110;&#x40;&#x72;&#101;&#109;&#x6f;&#x74;&#x74;&#x79;&#x2e;&#99;&#111;&#109;">&#x61;&#100;&#109;&#x69;&#x6e;&#64;&#x72;&#101;&#x6d;&#111;&#x74;&#116;&#x79;&#46;&#99;&#111;&#109;</a></p>
+<a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#58;&#97;&#100;&#x6d;&#105;&#110;&#x40;&#114;&#101;&#109;&#111;&#x74;&#x74;&#x79;&#46;&#x63;&#x6f;&#x6d;">&#97;&#x64;&#x6d;&#105;&#x6e;&#64;&#114;&#x65;&#109;&#111;&#x74;&#x74;&#121;&#46;&#x63;&#111;&#x6d;</a></p>
 
 <!-- more -->
 
