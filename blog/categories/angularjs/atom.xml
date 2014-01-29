@@ -4,7 +4,7 @@
   <title><![CDATA[Category: angularjs | Remotty Tech Blog]]></title>
   <link href="http://remotty.github.io/blog/categories/angularjs/atom.xml" rel="self"/>
   <link href="http://remotty.github.io/"/>
-  <updated>2014-01-29T14:50:09+09:00</updated>
+  <updated>2014-01-29T14:56:06+09:00</updated>
   <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -49,21 +49,23 @@
 
 <p><code>constant(상수)</code>는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.</p>
 
-<pre><code>var app = angular.module('app', []);
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
 
-app.config(function ($provide) {
-  $provide.constant('movieTitle', 'The Matrix');
-});
+<p>app.config(function ($provide) {
+  $provide.constant(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;);
+});</p>
 
-app.controller('ctrl', function (movieTitle) {
-  expect(movieTitle).toEqual('The Matrix');
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix&rsquo;);
 });
-</code></pre>
+```</p>
 
 <p>AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
 
-<pre><code>app.constant('movieTitle', 'The Matrix');
-</code></pre>
+<p><code>javascript
+app.constant('movieTitle', 'The Matrix');
+</code></p>
 
 <h2>Value</h2>
 

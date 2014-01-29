@@ -110,21 +110,33 @@
 
 <p><code>constant(상수)</code>는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.</p>
 
-<pre><code>var app = angular.module('app', []);
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">constant</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movieTitle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movieTitle</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
 
-app.config(function ($provide) {
-  $provide.constant('movieTitle', 'The Matrix');
-});
-
-app.controller('ctrl', function (movieTitle) {
-  expect(movieTitle).toEqual('The Matrix');
-});
-</code></pre>
 
 <p>AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
 
-<pre><code>app.constant('movieTitle', 'The Matrix');
-</code></pre>
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">constant</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
 
 <h2>Value</h2>
 
