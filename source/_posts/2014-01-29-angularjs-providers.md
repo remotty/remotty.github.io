@@ -10,20 +10,15 @@ author: 최효성
 **AngularJS에서 Provider 간의 차이점**
 -------------------------------
 
-http://bit.ly/19ZQTHy
+http://bit.ly/19ZQTHy (한글번역)
 <!--more-->
 provider vs factory vs service
-
 
 ### Provider란 무엇인가?
 
 AngularJS docs 에는 아래와 같이 정의되어 있다.
 
-> A provider is an object with a $get() method. The injector calls the $get method to create a new instance of a service. The Provider can have additional methods which would allow for configuration of the provider
-
-###**provider**란?
-
-$get 메소드를 가지는 하나의 객체이다. injector는 바로 이 $get 메소드를 호출해서 새로운 서비스를 생성하게 되는 것이다. `provider`는 설정을 통해서 이와 같은 메소드를 추가할 수 있다.
+> $get 메소드를 가지는 하나의 객체이다. injector는 바로 이 $get 메소드를 호출해서 새로운 서비스를 생성하게 되는 것이다. `provider`는 설정을 통해서 이와 같은 메소드를 추가할 수 있다.
 
 AngularJS는 `$provide`를 이용해서 새로운 `provider`를 등록한다. `provider`는 기본적으로 새로운 인스턴스를 생성하지만 `provider`당 하나의 인스턴스만 만들게 된다(singleton). `$provide`는 6개의 메소드를 사용해서 커스텀 `provider`를 생성하게 되는데, 각각에 대해서 샘플 코드와 함께 설명할 것이다. 아래의 `provider`는 $provide` 상에서 사용할 수 있다.
 
