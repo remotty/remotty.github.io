@@ -33,15 +33,17 @@ AngularJS는 `$provide`를 이용해서 새로운 `provider`를 등록한다. `p
 
 `constant(상수)`는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.
 
-    var app = angular.module('app', []);
+```javascript
+var app = angular.module('app', []);
 
-    app.config(function ($provide) {
-      $provide.constant('movieTitle', 'The Matrix');
-    });
+app.config(function ($provide) {
+  $provide.constant('movieTitle', 'The Matrix');
+});
 
-    app.controller('ctrl', function (movieTitle) {
-      expect(movieTitle).toEqual('The Matrix');
-    });
+app.controller('ctrl', function (movieTitle) {
+  expect(movieTitle).toEqual('The Matrix');
+});
+```
 
 AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.
 
