@@ -11,7 +11,7 @@ author: 최효성
 -------------------------------
 
 http://bit.ly/19ZQTHy
-
+<!--more-->
 provider vs factory vs service
 
 
