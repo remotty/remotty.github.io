@@ -1,8 +1,10 @@
 ---
+layout: post
 title: "깃허브(Github) 후크 API와 Slack에 알림 전달하기"
 date: 2014-01-30 17:30:00 +0900
+comments: true
+categories: Github
 author: nacyot
-profile: 후크 프로그래머(29)
 ---
 
 후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 `.git/hooks`에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.
