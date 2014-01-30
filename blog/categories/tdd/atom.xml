@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: TDD | Remotty Tech Blog]]></title>
-  <link href="http://blog.remotty.com/blog/categories/tdd/atom.xml" rel="self"/>
-  <link href="http://blog.remotty.com/"/>
-  <updated>2014-01-30T17:41:25+09:00</updated>
-  <id>http://blog.remotty.com/</id>
+  <link href="http://remotty.github.io/blog/categories/tdd/atom.xml" rel="self"/>
+  <link href="http://remotty.github.io/"/>
+  <updated>2014-01-30T17:21:06+09:00</updated>
+  <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
     <email><![CDATA[admin@remotty.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[모델 Spec 작성하기]]></title>
-    <link href="http://blog.remotty.com/blog/2013/12/18/model-spec/"/>
+    <link href="http://remotty.github.io/blog/2013/12/18/model-spec/"/>
     <updated>2013-12-18T09:17:57+09:00</updated>
-    <id>http://blog.remotty.com/blog/2013/12/18/model-spec</id>
+    <id>http://remotty.github.io/blog/2013/12/18/model-spec</id>
     <content type="html"><![CDATA[<p>Rails 어플리케이션에서 모델은 해당 어플리케이션의 주요 핵심 로직으로 구성되어 있습니다.
 따라서, TDD를 이용한 Test 기반 개발을 할 때도 모델에 대한 Test를 중점적으로 시행하는 것은 당연한 일일 것입니다.</p>
 

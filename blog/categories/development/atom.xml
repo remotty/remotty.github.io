@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: development | Remotty Tech Blog]]></title>
-  <link href="http://blog.remotty.com/blog/categories/development/atom.xml" rel="self"/>
-  <link href="http://blog.remotty.com/"/>
-  <updated>2014-01-30T17:41:25+09:00</updated>
-  <id>http://blog.remotty.com/</id>
+  <link href="http://remotty.github.io/blog/categories/development/atom.xml" rel="self"/>
+  <link href="http://remotty.github.io/"/>
+  <updated>2014-01-30T17:21:06+09:00</updated>
+  <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
     <email><![CDATA[admin@remotty.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Shomney Development Stack]]></title>
-    <link href="http://blog.remotty.com/blog/2013/12/09/shomney-development-stack/"/>
+    <link href="http://remotty.github.io/blog/2013/12/09/shomney-development-stack/"/>
     <updated>2013-12-09T20:48:17+09:00</updated>
-    <id>http://blog.remotty.com/blog/2013/12/09/shomney-development-stack</id>
+    <id>http://remotty.github.io/blog/2013/12/09/shomney-development-stack</id>
     <content type="html"><![CDATA[<p>Shomney Development Stack</p>
 
 <ul>

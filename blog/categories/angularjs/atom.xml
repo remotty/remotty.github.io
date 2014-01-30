@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: angularjs | Remotty Tech Blog]]></title>
-  <link href="http://blog.remotty.com/blog/categories/angularjs/atom.xml" rel="self"/>
-  <link href="http://blog.remotty.com/"/>
-  <updated>2014-01-30T17:41:25+09:00</updated>
-  <id>http://blog.remotty.com/</id>
+  <link href="http://remotty.github.io/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://remotty.github.io/"/>
+  <updated>2014-01-30T17:21:06+09:00</updated>
+  <id>http://remotty.github.io/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
     <email><![CDATA[admin@remotty.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[Angularjs Providers]]></title>
-    <link href="http://blog.remotty.com/blog/2014/01/29/angularjs-providers/"/>
+    <link href="http://remotty.github.io/blog/2014/01/29/angularjs-providers/"/>
     <updated>2014-01-29T13:55:27+09:00</updated>
-    <id>http://blog.remotty.com/blog/2014/01/29/angularjs-providers</id>
+    <id>http://remotty.github.io/blog/2014/01/29/angularjs-providers</id>
     <content type="html"><![CDATA[<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
 
 <p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
