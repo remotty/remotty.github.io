@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | Remotty Tech Blog]]></title>
+  <link href="http://remotty.github.io/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://remotty.github.io/"/>
+  <updated>2014-01-30T16:11:03+09:00</updated>
+  <id>http://remotty.github.io/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[install theme]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/install-theme/"/>
+    <updated>2013-12-10T23:00:55+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/install-theme</id>
+    <content type="html"><![CDATA[<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+<!--more-->
+
+
+<p>일단 theme 리스트는 다음 링크에서 확인하시고..</p>
+
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></p>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/</a></p>
+
+<p>설치는 아래와 같이 하면 됩니다.</p>
+
+<p><code>
+cd [octopress directory]
+git clone [theme git주소] .themes/[theme 이름]
+rake install['theme 이름']
+rake generate
+</code></p>
+
+<p>zsh 사용시 에러가 발생한다면</p>
+
+<p><code>
+cd [octopress directory]
+git clone [theme git주소] .themes/[theme 이름]
+rake "install[theme 이름]"
+rake generate
+</code></p>
+
+<p>다음과 같이 합니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Insert Author]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/10/insert-author/"/>
+    <updated>2013-12-10T22:46:31+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/10/insert-author</id>
+    <content type="html"><![CDATA[<p>octopress는 한 블로그에 글쓴이가 여러명일 경우 작성자를 따로 입력할 수 있습니다.</p>
+
+<!--more-->
+
+
+<p>post글 상단 정보에 <code>author: Your Name</code>을 입력하면 되고</p>
+
+<p>글 수정시에는 author에 이름을 추가하는 식으로 작업하면 될 것 같습니다.</p>
+
+<p>지금 이 글을 예로 들면 다음과 같습니다.</p>
+
+<h2>```</h2>
+
+<p>layout: post
+title: &ldquo;Insert Author&rdquo;
+date: 2013-12-10 22:46:31 +0900
+comments: true
+categories: [octopress]</p>
+
+<h2>author: 김충섭</h2>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to make a new post]]></title>
+    <link href="http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/"/>
+    <updated>2013-12-09T21:28:37+09:00</updated>
+    <id>http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post</id>
+    <content type="html"><![CDATA[<p>Octopress 블로그에 글 작성하는 방법을 정리해 봅니다.</p>
+
+<!-- more -->
+
+
+<ul>
+<li>Github 저장소를 clone 합니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/remotty.github.io.git
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>source 브랜치로 checkout 합니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>아래의 명령을 실행하여 Github Pages로 배포를 위한 준비작업을 합니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install
+</span><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/remotty.github.io.git _deploy
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>글을 작성하고 확인해 봅니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake generate
+</span><span class='line'><span class="nv">$ </span>rake preview
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>글을 작성하고 저장한 후 아래의 명령을 실행하면 바로 Github 저장소로 배포됩니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git ci -m &amp;ldquo;새글 추가함&amp;rdquo;
+</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+]]></content>
+  </entry>
+  
+</feed>
