@@ -1,195 +1,637 @@
 
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Remotty Tech Blog</title>
+	<meta name="author" content="Remotty Group">
 
-<!doctype html>
-  <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-  <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-  <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-  <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>homepage - Remotty Tech Blog</title>
-    <meta name="author" content="Remotty Group">
-    
-    <meta name="description" content=" Technology 끊임없는 배움과 지식 나눔을 통해서&#8230; Service 지속적으로 새로운 서비스를 창조하고, Fun 이러한 모든 과정을 진정 놀이로 생각합니다. ">
-    
-    <meta name="viewport" content="width=device-width">
-    
-    <link rel="canonical" href="http://remotty.github.io">
-    <link href="/favicon.png" rel="icon">
-    <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet">
-    <link href="//atom.xml" rel="alternate" title="Remotty Tech Blog" type="application/atom+xml">
-  </head>
+	
+	<meta name="description" content=" AngularJS에서 Provider 간의 차이점 http://bit.ly/19ZQTHy (한글번역) Read on &rarr; Jan 29th, 2014 최효성 angularjs Comments ">
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<link href="/atom.xml" rel="alternate" title="Remotty Tech Blog" type="application/atom+xml">
+	<link rel="canonical" href="">
+	<link href="/favicon.png" rel="shortcut icon">
+	<link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+	<!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+	<script async="true" src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	
+</head>
 
 
-  <body >
-
-    <header>
-      <div class="grid-wrapper">
-  <div class="grid">
-
-    <div class="grid__item two-fifths lap-four-sixths palm-one-whole">
-  <a href="/" class="site-title">Remotty Tech Blog</a>
-</div>
-
-<div class="grid__item three-fifths lap-two-sixths palm-one-whole">
-  <nav>
-    <input type="checkbox" id="toggle">
-<label for="toggle" class="toggle" data-open="Main Menu" data-close="Close Menu"></label>
-<ul class="menu pull-right">
-  <li><a href="/">Home</a></li>
-  <li><a href="/blog/">Blog</a></li>
-  <li><a href="/about/">About</a></li>
+<body>
+	<header id="header" class="inner"><h1><a href="/">Remotty Tech Blog</a></h1>
+<nav id="main-nav"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
 </ul>
-  </nav>
+</nav>
+<nav id="mobile-nav">
+	<div class="alignleft menu">
+		<a class="button">Menu</a>
+		<div class="container"><ul class="main">
+	<li><a href="/">Blog</a></li>
+	<li><a href="/blog/archives">Archives</a></li>
+	<li><a href="/about">About</a></li>
+</ul>
 </div>
-
-  </div>
-</div>
-    </header>
-
+	</div>
+	<div class="alignright search">
+		<a class="button"></a>
+		<div class="container">
+			<form action="http://google.com/search" method="get">
+				<input type="text" name="q" results="0">
+				<input type="hidden" name="q" value="site:remotty.github.io">
+			</form>
+		</div>
+	</div>
+</nav>
+<nav id="sub-nav" class="alignright">
+	<div class="social">
+		
+		
+		
+		
+		<a class="github" href="https://github.com/remotty" title="GitHub">GitHub</a>
+		
     
-      <div class="hero" style="background-image: url('/images/cliffs_of_moher.jpg');">
-  <div class="grid-wrapper">
-    <div class="grid flex">
-      <div class="grid__item flex__item two-fifths palm-one-whole avatar">
-        <img class="avatar" src="/images/remotty5.png" alt="Remotty Group's Picture">
-      </div>
-      <div class="grid__item flex__item three-fifths palm-one-whole">
-       <h1>Remotty Group</h1>
- <hr>
- <p class="lead">
-Remotty 테그 블로그에 오신 것을 환영합니다. Remotty 그룹은 `Remote` + `Tech` + `Service` + `Fun` 을 추구하는 개발자 그룹입니다. Remotty 그룹은 `공동가계부`라는 웹서비스를 원격 협업을 통해서 개발하였으며, 이를 통해 진정한 Remote 환경에서의 협업을 정의하고, Remote 상에 존재하는 여러명의 개발자가 어떠한 IT기술로 재밌게 프로젝트를 진행해 가는지를 공유하고자 합니다. 
-</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="credit">
-    <p>
-      Remotty Group, 2013.12 <a href="http://creativecommons.org/licenses/by-nc-nd/2.0/deed.en" target="_blank" class="licence"><small>(by-nc-nd)</small></a>
-    </p>
-  </div>
-</div>
-
+		
+		
+		
+		
+		
+		<a class="rss" href="/atom.xml" title="RSS">RSS</a>
+		
     
+	</div>
+	<form class="search" action="http://google.com/search" method="get">
+		<input class="alignright" type="text" name="q" results="0">
+		<input type="hidden" name="q" value="site:remotty.github.io">
+	</form>
+</nav>
 
-    <div class="grid-wrapper">
-      <div class="grid grid-center">
-        
-        <div class="grid__item one-whole">
-        
+</header>
+	
+		
+	
+	<div id="content" class="inner">
 
-          
 
-<div class="grid-wrapper">
-  <div class="grid">
-    <div class="grid__item one-third lap-one-whole palm-one-whole usp">
-      <div class="grid">
-        <div class="grid__item one-whole lap-one-third">
-          <span class="icon">
-            <i class="icon-laptop"></i>
-          </span>
-        </div>
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/01/29/angularjs-providers/">
+		
+			Angularjs Providers</a>
+	</h2>
+	<div class="entry-content">
+		<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
 
-        <div class="grid__item one-whole lap-two-thirds">
-          <h2 class="title">Technology</h2>
-<hr>
-<p>
-끊임없는 배움과 지식 나눔을 통해서&#8230;
-</p>
-        </div>
-      </div>
-    </div>
+<p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
 
-    <div class="grid__item one-third lap-one-whole palm-one-whole usp">
-      <div class="grid">
-        <div class="grid__item one-whole lap-one-third">
-          <span class="icon">
-            <i class="icon-search"></i>
-          </span>
-        </div>
 
-        <div class="grid__item one-whole lap-two-thirds">
-          <h2 class="title">Service</h2>
-<hr>
-<p>
-지속적으로 새로운 서비스를 창조하고,
-</p>
-        </div>
-      </div>
-    </div>
+		
+		<a href="/blog/2014/01/29/angularjs-providers/" class="more-link">Read on &rarr;</a>
+	</div>
 
-    <div class="grid__item one-third lap-one-whole palm-one-whole usp">
-      <div class="grid">
-        <div class="grid__item one-whole lap-one-third">
-          <span class="icon">
-            <i class="icon-coffee"></i>
-          </span>
-        </div>
-		 
-        <div class="grid__item one-whole lap-two-thirds">
-         <h2 class="title">Fun</h2>
-<hr>
-<p>
-이러한 모든 과정을 진정 놀이로 생각합니다.
-</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 
-        
-        </div>
-        
-        
-      </div>
-    </div>
-    
-    <footer>
-      <div class="grid-wrapper">
-  <div class="grid">
-    <div class="grid__item">
-      <p class="copyright">
-  All content by Remotty Group and licenced under <a href="//creativecommons.org/licenses/by-nc-sa/3.0/ie/">Creative Commons</a>.<br>
-  Code under <a href="//github.com/coogie/oscailte/blob/master/README.md">MIT Licence</a>.
-</p>
-    </div>
-  </div>
-</div>
-
-    </footer>
-
-    <!--[if lt IE 7]>
-      <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
-    <![endif]-->
-
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-<script src="//crypto-js.googlecode.com/svn/tags/3.1.2/build/rollups/md5.js"></script>
-<script defer src="/javascripts/octopress.js"></script>
+<div class="meta">
+	<div class="date">
 
 
 
 
-<script>
-  var disqus_shortname = 'remotty';
+
+
+
+
   
-    
-    // var disqus_developer = 1;
-    var disqus_identifier = 'http://remotty.github.io/index.html';
-    var disqus_url = 'http://remotty.github.io/index.html';
-    var disqus_script = 'embed.js';
+
+
+<time datetime="2014-01-29T13:55:27+09:00" pubdate data-updated="true">Jan 29<span>th</span>, 2014</time></div>
+	<div class='author'>
   
-  (function () {
-    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  }());
+
+최효성
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/angularjs/'>angularjs</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/01/29/angularjs-providers/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/01/28/lets-study-rest/">
+		
+			RestFul이란 무엇인가?</a>
+	</h2>
+	<div class="entry-content">
+		<p>이 글에서는 <strong><a href="http://ko.wikipedia.org/wiki/REST">REST(Representational State Transfer)</a></strong>에 대해서 알아보겠습니다.</p>
+
+
+		
+		<a href="/blog/2014/01/28/lets-study-rest/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-28T23:55:43+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2014</time></div>
+	<div class='author'>
+  
+
+김한기
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rest/'>rest</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/01/28/lets-study-rest/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2014/01/24/rimotihage-ilhagi-2/">
+		
+			리모티하게 일하기 2</a>
+	</h2>
+	<div class="entry-content">
+		<p>약 한달 전  <a href="/blog/2013/12/10/remottyhage-ilhagi/">Remotty하게 일하기</a>라는 제목으로, Remotty 그룹의 일하는 방식에 대해 포스팅을 했었다.<br/>
+포스트에서 소개한 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.</p>
+
+
+		
+		<a href="/blog/2014/01/24/rimotihage-ilhagi-2/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-24T13:49:15+09:00" pubdate data-updated="true">Jan 24<span>th</span>, 2014</time></div>
+	<div class='author'>
+  
+
+장재휴
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/communication/'>communication</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2014/01/24/rimotihage-ilhagi-2/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/31/active-model-serializers/">
+		
+			Active_model_serializers 젬 사용하기</a>
+	</h2>
+	<div class="entry-content">
+		<p><code>active_model_serializers</code>젬은 레일스 API 를 작성할 때 JSON 데이터를 만들기 위해 추천되는 젬입니다.</p>
+
+<h1>설치</h1>
+
+<p>Gemfile 에 추가하고 bundle install 합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem <span class="s1">&#39;active_model_serializers&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+
+		
+		<a href="/blog/2013/12/31/active-model-serializers/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-31T19:51:34+09:00" pubdate data-updated="true">Dec 31<span>st</span>, 2013</time></div>
+	<div class='author'>
+  
+
+최효성
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/gem/'>gem</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/31/active-model-serializers/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/29/hub-and-pull-request/">
+		
+			Hub로 커맨드라인에서 Github Pull-request 보내기</a>
+	</h2>
+	<div class="entry-content">
+		<p>오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
+
+
+		
+		<a href="/blog/2013/12/29/hub-and-pull-request/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-29T15:31:32+09:00" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time></div>
+	<div class='author'>
+  
+
+nacyot
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/hub/'>hub</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/29/hub-and-pull-request/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/29/split-video/">
+		
+			비디오 동영상 쪼개기</a>
+	</h2>
+	<div class="entry-content">
+		<p>맥 환경에서는 <code>homebrew</code>를 이용하면 <code>ffmpeg</code>를 쉽게 설치할 수 있습니다.</p>
+
+
+		
+		<a href="/blog/2013/12/29/split-video/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-29T07:31:32+09:00" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time></div>
+	<div class='author'>
+  
+
+최효성
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/tools/'>tools</a>, <a class='category' href='/blog/categories/video/'>video</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/29/split-video/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/23/githubeul-tonghan-hyeobeob/">
+		
+			Github을 통한 협업</a>
+	</h2>
+	<div class="entry-content">
+		<p>github을 통합 협업시 필요한 셋팅입니다.</p>
+
+
+		
+		<a href="/blog/2013/12/23/githubeul-tonghan-hyeobeob/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-23T22:17:44+09:00" pubdate data-updated="true">Dec 23<span>rd</span>, 2013</time></div>
+	<div class='author'>
+  
+
+서비큐라
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/remote/'>remote</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/23/githubeul-tonghan-hyeobeob/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/18/model-spec/">
+		
+			모델 Spec 작성하기</a>
+	</h2>
+	<div class="entry-content">
+		<p>Rails 어플리케이션에서 모델은 해당 어플리케이션의 주요 핵심 로직으로 구성되어 있습니다.
+따라서, TDD를 이용한 Test 기반 개발을 할 때도 모델에 대한 Test를 중점적으로 시행하는 것은 당연한 일일 것입니다.</p>
+
+
+		
+		<a href="/blog/2013/12/18/model-spec/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-18T09:17:57+09:00" pubdate data-updated="true">Dec 18<span>th</span>, 2013</time></div>
+	<div class='author'>
+  
+
+최효성
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/rspec/'>RSpec</a>, <a class='category' href='/blog/categories/tdd/'>TDD</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/18/model-spec/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/15/meeting/">
+		
+			Meeting</a>
+	</h2>
+	<div class="entry-content">
+		<p>오늘 6명(+1명)이 행아웃을 하면서 느낀점입니다.</p>
+
+
+		
+		<a href="/blog/2013/12/15/meeting/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-15T01:07:20+09:00" pubdate data-updated="true">Dec 15<span>th</span>, 2013</time></div>
+	<div class='author'>
+  
+
+서비큐라
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/remote/'>remote</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/15/meeting/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+
+    <article class="post">
+	<h2 class="title">
+		
+		<a href="/blog/2013/12/10/install-theme/">
+		
+			Install Theme</a>
+	</h2>
+	<div class="entry-content">
+		<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+
+		
+		<a href="/blog/2013/12/10/install-theme/" class="more-link">Read on &rarr;</a>
+	</div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-12-10T23:00:55+09:00" pubdate data-updated="true">Dec 10<span>th</span>, 2013</time></div>
+	<div class='author'>
+  
+
+서비큐라
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/octopress/'>octopress</a>
+
+
+</div>
+	
+	<div class="comments"><a href="/blog/2013/12/10/install-theme/#disqus_thread">Comments</a></div>
+	
+</div>
+</article>
+
+<nav id="pagenavi">
+    
+    
+        <a href="/blog/page/2/" class="next">Next</a>
+    
+    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
+</nav></div>
+	<footer id="footer" class="inner">Copyright &copy; 2014
+
+    Remotty Group
+
+</footer>
+	<script src="/javascripts/slash.js"></script>
+<script src="/javascripts/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+	$('.fancybox').fancybox();
+})(jQuery);
+</script> <!-- Delete or comment this line to disable Fancybox -->
+
+
+<script type="text/javascript">
+      var disqus_shortname = 'remotty';
+      
+        
+        var disqus_script = 'count.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//go.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
 </script>
 
 
 
 
-  </body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new
+  Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46197100-2', 'remotty.github.io');
+  ga('send', 'pageview');
+</script>
+
+
+</body>
 </html>
