@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: communication | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/communication/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-01-30T19:29:19+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[리모티하게 일하기 2]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/24/rimotihage-ilhagi-2/"/>
+    <updated>2014-01-24T13:49:15+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/24/rimotihage-ilhagi-2</id>
+    <content type="html"><![CDATA[<p>약 한달 전  <a href="/blog/2013/12/10/remottyhage-ilhagi/">Remotty하게 일하기</a>라는 제목으로, Remotty 그룹의 일하는 방식에 대해 포스팅을 했었다.<br/>
+포스트에서 소개한 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.</p>
+
+<!--more-->
+
+
+<p>나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데<br/>
+가장 큰 문제는 <strong>사용해야 할 도구가 너무 많아 커뮤니케이션이 분산</strong>된다는 것이었다.</p>
+
+<p>페이스북, 트렐로, 구글 드라이브, 에버노트&hellip;<br/>
+모두 다 좋은 도구다. 잘만 활용한다면 좋은 커뮤니케이션 도구로 사용할 수 있다.<br/>
+하지만 개발자들간의 협업에 있어서 소스코드가 제일 중요할 수 밖에 없고,<br/>
+그 커뮤니케이션의 중심에 github가 있는 것은 당연지사.</p>
+
+<p>결국 github로 돌아오게 되더라.<br/>
+이슈 관리도, 일정 관리도, 대화도, 각종 문서 정리도, 대화도&hellip;<br/>
+모든 커뮤니케이션을 github안에서 해결할 수 있는 방법을 찾게 되었다.</p>
+
+<p>그래서 결론을 얘기하면, 현재는 아래와 같은 방식으로 협업을 하고 있다.</p>
+
+<ul>
+<li><p>태스크 관리<br/>
+<del>트렐로</del> github 이슈 + <a href="https://waffle.io/">Waffle</a></p></li>
+<li><p>문서 공유<br/>
+<del>에버노트 or 구글 드라이브</del> github 위키</p></li>
+<li><p>단체 코딩<br/>
+MadEye</p></li>
+<li><p>소스 관리<br/>
+github</p></li>
+<li><p>잡다구리한 이야기들 + 각종 대화 &amp; 논의 + 그 외 모든 의사소통<br/>
+<del>페이스북 포스트 or 메신저</del> <a href="https://www.hipchat.com">HipChat</a></p></li>
+<li><p>기타 파일 공유<br/>
+<del>드롭박스</del> HipChat으로 전달. 파일 관리는 따로 안함.<br/>
+정말 지속적으로 관리할 필요가 있는 파일이 있다면 github에 올려도 될 것 같음</p></li>
+<li><p>오프라인 모임</p>
+
+<ul>
+<li>공식 모임<br/>
+월 1회<br/>
+지난 한달간 진행상황 점검 &amp; 향후 한달 계획 수립<br/>
+각종 의사결정 및 이슈 정리</li>
+<li>비공식 모임<br/>
+매주 토요일<br/>
+그냥 모여서 다 같이 코딩</li>
+</ul>
+</li>
+</ul>
+
+
+<p>여기 <a href="/blog/2013/12/10/remottyhage-ilhagi/">이전 포스트</a>에 소개되지 않았던 새로운 도구가 등장한다.<br/>
+바로 <a href="https://waffle.io/">Waffle</a>과 <a href="https://www.hipchat.com">HipChat</a>이다.
+이 두가지를 한번 소개해본다.</p>
+
+<h3>Waffle</h3>
+
+<p>쉽게 말해서 github의 이슈들을 dashboard 형태로 보여주는 도구이다.<br/>
+그것이 전부이다.<br/>
+github 이슈는 단순히 목록 형태로 쭉 펼쳐져서 보이기 때문에,<br/>
+원하는 것들을 필터링 해서 보거나 한눈에 dashboard 형태로 보기가 어렵다.<br/>
+그러한 불편함을 해소해주는 도구가 바로 Waffle이다.<br/>
+눈에 보기 쉽게 Column을 만들고 그 안에 github에 등록된 이슈들이 list 형태로 뿌려진다.<br/>
+얼핏 보기엔 trello와 비슷해 보인다.<br/>
+github의 이슈들이 trello의 card 형태로 나타나고, drag&amp;drop으로 쉽게 상태를 변경할 수 있다.<br/>
+Waffle에서 생성한 Column은 github 이슈의 라벨로 나타난다.<br/>
+Waffle에서도 이슈를 등록할 수 있고, 당연히 github 이슈에도 등록이 된다.<br/>
+백날 얘기해봤자 머리속의 상상만으로는 잘 이해가 안된다. 아래 사진을 보면 딱 이해가 될 것이다.</p>
+
+<p><img src="/images/waffle.png" title="waffle" alt="waffle" /></p>
+
+<h3>HipChat</h3>
+
+<p>기본적으로 메신저는 실시간성이다.<br/>
+온라인상의 누군가에게 메시지를 보내고 그것을 본 누군가는 응답을 한다. 이것이 메신저의 기본 개념.<br/>
+하지만 단체 채팅의 경우는 상황이 좀 다르다.<br/>
+대화가 오고 갈때 온라인상에 없었던 사용자는 그 대화에 참여할 수 없게 되고 그때 오고 갔던 대화의 내용들은 놓치게 된다.<br/>
+물론 스크롤을 쭉~ 올려서 찾아서 읽으면 된다.<br/>
+당연히 그렇게 필요한 사람이 내가 놓친 내용을 꼼꼼히 스스로 찾아 읽으면 되지만, 잘 되지 않는다.<br/>
+그리고 지난 대화들을 찾아서 본다 하더라도 이미 마무리 된 대화를 또다시 개진하려면 좀 뒷북치는 느낌이다. ;;<br/>
+물론 하면 되지만, 대부분의 메신저 도구들은 실시간성에 UI가 맞추어져 있다.</p>
+
+<p>그렇다. 우리에게 필요한 것은 바로 <strong>비동기 채팅</strong>이다.<br/>
+비동기 채팅이란, 한마디로 <strong>&ldquo;로그를 읽는다&rdquo;</strong>라는 개념이다. <strong>대화의 기록</strong>을 보고 자신의 생각을 그냥 얘기하면 된다.<br/>
+IRC가 바로 이러한 비동기 채팅에 적합한 도구이다. 하지만 왠지 irc는 말만 들어도 겁이 난다.(왜일까&hellip; ㅡ,.ㅡ;;)<br/>
+이러한 용도로 최적화 된 툴이 바로 HipChat이다.</p>
+
+<p>HipChat은 개발자들에게 좀 특화된 메신저 도구여서, 대화창에 각종 코드도 쓸 수 있다.<br/>
+&ldquo;/code"라고 prefix를 붙히면, 뒤에 따라오는 코드는 포맷팅이 되어 읽기 쉽게 나타난다.</p>
+
+<p>뿐만 아니라 github와도 연동을 시킬 수 있어서, github에서 일어나는 모든 event를 hipchat에서 받을 수 있다.<br/>
+hipchat의 api가 공개되어 있어서, github외에 다른 이벤트들도 hipchat에 전달하도록 구현할 수 있다.<br/>
+여러 환경에서 활용 가능하도록, 각 언어별로 library를 제공하고 있다.(참고: <a href="https://www.hipchat.com/docs/api/libraries">HipChat Libraries &amp; Plugins</a>)<br/>
+ruby 코드로 2줄이면 hipchat에 message를 날릴 수 있다.
+<code>
+client = HipChat::Client.new(api_token)
+client['my room'].send('username', 'I talk')
+</code></p>
+
+<p>HipChat이 제공하는 또다른 killer 기능이 있다. 바로 notify 기능이다.<br/>
+대화를 할때 &lsquo;@&rsquo; 표시와 함께 대상자에 대한 mention을 표기할 수 있는데, @로 mention을 날리면 상대방에게 notify가 간다.<br/>
+상대방이 온라인이 아니더라도 mention을 받게 되면 notify가 오게 되고, 그때 대화에 동참하면 된다.<br/>
+그리고 notify는 메일로도 전송되기 때문에, 내가 없는 자리에서 나와 관련된 중요한 대화가 오고 갔는지를 알 수 있다.<br/>
+내가 없는 자리에서 오고 갔던 대화 히스토리에 나에게 mention 표시가 되어 있는 전/후의 내용을 좀 더 주의 깊게 보면 된다.<br/>
+mention은 @all 이런 식으로 사용할 수도 있다. 당연히 모든 멤버에게 mention을 날린다는 의미다.<br/>
+대화 중, 특정 누군가에게 또는 모두에게 공유해야 할 내용이 있을 때, @로 mention을 날리면 된다.</p>
+
+<p>비동기 채팅에 notify 기능이 합쳐지고, 코드에 대한 마크업 기능까지&hellip;<br/>
+remote로 일하는 개발 그룹에 꼭 필요한 도구이다!</p>
+
+<p>하지만 단점이 있다.<br/>
+5명 이상인 경우엔 유료라는 것. (매월 1명당 2$씩)<br/>
+한달에 2$면 커피한잔 가격도 안된다.<br/>
+효과적인 커뮤니케이션을 위해 한달에 커피 한잔 정도는 절약하는건 어떨까? ^^</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remotty하게 일하기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/remottyhage-ilhagi/"/>
+    <updated>2013-12-10T21:27:30+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/remottyhage-ilhagi</id>
+    <content type="html"><![CDATA[<blockquote><p>아래 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.<br/>
+나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데<br/>
+가장 큰 문제는 <strong>사용해야 할 도구가 너무 많아 커뮤니케이션이 분산</strong>된다는 것이었다.<br/>
+최근 협업 방식에 대해 <a href="/blog/2014/01/24/rimotihage-ilhagi-2/">Remotty하게 일하기 2</a>라는 제목으로 새로운 포스트를 올렸다.<br/>
+Remotty 그룹의 협업 방식에 대해서는 <a href="/blog/2014/01/24/rimotihage-ilhagi-2/">Remotty하게 일하기 2</a> 글을 참조하길 바란다.</p></blockquote>
+
+<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
+혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
+<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#x61;&#x64;&#x6d;&#x69;&#110;&#x40;&#x72;&#x65;&#109;&#111;&#116;&#x74;&#x79;&#x2e;&#x63;&#x6f;&#x6d;">&#x61;&#x64;&#x6d;&#105;&#110;&#64;&#114;&#x65;&#109;&#x6f;&#x74;&#x74;&#x79;&#46;&#99;&#111;&#109;</a></p>
+
+<!-- more -->
+
+
+<h5>잡다구리한 이야기들</h5>
+
+<p>가벼운 생각들, 각종 팁, 유용한 지식 등 온갖 잡다구리한 정보들은 <strong>페이스북 그룹에 포스팅</strong> 한다.<br/>
+멤버들은 각자 자신의 생각들을 댓글을 통해 등록을 하면서 점점 그 생각들을 발전시켜 나간다.<br/>
+무언가를 결정할 사항이 생겼을 땐, 페이스북 설문조사 기능을 활용한다.<br/>
+아이디어로 이어가고 싶은 것들은 trello에 등록을 하여 점점 구체화시켜 나간다.</p>
+
+<h5>대화 &amp; 논의</h5>
+
+<p>대화를 통해 실시간 논의가 필요한 경우는 가겹게 <strong>페이스북 메신저</strong>를 활용한다.<br/>
+대부분의 이야기들이 페이스북 타임라인에서 오고가기 때문에 페이스북 메신저를 사용하여 대화하는 것이 편리하다.<br/>
+페이스북 메신저를 통한 대화는 시간, 장소에 관계없이 필요성을 느끼는 누군가가 먼저 시작을 하면 된다.<br/>
+좀 더 진지하게 집중적으로 논의를 해야 할 경우엔 <strong>구글 행아웃</strong>을 활용한다.</p>
+
+<h5>태스크 관리</h5>
+
+<p>태스크 관리는 <strong>trello</strong>를 활용한다.<br/>
+Jira, Redmine과 같은 이슈트래커 도구는 태스크 관리 도구로는 쓸데없이 무겁다.<br/>
+태스크 관리 뿐만 아니라, 구체화 시켜나갈 아이디어가 있을때에도 trello에 등록을 한다.</p>
+
+<h5>문서 공유</h5>
+
+<p>문서 공유는 에버노트와 구글드라이브를 사용한다.<br/>
+<strong>임시적인 성격의 문서, 메모등의 글들은 에버노트를 사용</strong>하고, <strong>산출물 성격의 문서들은 구글 드라이브를 사용한</strong>다.<br/>
+에버노트가 문서를 작성하기는 편하지만, 공동 작업이 불가능한 단점이 있다.<br/>
+그래서 산출물 성격의 문서는 구글드라이브로 관리한다.</p>
+
+<h5>기타 파일 공유</h5>
+
+<p>소스코드, 문서 이외의 기타 파일은 <strong>dropbox</strong>를 사용한다.<br/>
+주로 디자이너와 협업을 위한 파일 공유로 많이 사용한다.</p>
+
+<h5>단체코딩</h5>
+
+<p><strong>MadEye</strong>(<a href="https://madeye.io">https://madeye.io</a>)를 통해 정기적으로 단체 코딩을 한다.<br/>
+여러 사람이 같은 화면을 보며 함께 코딩을 할 수 있고, 구글 행아웃과도 연결되기 때문에 서로 대화하면 함께 코딩할 수 있다.<br/>
+굉장히 재밌고 편리하게 pair programming을 할 수 있는 도구이다.</p>
+
+<h5>소스 관리</h5>
+
+<p>소스 관리는 <strong>github</strong>가 정답이다. 이보다 편할 순 없다!</p>
+
+<h5>블로그</h5>
+
+<p>그룹 내에서 습득한 지식은 가능한 tech blog에 정리하여 공유하고 있다.<br/>
+<strong>octopress</strong>를 사용하여 작성을 하고 github page(<a href="http://remotty.github.io">http://remotty.github.io</a>)에 올려 공유한다.</p>
+
+<h4>시도중</h4>
+
+<p>현재 시도중이며 아직 확정되지 않은 방안들입니다.</p>
+
+<h5>1주일에 한번씩 한일/할일 공유</h5>
+
+<p>기본적으로 일주일에 한번 토요일밤에 행아웃을 통해 화상회의를 진행합니다.
+그전에 facebook을 통해 각자 한일과 다음주에 할일을 적습니다.
+이것은 정확하고 강압적으로 적는것이 아니라 우리가 <strong>함께 일하고 있다</strong>라는 걸 상기시켜주는 목적이 더 큽니다.
+부담갖지 말아요~</p>
+]]></content>
+  </entry>
+  
+</feed>
