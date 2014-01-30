@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: remote | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/remote/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-01-30T19:48:58+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[github을 통한 협업]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/23/githubeul-tonghan-hyeobeob/"/>
+    <updated>2013-12-23T22:17:44+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/23/githubeul-tonghan-hyeobeob</id>
+    <content type="html"><![CDATA[<p>github을 통합 협업시 필요한 셋팅입니다.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>원본 repository를 본인 계정으로 fork하고 작업합니다.</p></li>
+<li><p>user.name &amp; user.email 설정</p>
+
+<ul>
+<li>github 정보와 동일하게 user.name과 user.email을 설정합니다.
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config user.name “subicura<span class="err">&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git config user.email “subicura@subicura.com”
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
+</ul>
+</li>
+<li><p>upstream 설정</p>
+
+<ul>
+<li>원본 repository와 소스를 동기화 하기 위해 upstream을 설정합니다.</li>
+<li><a href="https://help.github.com/articles/syncing-a-fork">https://help.github.com/articles/syncing-a-fork</a></li>
+</ul>
+</li>
+<li><p>pull request 관련 설정</p>
+
+<ul>
+<li>git의 branch를 이용해서 테스트해볼 수 있습니다.</li>
+<li><a href="https://gist.github.com/piscisaureus/3342247">https://gist.github.com/piscisaureus/3342247</a></li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[meeting]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/15/meeting/"/>
+    <updated>2013-12-15T01:07:20+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/15/meeting</id>
+    <content type="html"><![CDATA[<p>오늘 6명(+1명)이 행아웃을 하면서 느낀점입니다.</p>
+
+<!-- more -->
+
+
+<p>행아웃은 리모트로 일하면서 유일하게 얼굴을 보면서 이야기 할 수 있는 시간 입니다.
+흔치 않은 기회(?)라 다양한 이야기를 나누게 되는데 그러다 보니 의도치 않게 시간이 너무 걸립니다.
+2시간을 했다고 하면 6명*2시간=12시간을 미팅하는데 쓴 셈인데..</p>
+
+<p>다음 행아웃에서는 주제를 최소로 하고 페이스북이나 채팅으로 해결할 수 있는 문제는 그 전에 처리하기로 했습니다.
+항상 시간을 효율적으로 쓸 수 있게 노력해야겠습니다 ㅠ</p>
+]]></content>
+  </entry>
+  
+</feed>
