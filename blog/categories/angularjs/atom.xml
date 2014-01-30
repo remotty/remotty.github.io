@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularjs | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-01-30T19:29:19+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Angularjs Providers]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/29/angularjs-providers/"/>
+    <updated>2014-01-29T13:55:27+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/29/angularjs-providers</id>
+    <content type="html"><![CDATA[<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
+
+<p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
+
+<!--more-->
+
+
+<p>provider vs factory vs service</p>
+
+<h3>Provider란 무엇인가?</h3>
+
+<p>AngularJS docs 에는 아래와 같이 정의되어 있다.</p>
+
+<blockquote><p>$get 메소드를 가지는 하나의 객체이다. injector는 바로 이 $get 메소드를 호출해서 새로운 서비스를 생성하게 되는 것이다. <code>provider</code>는 설정을 통해서 이와 같은 메소드를 추가할 수 있다.</p></blockquote>
+
+<p>AngularJS는 <code>$provide</code>를 이용해서 새로운 <code>provider</code>를 등록한다. <code>provider</code>는 기본적으로 새로운 인스턴스를 생성하지만 <code>provider</code>당 하나의 인스턴스만 만들게 된다(singleton). <code>$provide</code>는 6개의 메소드를 사용해서 커스텀 <code>provider</code>를 생성하게 되는데, 각각에 대해서 샘플 코드와 함께 설명할 것이다. 아래의 <code>provider</code>는 <code>$provide</code> 상에서 사용할 수 있다.</p>
+
+<ul>
+<li>constant</li>
+<li>value</li>
+<li>service</li>
+<li>factory</li>
+<li>decorator</li>
+<li>provider</li>
+</ul>
+
+
+<h2>Constant</h2>
+
+<p><code>constant(상수)</code>는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.config(function ($provide) {
+  $provide.constant(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;);
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix&rsquo;);
+});
+```</p>
+
+<p>AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<p><code>javascript
+app.constant('movieTitle', 'The Matrix');
+</code></p>
+
+<h2>Value</h2>
+
+<p><code>value</code>는 <code>configuration(설정)</code>로 주입할 수 없지만 값을 변경할 수는 있다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.config(function ($provide) {
+  $provide.value(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;)
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix&rsquo;);
+})
+```</p>
+
+<p>AngularJS는 <code>value</code>를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<p><code>javascript
+app.value('movieTitle', 'The Matrix');
+</code></p>
+
+<h2>Service</h2>
+
+<p><code>service</code>란 주입이 가능한 <code>constructor(생성자)</code>이다. 원할 경우, 함수에 필요한 dependency를 명시할 수 있다. <code>service</code>는 하나의 singleton이기 때문에 AngularJS가 한번만 생성하게 될 것이다. <code>service</code>는 데이터를 공유하는 것 같은 컨트롤러간의 통신을 위한 좋은 방법이다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo; ,[]);</p>
+
+<p>app.config(function ($provide) {
+  $provide.service(&lsquo;movie&rsquo;, function () {</p>
+
+<pre><code>this.title = 'The Matrix';
+</code></pre>
+
+<p>  });
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movie) {
+  expect(movie.title).toEqual(&lsquo;The Matrix&rsquo;);
+});
+<code>``
+AngularJS는</code>service`를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<p><code>javascript
+app.service('movie', function () {
+  this.title = 'The Matrix';
+});
+</code></p>
+
+<h2>Factory</h2>
+
+<p><code>factory</code>는 주입이 가능한 함수이다. <code>factory</code>는 singleton이고 dependency를 함수내에 명시할 수 있다는 점에서 <code>service</code>와 많은 부분에서 흡사하다. 차이점은 <code>factory</code>는 일반 함수를 주입해서 AngularJS가 호출하도록 하는 것이고 <code>service</code>는 <code>constructor</code>를 주입한다는 것이다. <code>constructor</code>는 새로운 객체를 만들기 때문에 <code>service</code>내에서는 <code>new</code> 메소드를 호출하지만, <code>factory</code>를 사용하면 함수가 어떤 형태의 것이라고 반환할 수 있도록 해 준다. 나중에 알게 되겠지만, <code>factory</code>는 <code>$get</code> 메소드만을 가지는 <code>provider</code>이다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.config(function ($provide) {
+  $provide.factory(&lsquo;movie&rsquo;, function () {</p>
+
+<pre><code>return {
+  title: 'The Matrix';
+}
+</code></pre>
+
+<p>  });
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movie) {
+  expect(movie.title).toEqual(&lsquo;The Matrix&rsquo;);
+});
+<code>``
+AngularJS는</code>factory`를 생성하는 편리한 방법을 제고해 주어 아래와 같이 단축할 수 있다.</p>
+
+<p>```javascript
+app.factory(&lsquo;movie&rsquo;, function () {
+  return {</p>
+
+<pre><code>title: 'The Matrix';
+</code></pre>
+
+<p>  }
+});
+```</p>
+
+<h2>Decorator</h2>
+
+<p><code>decorator</code>는 다른 <code>provider</code>를 변경하거나 encapulation할 수 있다. 그러나 하나의 예외가 있는데, <code>constant</code>는 decorate 할 수 없다는 것이다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.value(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;);</p>
+
+<p>app.config(function ($provide) {
+  $provide.decorator(&lsquo;movieTitle&rsquo;, function ($delegate) {</p>
+
+<pre><code>return $delegate + ' - starring Keanu Reeves';
+</code></pre>
+
+<p>  });
+});</p>
+
+<p>app.controller(&lsquo;myController&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix &ndash; starring Keanu Reeves&rsquo;);
+});
+```</p>
+
+<h2>Provider</h2>
+
+<p><code>provider</code>는 모든 <code>provider</code> 중에서 가장 유연한 메소드이다. 이 메소드를 이용하면 복잡한 생성 함수에 다양한 옵션을 가지도록 할 수 있다. <code>provider</code>는 실제로 구성을 변경할 수 있는 <code>factory</code>이다. <code>provider</code>는 하나의 객체나 <code>constructor</code>를 취하게 된다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.provider(&lsquo;movie&rsquo;, function () {
+  var version;
+  return {</p>
+
+<pre><code>setVersion: function (value) {
+  version = value;
+},
+$get: function () {
+  return {
+      title: 'The Matrix' + ' ' + version
+  }
+}
+</code></pre>
+
+<p>  }
+});</p>
+
+<p>app.config(function (movieProvider) {
+  movieProvider.setVersion(&lsquo;Reloaded&rsquo;);
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movie) {
+  expect(movie.title).toEqual(&lsquo;The Matrix Reloaded&rsquo;);
+});
+```</p>
+
+<h2>요약</h2>
+
+<ul>
+<li>모든 <code>providers</code>들은 단 한번만 인스턴스화 된다. 즉, singleton 이라는 것이다.</li>
+<li><code>constant</code>를 제외한 모든 <code>provider</code>는 decorate할 수 있다.</li>
+<li><code>constant</code>은 어느 곳이나 주입할 수 있는 값을 가지만, 수정할 수 없다.</li>
+<li><code>value</code>는 간단하게 주입할 수 있는 값이다.</li>
+<li><code>service</code>는 주입할 수 있는 <code>constructor</code>이다.</li>
+<li><code>factory</code>는 주입할 수 있는 함수이다.</li>
+<li><code>decorator</code>는 <code>constant</code>를 제외한 모든 <code>provider</code>를 변경하거나 encapuslation할 수 있다.</li>
+<li><code>provider</code>는 구성요소를 설정할 수 있는 <code>factory</code>이다.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
