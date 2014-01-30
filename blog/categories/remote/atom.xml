@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: remote | Remotty Tech Blog]]></title>
-  <link href="http://remotty.github.io/blog/categories/remote/atom.xml" rel="self"/>
-  <link href="http://remotty.github.io/"/>
-  <updated>2014-01-30T16:11:03+09:00</updated>
-  <id>http://remotty.github.io/</id>
+  <link href="http://blog.remotty.com/blog/categories/remote/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-01-30T16:30:33+09:00</updated>
+  <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
     <email><![CDATA[admin@remotty.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[github을 통한 협업]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/23/githubeul-tonghan-hyeobeob/"/>
+    <link href="http://blog.remotty.com/blog/2013/12/23/githubeul-tonghan-hyeobeob/"/>
     <updated>2013-12-23T22:17:44+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/23/githubeul-tonghan-hyeobeob</id>
+    <id>http://blog.remotty.com/blog/2013/12/23/githubeul-tonghan-hyeobeob</id>
     <content type="html"><![CDATA[<p>github을 통합 협업시 필요한 셋팅입니다.</p>
 
 <!-- more -->
@@ -57,9 +57,9 @@
   
   <entry>
     <title type="html"><![CDATA[meeting]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/15/meeting/"/>
+    <link href="http://blog.remotty.com/blog/2013/12/15/meeting/"/>
     <updated>2013-12-15T01:07:20+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/15/meeting</id>
+    <id>http://blog.remotty.com/blog/2013/12/15/meeting</id>
     <content type="html"><![CDATA[<p>오늘 6명(+1명)이 행아웃을 하면서 느낀점입니다.</p>
 
 <!-- more -->

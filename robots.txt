@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://remotty.github.io/sitemap.xml 
+Sitemap: http://blog.remotty.com/sitemap.xml 

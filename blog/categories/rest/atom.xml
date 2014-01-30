@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: rest | Remotty Tech Blog]]></title>
-  <link href="http://remotty.github.io/blog/categories/rest/atom.xml" rel="self"/>
-  <link href="http://remotty.github.io/"/>
-  <updated>2014-01-30T16:11:03+09:00</updated>
-  <id>http://remotty.github.io/</id>
+  <link href="http://blog.remotty.com/blog/categories/rest/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-01-30T16:30:33+09:00</updated>
+  <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
     <email><![CDATA[admin@remotty.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[RestFul이란 무엇인가?]]></title>
-    <link href="http://remotty.github.io/blog/2014/01/28/lets-study-rest/"/>
+    <link href="http://blog.remotty.com/blog/2014/01/28/lets-study-rest/"/>
     <updated>2014-01-28T23:55:43+09:00</updated>
-    <id>http://remotty.github.io/blog/2014/01/28/lets-study-rest</id>
+    <id>http://blog.remotty.com/blog/2014/01/28/lets-study-rest</id>
     <content type="html"><![CDATA[<p>이 글에서는 <strong><a href="http://ko.wikipedia.org/wiki/REST">REST(Representational State Transfer)</a></strong>에 대해서 알아보겠습니다.</p>
 
 <!--more-->

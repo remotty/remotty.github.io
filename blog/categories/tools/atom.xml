@@ -2,10 +2,10 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
 
   <title><![CDATA[Category: tools | Remotty Tech Blog]]></title>
-  <link href="http://remotty.github.io/blog/categories/tools/atom.xml" rel="self"/>
-  <link href="http://remotty.github.io/"/>
-  <updated>2014-01-30T16:11:03+09:00</updated>
-  <id>http://remotty.github.io/</id>
+  <link href="http://blog.remotty.com/blog/categories/tools/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-01-30T16:30:33+09:00</updated>
+  <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
     <email><![CDATA[admin@remotty.com]]></email>
@@ -15,9 +15,9 @@
   
   <entry>
     <title type="html"><![CDATA[비디오 동영상 쪼개기]]></title>
-    <link href="http://remotty.github.io/blog/2013/12/29/split-video/"/>
+    <link href="http://blog.remotty.com/blog/2013/12/29/split-video/"/>
     <updated>2013-12-29T07:31:32+09:00</updated>
-    <id>http://remotty.github.io/blog/2013/12/29/split-video</id>
+    <id>http://blog.remotty.com/blog/2013/12/29/split-video</id>
     <content type="html"><![CDATA[<p>맥 환경에서는 <code>homebrew</code>를 이용하면 <code>ffmpeg</code>를 쉽게 설치할 수 있습니다.</p>
 
 <!--more-->
