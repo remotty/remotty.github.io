@@ -1,0 +1,3147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-02-01T15:25:46+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS+Rails 프로젝트 구성]]></title>
+    <link href="http://blog.remotty.com/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong/"/>
+    <updated>2014-02-01T15:20:32+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong</id>
+    <content type="html"><![CDATA[<p>최근 프로젝트에서 Rails기반에 AngularJS를 사용한 경험을 공유합니다.</p>
+
+<p>간단하게 frontend/backend의 개념과 angularjs를 소개하고 프로젝트를 구성하는 방법을 설명합니다.</p>
+
+<!--more-->
+
+
+<h1>frontend / backend</h1>
+
+<p>지금까지의 웹개발은 서버 프레임워크에서 frontend와 backend를 모두 처리하였습니다. controller에서 요청을 받으면 database와 통신하여 데이터를 가져오고 view를 통해 응답하는 방식입니다.</p>
+
+<p>하지만 최근 iOS와 Android등 모바일앱이 늘어나면서 서버는 API만 처리하고 각 앱에서는 서버로 부터 받은 데이터를 가지고 화면에 표현하는 패턴이 일반화 되었습니다. 복잡한 서버 프레임워크 대신 경량의 서버 프레임워크가 선호되고 frontend와 backend가 철저히 분리되어 개발할 수 있게 된 것입니다.</p>
+
+<p>웹에서도 webapp이라는 이름으로 그러한 흐름이 나타나고 있으며 Angular.js/Backbone.js/Knockout.js 등 다양한 framework이 등장하였습니다.</p>
+
+<h1>AngularJS</h1>
+
+<p>AngularJS는 최근 엄청나게 인기를 끌고 있는 <strong>frontend webapp framework</strong>입니다.
+Google이 만들었다는 점에서 믿고 쓸수 있고 짧은 코드로 빠르고 강력한 웹앱을 만들 수 있습니다.</p>
+
+<ul>
+<li>html/css/js등 static 파일로 구성되어 있고 java/php/.net등 서버쪽 작업은 전혀 필요가 없습니다. 단순히 파일을 그대로 제공만 합니다.</li>
+<li>모든 서버자원은 ajax를 이용하여 API서버를 호출하는 것으로 처리합니다.</li>
+<li>yeoman/grunt/bower를 이용하여 빠르게 프로젝트를 구축하고 개발하고 배포할 수 있습니다.</li>
+</ul>
+
+
+<h1>Rails와 AngularJS 조합하기</h1>
+
+<p>우선..
+<strong>AngularJS 사용 == Rails에서 View를 사용하지 않음</strong>
+이라는 생각으로 접근하면 이해가 빠를것 같습니다.</p>
+
+<p>Rails에서 제공하는 강력한 View Helper의 기능을 사용하지 못한다고? 네 ㅠㅠ 맞습니다. Rails는 오로지 API를 제공하는 역할만 수행하고 View는 철저히 AngularJS에서 처리합니다.</p>
+
+<h2>디렉토리 구조</h2>
+
+<p>기존 rails 디렉토리 구성은 다음과 같습니다</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ㄴ RAILS_ROOT
+</span><span class='line'>  ㄴ app
+</span><span class='line'>  ㄴ bin
+</span><span class='line'>  ㄴ config
+</span><span class='line'>  ㄴ db
+</span><span class='line'>  ㄴ lib
+</span><span class='line'>  ㄴ log
+</span><span class='line'>  ㄴ public
+</span><span class='line'>  ㄴ spec
+</span><span class='line'>  ㄴ tmp</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<p>여기에 AngularJS 소스를 넣기 위해 <code>angular</code>디렉토리와 <code>public</code>디렉토리를 사용합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>ㄴ RAILS_ROOT
+</span><span class='line'>  ㄴ angular (angular와 관련된 소스는 이곳에 저장됩니다.)
+</span><span class='line'>  ㄴ app
+</span><span class='line'>  ㄴ bin
+</span><span class='line'>  ㄴ config
+</span><span class='line'>  ㄴ db
+</span><span class='line'>  ㄴ lib
+</span><span class='line'>  ㄴ log
+</span><span class='line'>  ㄴ public (angular의 최종 dist 파일들이 이곳에 위치합니다.)
+</span><span class='line'>  ㄴ spec
+</span><span class='line'>  ㄴ tmp</span></code></pre></td></tr></table></div></figure>
+
+
+<p></p>
+
+<ul>
+<li>angular 디렉토리 : angular와 관련된 <code>소스</code>파일이 위치합니다. yeoman/grunt/bower 파일과 셋팅이 있고 실제 작업은 여기서 이루어집니다.</li>
+<li>public 디렉토리 : angular작업이 완료되면 소스를 압축(minify)하고 최적화하여 최종 사용자에게 보여질 <code>배포</code>파일을 생성합니다. 이렇게 구성하면 일반적인 rails 배포 방식으로 webapp을 같이 배포할 수 있습니다.</li>
+</ul>
+
+
+<p>사실 angular디렉토리는 rails 프로젝트에 포함되어 있지 않아도 상관없습니다. 따로 프로젝트를 만들고 dist파일을 public디렉토리에 복사해도 되지만 보통 frontend와 backend작업을 동시에 할 경우 같이 관리하는 것이 좀더 편한 것 같습니다.</p>
+
+<h2>RAILS 설정</h2>
+
+<p>rails는 view를 사용하지 않으므로 <a href="https://github.com/rails-api/rails-api">rails-api</a>를 이용합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ rails-api new sample</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>AngularJS 설정</h2>
+
+<p><a href="http://yeoman.io/">yeoman</a>을 이용합니다.</p>
+
+<p>ruby/compass/nodejs/generator-angular등을 미리 설치해야합니다.
+설치하는 방법은.. 여기서는 pass!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ cd sample
+</span><span class='line'>$ mkdir angular
+</span><span class='line'>$ cd angular
+</span><span class='line'>$ yo angular
+</span><span class='line'>
+</span><span class='line'>     _-----_
+</span><span class='line'>    |       |
+</span><span class='line'>    |--(o)--|   .--------------------------.
+</span><span class='line'>   `---------´  |    Welcome to Yeoman,    |
+</span><span class='line'>    ( _´U`_ )   |   ladies and gentlemen!  |
+</span><span class='line'>    /___A___\   '__________________________'
+</span><span class='line'>     |  ~  |
+</span><span class='line'>   __'.___.'__
+</span><span class='line'> ´   `  |° ´ Y `
+</span><span class='line'>
+</span><span class='line'>Out of the box I include Bootstrap and some AngularJS recommended modules.
+</span><span class='line'>
+</span><span class='line'>[?] Would you like to use Sass (with Compass)? Yes
+</span><span class='line'>[?] Would you like to include Twitter Bootstrap? Yes
+</span><span class='line'>[?] Would you like to use the Sass version of Twitter Bootstrap? Yes
+</span><span class='line'>[?] Which modules would you like to include? (Press &lt;space&gt; to select)
+</span><span class='line'>❯⬢ angular-resource.js
+</span><span class='line'> ⬢ angular-cookies.js
+</span><span class='line'> ⬢ angular-sanitize.js
+</span><span class='line'> ⬢ angular-route.js
+</span><span class='line'> 
+</span><span class='line'> ... 생략 ...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>추가적으로 npm/bower install을 하면 기본 구성 완료!</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install
+</span><span class='line'>....
+</span><span class='line'>$ bower install
+</span><span class='line'>....</span></code></pre></td></tr></table></div></figure>
+
+
+<p>서버 실행하기</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ grunt serve
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>도메인 이슈</h2>
+
+<ul>
+<li>rails server : <a href="http://localhost:3000">http://localhost:3000</a></li>
+<li>grunt server : <a href="http://localhost:9000">http://localhost:9000</a></li>
+</ul>
+
+
+<p>rails서버는 <code>3000</code> port로 동작하고 grunt서버는 <code>9000</code> port로 동작합니다. 따라서 angular에서 rails api를 호출하기 위해서는 <code>http://localhost:3000/api/v1/posts</code>와 같이 호출해야 합니다.</p>
+
+<p>개발환경에서는 그렇게 하면 되는데.. 운영환경은 어떻게 해야 할까요?? 운영에서는 <code>/api/v1/posts</code>와 같이 호출하면 되는데.. 환경에 따라 설정을 분리해야 할까요?</p>
+
+<h3>Frontend Setup</h3>
+
+<p>여기서는 <a href="https://github.com/drewzboto/grunt-connect-proxy">grunt-connect-proxy</a> plugin을 이용합니다.</p>
+
+<p>grunt 서버에서 <code>/api/v1/posts</code>를 호출할 경우 자동으로 <code>localhost:300/api/v1/posts</code>로 연동해줍니다.</p>
+
+<p>먼저 plugin을 설치하고..</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ npm install grunt-connect-proxy --save-dev</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>Gruntfile.js</code>에 관련설정을 합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+<span class='line-number'>60</span>
+<span class='line-number'>61</span>
+<span class='line-number'>62</span>
+<span class='line-number'>63</span>
+<span class='line-number'>64</span>
+<span class='line-number'>65</span>
+<span class='line-number'>66</span>
+<span class='line-number'>67</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+</span><span class='line'>
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>    connect: {
+</span><span class='line'>      options: {
+</span><span class='line'>        port: 9000,
+</span><span class='line'>        // Change this to '0.0.0.0' to access the server from outside.
+</span><span class='line'>        hostname: 'localhost',
+</span><span class='line'>        livereload: 35729
+</span><span class='line'>      },
+</span><span class='line'>      proxies: [
+</span><span class='line'>        {
+</span><span class='line'>          context: '/api/v1',
+</span><span class='line'>          host: 'localhost',
+</span><span class='line'>          port: 3000,
+</span><span class='line'>          https: false,
+</span><span class='line'>          changeOrigin: false,
+</span><span class='line'>          xforward: false
+</span><span class='line'>        },
+</span><span class='line'>        {
+</span><span class='line'>          context: '/system',
+</span><span class='line'>          host: 'localhost',
+</span><span class='line'>          port: 3000,
+</span><span class='line'>          https: false,
+</span><span class='line'>          changeOrigin: false,
+</span><span class='line'>          xforward: false
+</span><span class='line'>        }
+</span><span class='line'>      ],
+</span><span class='line'>      livereload: {
+</span><span class='line'>        options: {
+</span><span class='line'>          open: true,
+</span><span class='line'>          base: [
+</span><span class='line'>            '.tmp',
+</span><span class='line'>            '&lt;%= yeoman.app %&gt;'
+</span><span class='line'>          ],
+</span><span class='line'>          middleware: function (connect, options) {
+</span><span class='line'>            var middlewares = [];
+</span><span class='line'>            middlewares.push(proxySnippet);
+</span><span class='line'>            options.base.forEach(function(base) {
+</span><span class='line'>              middlewares.push(connect.static(base));
+</span><span class='line'>            });
+</span><span class='line'>            return middlewares;
+</span><span class='line'>          }
+</span><span class='line'>        }
+</span><span class='line'>      },
+</span><span class='line'>      
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>  grunt.registerTask('serve', function (target) {
+</span><span class='line'>    if (target === 'dist') {
+</span><span class='line'>      return grunt.task.run(['build', 'connect:dist:keepalive']);
+</span><span class='line'>    }
+</span><span class='line'>
+</span><span class='line'>    grunt.task.run([
+</span><span class='line'>      'clean:server',
+</span><span class='line'>      'concurrent:server',
+</span><span class='line'>      'autoprefixer',
+</span><span class='line'>      'configureProxies',
+</span><span class='line'>      'connect:livereload',
+</span><span class='line'>      'watch'
+</span><span class='line'>    ]);
+</span><span class='line'>  });
+</span><span class='line'>  
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<h3>Backend Setup</h3>
+
+<p>rails쪽은 CORS 설정을 합니다.</p>
+
+<p><code>Gemfile</code>에 cors gem을 추가합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'># Rack CORS Middleware
+</span><span class='line'>gem 'rack-cors', :require =&gt; 'rack/cors'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>그리고 <code>application.rb</code>에 관련 설정을 추가합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>config.middleware.use Rack::Cors do
+</span><span class='line'>  allow do
+</span><span class='line'>    origins "*"
+</span><span class='line'>    resource "*", :headers =&gt; :any, :methods =&gt; [:get, :post, :delete, :put, :patch, :options]
+</span><span class='line'>  end
+</span><span class='line'>end</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이제 proxy 설정이 완료되었습니다! 개발이나 운영이나 <code>/api/v1/xxx</code>을 호출하면 됩니다. +_+/</p>
+
+<h4>배포 설정하기</h4>
+
+<p>현재 설정은 angular디렉토리 밑에 <code>dist</code>폴더를 만들고 배포하게 되었습니다. 이부분을 <code>../public</code>으로 배포하게 수정합니다.</p>
+
+<p>역시 <code>Gruntfile</code>을 수정합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>    yeoman: {
+</span><span class='line'>      // configurable paths
+</span><span class='line'>      app: require('./bower.json').appPath || 'app',
+</span><span class='line'>      dist: '../public'
+</span><span class='line'>    },
+</span><span class='line'>    
+</span><span class='line'>...
+</span><span class='line'>
+</span><span class='line'>    clean: {
+</span><span class='line'>      options: { force: true },
+</span><span class='line'>      dist: {
+</span><span class='line'>        files: [{
+</span><span class='line'>          dot: true,
+</span><span class='line'>          src: [
+</span><span class='line'>            '.tmp',
+</span><span class='line'>            '&lt;%= yeoman.dist %&gt;/*',
+</span><span class='line'>            '!&lt;%= yeoman.dist %&gt;/.git*',
+</span><span class='line'>            '!&lt;%= yeoman.dist %&gt;/system'
+</span><span class='line'>          ]
+</span><span class='line'>        }]
+</span><span class='line'>      },
+</span><span class='line'>      server: '.tmp'
+</span><span class='line'>    },
+</span><span class='line'>    
+</span><span class='line'>...
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>잘 배포되는지 테스트 해봅니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ grunt build
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p><a href="http://localhost:3000">http://localhost:3000</a> 으로 접속해서 angular 화면이 보이면 성공입니다!!</p>
+
+<h3>결론</h3>
+
+<p>이로써 Rails와 AngularJS를 조합하는데 성공했습니다.</p>
+
+<p>사실 가장 기본적인 부분을 연동한 것이며 추후 인증 및 token설정과 관련하여 더 많은 작업이 필요합니다.. ㅠㅠ</p>
+
+<p>그부분은 다음기회에 설명하기로 하고 이만 마칩니다 ㅎㅎ =_=/</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[깃허브(Github) 후크 API와 Slack에 알림 전달하기]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/30/github-hook-api-slack-sample/"/>
+    <updated>2014-01-30T17:30:00+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/30/github-hook-api-slack-sample</id>
+    <content type="html"><![CDATA[<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
+
+<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
+
+<!--more-->
+
+
+<p>후크란 일반적인 API와는 반대 방향으로 작동합니다. 예를 들어 보통 API를 호출하면 어떤 정보를 되돌려줍니다만, 후크는 등록이 되어있으면 어떤 이벤트가 발생할 때 거꾸로 깃허브에서 내가 등록한 Webhook URL로 정보를 보내줍니다. 여기서는 깃허브 Hook API를 조작하는 방법에 대해서 간략히 살펴보고 하나의 예제로 깃헙에서 보내주는 웹후크 알림을 처리할 수 있는 간단한 <a href="http://www.padrinorb.com/">Padrino</a> 서버를 만들어 <a href="https://slack.com/">슬랙(Slack)</a>라는 협엄&amp;채팅 서비스로 알림을 보내는 과정을 다뤄보겠습니다.</p>
+
+<h2>깃허브(Githbu) 후크 API</h2>
+
+<ul>
+<li><a href="http://developer.github.com/v3/repos/hooks/">Hooks | GitHub API</a></li>
+</ul>
+
+
+<p>API의 자세한 사항은 깃허브 API 문서에서 확인할 수 있습니다. 여기서는 깃허브에서 지원하는 이벤트 종류와 웹후크를 추가했을 때 어떤 이벤트들이 추가되는지 살펴보겠습니다.</p>
+
+<h3>지원하는 후크 이벤트 종류</h3>
+
+<ul>
+<li>push : 저장소에 푸쉬가 들어왔을 때 발생. 기본 이벤트</li>
+<li>issues: 이슈가 열리거나 닫혔을 때 발생.</li>
+<li>issue_comment: 이슈에 코멘트가 달렸을 때 발생.</li>
+<li>commit_comment: 커밋에 코멘트가 달렸을 때 발생.</li>
+<li>create: 저장소나 브랜치, 태그가 추가되었을 때 발생.</li>
+<li>delete: 브랜치나, 태그가 삭제되었을 때 발생.</li>
+<li>pull_request: 풀리퀘스트가 열리거나 닫혔을 때, 동기화 되었을 때 발생.</li>
+<li>pull_request_review_comment: 풀리퀘스트 리뷰 안의 커밋에 커멘트가 달렸을 때.</li>
+<li>gollum: 위키가 업데이트되었을 때 발생.</li>
+<li>watch: 사용자가 저장소를 와치했을 때 발생.</li>
+<li>release: 릴리즈가 추가되었을 때 발생.</li>
+<li>fork: 저장소가 포크되었을 때 발생.</li>
+<li>member: Organization의 저장소가 아닐 때 멤버가 추가되면 발생.</li>
+<li>public: 저장소가 비공개에서 공개로 전환되었을 때 발생.</li>
+<li>team_add: 저장소에 팀이 추가되었거나 변경되었을 때 발생.</li>
+<li>status: API를 통해 커밋의 상태가 변경되었을 때 발생.</li>
+<li>deployment: API를 통해 저장소의 새로운 배포가 생성되었을 때 발생.</li>
+<li>deployment_status: API를 통해서 저장소의 특정 배포의 상태가 변경되었을 때 발생.</li>
+</ul>
+
+
+<p>이벤트가 발생했을 때 깃허브에서 보내주는 내용은 <a href="http://developer.github.com/v3/activity/events/types/#deploymentevent">Event Types</a>에서 자세히 확인할 수 있으며 배포에 관한 부분은 <a href="http://developer.github.com/v3/repos/deployments/#list-deployment-statuses">Deployments API</a>를 확인하시기 바랍니다.</p>
+
+<h3>저장소에 웹후크 등록하고 상태 확인하기</h3>
+
+<p>깃허브에서 저장소에 웹후크나 서비스 후크를 등록하기 위해서는 저장소의 관리 권한이 있어야합니다. 먼저 저장소의 오른쪽에 보이는 Settings 메뉴에 들어갑니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2014-01-30-github-hook-api-slack-sample/settings.png" alt="Github settings" /></p>
+
+<p>들어와서 왼쪽에 보시면 Service Hooks라는 메뉴를 찾을 수 있습니다. Service Hooks 누르면 Github에서 바로 통합 가능한 서비스 리스트들을 전부 확인할 수 있습니다. 채팅 서비스인 <a href="http://hipchat.com/">Hipchat</a>을 비롯해, 빌드 서비스인 <a href="https://circleci.com/">CircleCI</a>, <a href="https://travis-ci.org/">Travis</a>, 코드 매트릭스 관리 서비스인 <a href="https://codeclimate.com/?v=original">Code Climate</a>, 테스트 커버리지 리포트 서비스인 <a href="https://coveralls.io/">Coveralls</a>등 다양한 서비스를 지원하고 있습니다. 여기서는 맨 위에 있는 Webhook URLs를 사용하겠습니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2014-01-30-github-hook-api-slack-sample/webhook.png" alt="Webhook" /></p>
+
+<p>Webhook URLs를 클릭하시면 이벤트가 발생했을 때 정보를 받을 URL을 지정할 수 있습니다. 아직 후크 메시지를 받아 처리할 수 있는 서버가 없으므로 여기서는 서버를 등록하면 어떤 식으로 메시지가 오는 지, 어떤 이벤트들을 등록되어있는지 보여드리도록 하겠습니다. Webhook URLs에 <code>notifier.nacyot.com</code>라는 Slack에 깃허브 저장소의 변경사항을 전달해주는 어플리케이션을 등록했다고 가정해보죠.</p>
+
+<p>깃허브에서 저장소에 등록된 후크 정보를 확인하는 API URL은 다음과 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>https://api.github.com/repos/&lt;계정이름&gt;/&lt;저장소이름&gt;/hooks</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이제 <code>curl</code>을 통해서 Github에 Hook가 어떻게 등록되어있는지 요청을 보내보도록하겠습니다. <code>-u</code> 플래그 뒤로는 인증을 할 계정이름을 넣어줍니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Commend &gt; curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks
+</span><span class='line'>Enter host password for user 'nacyot':
+</span><span class='line'>[
+</span><span class='line'>  {
+</span><span class='line'>    "url": "https://api.github.com/repos/nacyot/bbapi/hooks/1829382",
+</span><span class='line'>    "test_url": "https://api.github.com/repos/nacyot/bbapi/hooks/1829382/test",
+</span><span class='line'>    "id": 1829382,
+</span><span class='line'>    "name": "web",
+</span><span class='line'>    "active": true,
+</span><span class='line'>    "events": [
+</span><span class='line'>      "push",
+</span><span class='line'>    ],
+</span><span class='line'>    "config": {
+</span><span class='line'>      "url": "notifier.nacyot.com",
+</span><span class='line'>      "content_type": "form",
+</span><span class='line'>      "insecure_ssl": "1"
+</span><span class='line'>    },
+</span><span class='line'>    "last_response": {
+</span><span class='line'>      "code": 504,
+</span><span class='line'>      "status": "timeout",
+</span><span class='line'>      "message": "Service Timeout"
+</span><span class='line'>    },
+</span><span class='line'>    "updated_at": "2014-01-28T01:29:02Z",
+</span><span class='line'>    "created_at": "2014-01-26T02:27:38Z"
+</span><span class='line'>  }
+</span><span class='line'>]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>다음과 같은 응답이 되돌아 옵니다. 이는 현재 등록된 후크의 URL과 어떤 이벤트가 등록되어있는지를 비롯한 여러가지 정보를 담고 있습니다. 특히 주목할 부분은 <code>id</code>와 <code>events</code>그리고 <code>url</code> 부분입니다. 웹에서 지정한대로 정상적으로 등록이 된 걸 알 수 있습니다. 단, 웹에서 등록을 하면 기본 이벤트인 <code>push</code> 이벤트밖에 등록이 되지 않습니다. 그렇다면 이슈에 관련된 이벤트나 위키가 수정되었을 때 알림을 받고자 한다면 어떻게 해야할까요?</p>
+
+<p>여기서는 마찬가지로 <code>curl</code>을 사용해 새로운 이벤트를 등록해보겠습니다. 여기서 등록할 이벤트는 <code>issue</code>, <code>issue_comment</code>, 그리고 위키 업데이트를 알려주는 <code>gollum</code> 이벤트입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 -X PATCH -d '{"add_events": ["issue", "issue_comment", "gollum"] }'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위에서 후크 정보를 조회했던 <code>curl</code> 정보를 참고로 적당한 형태로 바꿔주시기 바랍니다. 특히 여기서는 <code>/hooks/</code> 뒤에 앞서서 조회했던 후크의 <code>id</code> 값을 집어넣어줘야합니다. 다시 처음 url로 후크 정보를 조회해보면 정상적으로 이벤트들이 추가된 것을 알 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>...
+</span><span class='line'>    "events": [
+</span><span class='line'>      "push",
+</span><span class='line'>      "issue",
+</span><span class='line'>      "issue_comment",
+</span><span class='line'>      "gollum"
+</span><span class='line'>    ],
+</span><span class='line'>...</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이제 저장소에서 이슈와 관련 이벤트가 발생하거나 위키에 페이지가 추가되거나 업데이트될 때 알림이 오게 됩니다. 이번엔 실제로 알림이 오는 것을 확인해보겠습니다. 위키 페이지를 하나 생성해보겠습니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2014-01-30-github-hook-api-slack-sample/wiki.png" alt="Creating Wiki page" /></p>
+
+<p>이번엔 <code>notifier.nacyot.com</code>에 요청이 들어오는지 확인해보겠습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>07:15:35 web.1  |   DEBUG -      POST (1.6938s) / - 200 OK
+</span><span class='line'>07:15:35 web.1  | 192.30.252.54 - - [30/Jan/2014 07:15:35] "POST / HTTP/1.1" 200 - 1.6956</span></code></pre></td></tr></table></div></figure>
+
+
+<p>정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 Slack이라는 채팅 서비스에 연결해주는 역할을 합니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2014-01-30-github-hook-api-slack-sample/github_slack.png" alt="Slack Room" /></p>
+
+<p>채팅방에도 메시지가 잘 들어오는 것을 알 수 있습니다. (시간 차이는 시간 설정 때문에 9시간 차이가 나서 그렇습니다)</p>
+
+<h2>Slack과 깃허브 저장소 이벤트 통합</h2>
+
+<p>약간 순서가 거꾸로된 듯한 느낌이 들기도 합니다만, 여기서부터는 위에서 다룬 Slack에 메시지를 전달하는 서버에 대해서 다루도록 하겠습니다. 위에서 다룬 이벤트의 종류만 봐도 알 수 있습니다만, 의외로 Github에서는 다양한 이벤트들을 지원하고 있다는 것을 알 수 있습니다. 그리고 이러한 이벤트들이 깃허브 생태계를 구성하는 강력한 원동력이 되고 있습니다. 깃허브에서 서비스 후크로 바로 통합할 수 있는 서비스라면 두 서비스 간의 통합 기능을 이용하는 게 가장 편리합니다. 하지만 원하는 기능을 직접 구현하고 싶다거나 아직 서비스 후크가 갖춰지지 않은 서비스와 통합을 하려는 경우엔 직접 깃허브에서 보내는 메시지를 처리해줄 서버를 만들 필요가 있습니다.</p>
+
+<p>예를 들어서 제가 속해있는 Remotty 팀에서는 지금까지 힙챗(Hipchat)이라는 협업 채팅 툴을 사용해왔습니다만, 최근에 공개된 Slack이라는 서비스로 갈아탈 준비를 하고 있습니다.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> 하지만 깃허브과 통합을 하는데 약간의 애로사항이 있어서 이전을 포기했습니다. 얼마 전까지만 해도 Webhook을 통해서 Slack 서비스를 연동하면 커밋이 푸쉬되는 알림밖에는 전해주질 않았습니다. Hipchat 같은 경우는 깃허브에서 다루는 거의 모든 이벤트를 전달해줍니다. 특히 이슈와 관련된 부분도 필수적이고, 위키를 적극 사용하고 있었기에 이런 알림이 비활성화되는 것은 치명적인 단점으로 부각될 수밖에 없었습니다. 그리고 조금 더 올라가보면 바로 그런 통합이 가능했기 때문에 Hipchat을 사용하기로 했었으니까요.</p>
+
+<p>이러한 문제에 대해서 슬랙 쪽 통합 방식이 최근에 변경되면서 현재는 이슈와 풀리퀘스트 부분의 알림을 보내주도록 추가가 되었습니다. 원래는 Slack의 hook_url을 직접 추가하는 방식으로 통합을 했습니다만, 최근에는 Github 인증을 하면 Slack에서 hook url을 추가해주고 이슈와 풀리퀘스트 관련 이슈들을 더해줍니다. 이러한 약간의 변화가 다시 슬랙으로 넘어가자는 의견에 힘을 실어주었습니다. 하지만 여전히 위키를 지원해주지 않는 문제가 남아있었습니다.</p>
+
+<p>금방 지원해 줄 것 같기는 했습니다만, 당장 필요했던 관계로 직접 알림을 보내주는 서버를 만들기로 했습니다. 현재 루비의 Padrino<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>로 만든 깃허브에서 위키 변경 사항 알림 <a href="https://github.com/nacyot/slack_notifier">서버를 slack_notifier</a>라는 이름으로 올려둔 상태입니다. 이 서버가 하는 일은 정말 딱 위키 알림을 Github에서 받고 Slack으로 전달해주는 일뿐입니다.</p>
+
+<p><a href="https://github.com/nacyot/slack_notifier/blob/master/app/controllers/hook.rb">로직</a>도 정말 단순합니다. <code>hook_controller</code>에 다음과 같은 내용이 들어가있을 뿐입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>Slack::Post.configure(
+</span><span class='line'>                      subdomain: params[:subdomain],
+</span><span class='line'>                      token: params[:token],
+</span><span class='line'>                      username: "Github"
+</span><span class='line'>                      )
+</span><span class='line'>Slack::Post.post "#{login}#{action} &lt;#{url}|#{title}&gt;", "#" + params[:room]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>내부적으로 [slack-post][slack-post]라는 젬을 사용해 깃허브에서 서버의 특정 페이지에 접근하면(이벤트를 알려주면), Slack에 메시지를 보내주는 방식입니다. 현재는 서버에 데이터를 저장하는 기능이 없어서 token과 메시지를 전달할 곳을 전부 Url 인자로 받아서 사용하고 있습니다.</p>
+
+<p>자, 그럼 직접 사용해보도록 하죠.</p>
+
+<h3>도커(Docker) X slack_notifier</h3>
+
+<p>루비 서버를 올리는 게 어려운 일은 아닙니다만, 부가적인 처리 과정이나 설명해질 부분이 많아지므로 해당하는 부분에 대해서는 다루지 않도록 하겠습니다. 여기서는 이러한 과정을 생략하기 위해 이전 포스트에서 이야기했던 [도커(Docker)]를 출동시키겠습니다. 빠밤.</p>
+
+<p>먼저 도커를 설치합니다. (여기서는 우분투를 가정합니다. 필요한 경우 가상머신이나 클라우드 서비스를 사용하시기 바랍니다. Remotty 팀에서도 SKT에서 지원받고 있는 VM을 활용해 개발 지원 서비스들을 운영중에 있습니다)</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ curl -s https://get.docker.io/ubuntu/ | sudo sh
+</span><span class='line'>...
+</span><span class='line'>$ docker --version
+</span><span class='line'>Client version: 0.7.6
+</span><span class='line'>Go version (client): go1.2
+</span><span class='line'>Git commit (client): bc3b2ec
+</span><span class='line'>Server version: 0.7.6
+</span><span class='line'>Git commit (server): bc3b2ec
+</span><span class='line'>Go version (server): go1.2
+</span><span class='line'>Last stable version: 0.7.6</span></code></pre></td></tr></table></div></figure>
+
+
+<p>다음으로 어플리케이션을 클론하고 <code>docker build</code>를 수행합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ git clone https://github.com/nacyot/slack_notifier
+</span><span class='line'>$ docker build -t nacyot/slack_notifier:latest -q=true ./slack_notifier
+</span><span class='line'>...
+</span><span class='line'>$ docker images
+</span><span class='line'>REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
+</span><span class='line'>nacyot/slack_notifier   latest              d35792687e8c        4 days ago          751.1 MB
+</span><span class='line'>ubuntu                  12.04               8dbd9e392a96        9 months ago        128 MB
+</span><span class='line'>ubuntu                  12.10               b750fe79269d        10 months ago       175.3 MB</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>docker imaegs</code> 명령어로 정상적으로 빌드된 것을 확인할 수 있습니다. 이제 생성한 이미지로부터 실제 어플리케이션 컨테이너를 실행시킵니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ docker run -d -p 4000:4000 nacyot/slack_notifier:latest
+</span><span class='line'>7c42ae39691c
+</span><span class='line'>$ docker ps
+</span><span class='line'>CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                    NAMES
+</span><span class='line'>7c42ae39691c        nacyot/slack_notifier:first   /bin/sh -c bundle ex   4 days ago          Up 2 days           0.0.0.0:4000-&gt;4000/tcp   slack_notifier  </span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>docker ps</code>를 통해서 컨테이너가 정상적으로 실행되고 있는 것을 확인할 수 있습니다. 이제 깃허브에 WebHook을 등록할 차례입니다. 그 전에 먼저 Slack 쪽에서 서비스 등록을 하고 토큰을 생성할 필요가 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://&lt;SLACK_SUBDOMAI&gt;.slack.com/services/new/incoming-webhook</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위 주소로 접속하시면 incoming-webhook을 바로 등록할 수 있습니다. <code>Add integration</code> 버튼을 누르면 오른쪽에 토큰 정보가 출력됩니다. 토큰 정보를 가지고 아래 URL을 완성합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>http://&lt;서버주소&gt;:4000/hook?subdomain=&lt;SLACK_SUBDOMAIN&gt;&token=&lt;SLACK_TOKEN&gt;&room=&lt;SLACK_ROOM&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+<p>SLACK_ROOM에는 알림을 전달할 채널 이름을 지정합니다. 이제 이 URL을 원하시는 Github 저장소의 WebHook에 등록만 해주면 모든 준비는 완료됩니다. 하지만 여기까지 설정하고 위키를 수정해도 알림은 가지 않습니다. 앞서서 Github API에 대해서 다룬 바 있습니다만, 기본 Hook로는 <code>push</code>밖에 등록이 되지 않기 때문입니다. 이 서버에서 인식할 수 있는 이벤트는 위키를 다루는 <code>gollum</code>밖에 없습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>curl -u &lt;USER_NAME&gt; https://api.github.com/repos/&lt;USER_NAME&gt;/&lt;REPO_NAME&gt;/hooks/&lt;HOOK_ID&gt; -X PATCH -d '{"add_events": ["gollum"] }'</span></code></pre></td></tr></table></div></figure>
+
+
+<p>앞서 다룬 것과 마찬가지 방법으로 <code>gollum</code> 이벤트를 추가해줍니다. 네 이걸로 모든 설정이 끝났습니다. 이제 해당하는 저장소의 위키를 수정해보면 서버에 알림이 가고 서버가 Slack으로 위키를 수정했다는 알림이 가게 됩니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2014-01-30-github-hook-api-slack-sample/github_slack.png" alt="Slack Room" /></p>
+
+<p>만약 정상적으로 메시지가 가지 않을 경우엔 Github Webhook 등록 페이지에서 Test Hook 버튼을 누르고 <code>docker logs &lt;CONTAINER_ID&gt;</code> 명령어를 통해서 요청이 정상 전달되는지부터 확인할 필요가 있습니다. 일단 이러한 방법을 통해서 무사히 Slack으로 이전을 마쳤습니다.</p>
+
+<h2>정리</h2>
+
+<p>네, 정리하겠습니다.</p>
+
+<p>이 글에서는 Github Hook API 서버를 다루고 중간에서 깃허브이 전달해주는 메시지를 처리하는 서비스를 소개해보았습니다. 여기서 든 예제는 팀의 필요에 기반해서 만들어진 정말 간단한 예제입니다만, 필요하다면 좀 더 복잡하고 고도화된 서버를 개발할 수도 있을 것입니다.</p>
+<div class="footnotes">
+<hr/>
+<ol>
+<li id="fn:1">
+<p>현재 완전히 이전한 상태입니다.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
+<li id="fn:2">
+<p>Padrino는 Sinatra를 확장한 경량 웹프레임워크입니다.<a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
+</ol>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Angularjs Providers]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/29/angularjs-providers/"/>
+    <updated>2014-01-29T13:55:27+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/29/angularjs-providers</id>
+    <content type="html"><![CDATA[<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
+
+<p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
+
+<!--more-->
+
+
+<p>provider vs factory vs service</p>
+
+<h3>Provider란 무엇인가?</h3>
+
+<p>AngularJS docs 에는 아래와 같이 정의되어 있다.</p>
+
+<blockquote><p>$get 메소드를 가지는 하나의 객체이다. injector는 바로 이 $get 메소드를 호출해서 새로운 서비스를 생성하게 되는 것이다. <code>provider</code>는 설정을 통해서 이와 같은 메소드를 추가할 수 있다.</p></blockquote>
+
+<p>AngularJS는 <code>$provide</code>를 이용해서 새로운 <code>provider</code>를 등록한다. <code>provider</code>는 기본적으로 새로운 인스턴스를 생성하지만 <code>provider</code>당 하나의 인스턴스만 만들게 된다(singleton). <code>$provide</code>는 6개의 메소드를 사용해서 커스텀 <code>provider</code>를 생성하게 되는데, 각각에 대해서 샘플 코드와 함께 설명할 것이다. 아래의 <code>provider</code>는 <code>$provide</code> 상에서 사용할 수 있다.</p>
+
+<ul>
+<li>constant</li>
+<li>value</li>
+<li>service</li>
+<li>factory</li>
+<li>decorator</li>
+<li>provider</li>
+</ul>
+
+
+<h2>Constant</h2>
+
+<p><code>constant(상수)</code>는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">constant</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movieTitle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movieTitle</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">constant</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Value</h2>
+
+<p><code>value</code>는 <code>configuration(설정)</code>로 주입할 수 없지만 값을 변경할 수는 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movieTitle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movieTitle</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">})</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 <code>value</code>를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Service</h2>
+
+<p><code>service</code>란 주입이 가능한 <code>constructor(생성자)</code>이다. 원할 경우, 함수에 필요한 dependency를 명시할 수 있다. <code>service</code>는 하나의 singleton이기 때문에 AngularJS가 한번만 생성하게 될 것이다. <code>service</code>는 데이터를 공유하는 것 같은 컨트롤러간의 통신을 위한 좋은 방법이다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span> <span class="p">,[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movie</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 <code>service</code>를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">service</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">this</span><span class="p">.</span><span class="nx">title</span> <span class="o">=</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Factory</h2>
+
+<p><code>factory</code>는 주입이 가능한 함수이다. <code>factory</code>는 singleton이고 dependency를 함수내에 명시할 수 있다는 점에서 <code>service</code>와 많은 부분에서 흡사하다. 차이점은 <code>factory</code>는 일반 함수를 주입해서 AngularJS가 호출하도록 하는 것이고 <code>service</code>는 <code>constructor</code>를 주입한다는 것이다. <code>constructor</code>는 새로운 객체를 만들기 때문에 <code>service</code>내에서는 <code>new</code> 메소드를 호출하지만, <code>factory</code>를 사용하면 함수가 어떤 형태의 것이라고 반환할 수 있도록 해 준다. 나중에 알게 되겠지만, <code>factory</code>는 <code>$get</code> 메소드만을 가지는 <code>provider</code>이다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movie</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>AngularJS는 <code>factory</code>를 생성하는 편리한 방법을 제고해 주어 아래와 같이 단축할 수 있다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">factory</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Decorator</h2>
+
+<p><code>decorator</code>는 다른 <code>provider</code>를 변경하거나 encapulation할 수 있다. 그러나 하나의 예외가 있는데, <code>constant</code>는 decorate 할 수 없다는 것이다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">value</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="s1">&#39;The Matrix&#39;</span><span class="p">);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">$provide</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">$provide</span><span class="p">.</span><span class="nx">decorator</span><span class="p">(</span><span class="s1">&#39;movieTitle&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">$delegate</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>    <span class="k">return</span> <span class="nx">$delegate</span> <span class="o">+</span> <span class="s1">&#39; - starring Keanu Reeves&#39;</span><span class="p">;</span>
+</span><span class='line'>  <span class="p">});</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;myController&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movieTitle</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movieTitle</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix - starring Keanu Reeves&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>Provider</h2>
+
+<p><code>provider</code>는 모든 <code>provider</code> 중에서 가장 유연한 메소드이다. 이 메소드를 이용하면 복잡한 생성 함수에 다양한 옵션을 가지도록 할 수 있다. <code>provider</code>는 실제로 구성을 변경할 수 있는 <code>factory</code>이다. <code>provider</code>는 하나의 객체나 <code>constructor</code>를 취하게 된다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="kd">var</span> <span class="nx">app</span> <span class="o">=</span> <span class="nx">angular</span><span class="p">.</span><span class="nx">module</span><span class="p">(</span><span class="s1">&#39;app&#39;</span><span class="p">,</span> <span class="p">[]);</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">provider</span><span class="p">(</span><span class="s1">&#39;movie&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>  <span class="kd">var</span> <span class="nx">version</span><span class="p">;</span>
+</span><span class='line'>  <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>    <span class="nx">setVersion</span><span class="o">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">value</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>      <span class="nx">version</span> <span class="o">=</span> <span class="nx">value</span><span class="p">;</span>
+</span><span class='line'>    <span class="p">},</span>
+</span><span class='line'>    <span class="nx">$get</span><span class="o">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+</span><span class='line'>      <span class="k">return</span> <span class="p">{</span>
+</span><span class='line'>          <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The Matrix&#39;</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="nx">version</span>
+</span><span class='line'>      <span class="p">}</span>
+</span><span class='line'>    <span class="p">}</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">config</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">movieProvider</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">movieProvider</span><span class="p">.</span><span class="nx">setVersion</span><span class="p">(</span><span class="s1">&#39;Reloaded&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span><span class='line'>
+</span><span class='line'><span class="nx">app</span><span class="p">.</span><span class="nx">controller</span><span class="p">(</span><span class="s1">&#39;ctrl&#39;</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">movie</span><span class="p">)</span> <span class="p">{</span>
+</span><span class='line'>  <span class="nx">expect</span><span class="p">(</span><span class="nx">movie</span><span class="p">.</span><span class="nx">title</span><span class="p">).</span><span class="nx">toEqual</span><span class="p">(</span><span class="s1">&#39;The Matrix Reloaded&#39;</span><span class="p">);</span>
+</span><span class='line'><span class="p">});</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>요약</h2>
+
+<ul>
+<li>모든 <code>providers</code>들은 단 한번만 인스턴스화 된다. 즉, singleton 이라는 것이다.</li>
+<li><code>constant</code>를 제외한 모든 <code>provider</code>는 decorate할 수 있다.</li>
+<li><code>constant</code>은 어느 곳이나 주입할 수 있는 값을 가지만, 수정할 수 없다.</li>
+<li><code>value</code>는 간단하게 주입할 수 있는 값이다.</li>
+<li><code>service</code>는 주입할 수 있는 <code>constructor</code>이다.</li>
+<li><code>factory</code>는 주입할 수 있는 함수이다.</li>
+<li><code>decorator</code>는 <code>constant</code>를 제외한 모든 <code>provider</code>를 변경하거나 encapuslation할 수 있다.</li>
+<li><code>provider</code>는 구성요소를 설정할 수 있는 <code>factory</code>이다.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[RestFul이란 무엇인가?]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/28/lets-study-rest/"/>
+    <updated>2014-01-28T23:55:43+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/28/lets-study-rest</id>
+    <content type="html"><![CDATA[<p>이 글에서는 <strong><a href="http://ko.wikipedia.org/wiki/REST">REST(Representational State Transfer)</a></strong>에 대해서 알아보겠습니다.</p>
+
+<!--more-->
+
+
+<p><a name="tableOfContent"></a></p>
+
+<h3>목차</h3>
+
+<ul>
+<li><a href="#prologue">머리말</a></li>
+<li><a href="#uri">URI 설계하기</a>
+
+<ul>
+<li><a href="#lowercase">소문자를 사용하자</a></li>
+<li><a href="#hyphen">하이픈을 사용하자</a></li>
+<li><a href="#extension">확장자를 사용하지 말자</a></li>
+<li><a href="#crud">CRUD는 URI에 사용하면 안된다</a></li>
+</ul>
+</li>
+<li><a href="#collectionDocument">컬렉션과 도큐먼트</a></li>
+<li><a href="#method">HTTP Method의 알맞은 역할</a></li>
+<li><a href="#responsive">반응형 웹에서의 REST</a></li>
+<li><a href="#i18n">I18n과 REST</a></li>
+<li><a href="#status">응답 상태 코드</a>
+
+<ul>
+<li><a href="#statusSuccess">성공</a>
+
+<ul>
+<li><a href="#200">200</a></li>
+<li><a href="#201">201</a></li>
+<li><a href="#202">202</a></li>
+<li><a href="#204">204</a></li>
+</ul>
+</li>
+<li><a href="#statusFail">실패</a>
+
+<ul>
+<li><a href="#400">400</a></li>
+<li><a href="#401">401</a></li>
+<li><a href="#403">403</a></li>
+<li><a href="#404">404</a></li>
+<li><a href="#405">405</a></li>
+</ul>
+</li>
+<li><a href="#statusEtc">기타</a></li>
+</ul>
+</li>
+<li><a href="#epilogue">마치며</a></li>
+<li><a href="#reference">참고자료</a></li>
+</ul>
+
+
+<p><a name="prologue"></a></p>
+
+<h3>머리말</h3>
+
+<p>바로 위에서 REST에 대해서 알아본다고 하였지만, <strong>REST의 정의와 같은 것은 생략할 예정</strong>입니다. 진짜로 이글에서 다룰 것은 실제 <strong>RESTFul한 API를 작성할 때 도움될만한 것들을 공부</strong>합니다. 또한 여러가지 규칙이 있지만 어느 규칙이 진짜이고, 표준화 된것이 없기때문에(이런것으로 알고있습니다.) 실제 많은 사이트들이 약간씩은 다른 형태로 REST API를 운영하고있습니다. 이 글에서도 <strong>필자가 중요하다고 생각하고 직관적이라고 생각하는 요소들을 선택 하여 소개 또는 설명 할 예정</strong>입니다.</p>
+
+<p>요즘은 예전과 달리 소비를 위한 장비 및 프로그램이 다양합니다. 반대로 말하면 예전에는 어떠한 인터넷 컨텐츠를 소비하기위한 장비나 프로그램이 몇개 없었습니다. 그렇기때문에 서버와 클라이언트가 거의 1:1이였습니다. 그러나 요즘은 역시 서버는 1인데 클라이언트가 굉장히 다양해졌습니다. 안드로이드는 OS 버전도 굉장히 다양하고 단말기마다 굉장히 다른 특성을 갖기도 합니다. 또 IOS도 있고, 컴퓨터 브라우져의 종류도 많아졌죠.</p>
+
+<p>그래서 예전처럼 <strong>하나의 클라이언트를 위한 서버를 구성하는건 비효율적인 일</strong>이 되어버렸습니다. 하나의 서버로 여러대의 클라이언트를 대응하도록 할때 필요한것이 RESTFul API입니다.</p>
+
+<p><a name="uri"></a></p>
+
+<h3>URI 설계하기</h3>
+
+<p>일단 <a href="http://en.wikipedia.org/wiki/Uniform_resource_identifier">URI(Uniform Resource Identifier)</a>란  영어 약자를 풀어보면 &lsquo;균등한 리소스 식별자&#8217;정도로 할 수 있습니다. 말그대로 인터넷의 어떠한 리소스를 식별하기 위해서 만들어진 것입니다. 잘 감이 안오는데 중간중간 특성들을 이야기하면서 내용을 보강하겠습니다.</p>
+
+<p>밑에서 설명하는 규칙들은 <a href="http://www.rfc-editor.org/rfc/rfc3986.txt">RFC3986</a>을 기반으로 작성되었습니다.</p>
+
+<p><a name="lowercase"></a></p>
+
+<h5>소문자를 사용하자(최소한 대소문자를 구분한다는 사실을 알고있자)</h5>
+
+<pre><code>http://www.example.com:80/users/1?q=abc#title
+|________________________|_______|__________|
+         1                   2          3
+URI는위와같이 크게 3부분으로 나뉘어져있습니다.
+rfc3986에서는 1번부분(host와 port)을 제외한 2번 3번 부분은 대소문자를 구분하도록 하였습니다.
+</code></pre>
+
+<p>즉</p>
+
+<pre><code>a - http://abc.com/haha
+b - HTTP://ABC.COM/haha
+c - http://abc.com/HAHA
+d - http://abc.com/hAhA
+</code></pre>
+
+<p>위 예제에서 a와 b만 같은 리소스이고 나머지 조합은 전부 다른 리소스입니다. 그러므로 대소문자를 섞어서 사용하는건 혼란을 가져올 수 있으므로 지양해야겠습니다. 그래도 URI에 사람이름과 같은 고유명사가 들어갈 수 도있죠.. 이땐 대문자를 쓰고싶은데&hellip; 사용해도 되긴합니다만 대소문자가 구분된다는걸 이해하셔야 합니다. 위 설명과 중복되긴 하지만 다시한번 언급하겠습니다.</p>
+
+<pre><code>http://www.remotty.com/countries/korea
+http://www.remotty.com/countries/Korea
+</code></pre>
+
+<p>위 두개의 URI는 분명히 다른 리소스를 가리키고 있는 것입니다.</p>
+
+<p>다만 국가코드를 포함하여 도메인을 의미있게 하기위해서 이와 같은 형태로 사용하는 것은 굉장히 좋다고 봅니다. <code>http://cleanHo.me</code>, <code>http://adBy.me</code>, <code>http://dishBy.me</code>, <code>http://googleSear.ch</code> 이 경우에도 경로(path)부분은 소문자를 사용하는게 좋겠습니다.</p>
+
+<p><a name="hyphen"></a></p>
+
+<h5>하이픈(&ndash;, hyphen)을 사용하자</h5>
+
+<p>경로(path)에 공백(띄어쓰기)가 들어갈땐 경우에따라 띄어쓰기 대신 <code>%20</code>이 쓰일때가 있습니다. 이런건 보기에 별로 좋지 않기때문에 많은 사람들이 밑줄(_, underscore) 또는 하이픈(&ndash;, hyphen)을 사용하여 공백을 대체합니다. 여기서 권장하는건 하이픈만 사용하자 입니다. 보통 밑줄은 링크가 걸린부분에 표시되는데 그것과 중복되면 리소스로써의 밑줄은 가려질 수도있기때문에 하이픈을 사용하자.</p>
+
+<p><a name="extension"></a></p>
+
+<h5>확장자를 사용하지 말자</h5>
+
+<p>기존의 많은 URI들이 확장자를 포함하고 있습니다. 하지만 REST API를 설계할때에는 확장자는 사용하지 않는게 좋겠습니다. 확장자를 사용하지 않으면 리소스가 더 유연해집니다. 어째든 확장자를 사용하지 않는다면 기존에 REST API를 접해보지 않는 사람들은 이런 의문을 갖을 수 있습니다?
+결론적으로 <a href="https://tools.ietf.org/html/rfc2616#section-14.1">Accept</a> header를 사용해야 합니다. 예를들어 내용이 <code>Hello,World</code>인 파일이 있습니다. 서버를 기존방식대로 설계한다면 해당 파일은 <code>http://remotty.com/hello.txt</code>와 같이 요청하여 응답받을 것입니다. 기존의 방식은 분명하게 파일의 형태가 txt로 고정되어있습니다. csv 형태로도 제공하려면 <code>http://remotty.com/hello.csv</code> URI도 준비해야 할것이고, 서버엔 hello.txt와 hello.csv 두개의 파일이 존재 하게 될것입니다. <code>http://remotty.com/hello.txt</code>와 <code>http://remotty.com/hello.csv</code>는 분명하게 다른 리소스를 식별하는 URI이지만, 실제론 하나의 리소스를 가르키고 있습니다. 이것은 비 효율적입니다. 리소스가 한개라면 URI도 한개여야합니다.</p>
+
+<p>REST API에서는 <code>http://remotty.com/hello</code>에 대한 대응만 해놓고, 해당 요청이 왔을때 <code>Accept</code> header를 적절히 파싱(parsing)하여 클라이언트(client)가 요청한대로 응답해주면 됩니다.</p>
+
+<p>REST API로 구현했을땐</p>
+
+<pre><code>GET /hello HTTP/1.1
+Host: remotty.com
+Accept: text/plain
+</code></pre>
+
+<p>또는</p>
+
+<pre><code>GET /hello HTTP/1.1
+Host: remotty.com
+Accept: text/csv
+</code></pre>
+
+<p><code>Accept</code>를 좀더 적극적으로 활용한다면 이렇게도 가능합니다.</p>
+
+<pre><code>GET /hello HTTP/1.1
+Host: remotty.com
+Accept: text/csv,text/html;q=0.5,application/xml;q=0.6,text/plain;q=0.9,application/pdf,*/*;q=0.3
+</code></pre>
+
+<p><code>Accept</code> header은 클라이언트가 자신이 선호하는 media type을 서버에 보내는 것입니다. 서버에 위 예제와 같은 요청이 왔다면 가장먼저 우선순위는 다음과 같습니다.</p>
+
+<ol>
+<li>text/csv</li>
+<li>application/pdf</li>
+<li>text/plain;q=0.9</li>
+<li>application/xml;q=0.6</li>
+<li>text/html;q=0.5</li>
+<li>*/*;q=0.3</li>
+</ol>
+
+
+<p>q가 생략된것은 자동으로 1로 설정되며, <a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec3.html#sec3.9">q의 범위</a>는 0부터 1입니다. 서버가 판단하여 csv로 응답을 할 수 있다면 csv로 응답을 하고 csv가 준비가 되지 않았다면 그다음 우선순위인 pdf로 pdf도 준비되지 않았다면 계속 다음으로 넘어가다가 서버가 응답할수있는 media type가 <code>Accept</code>에 명시되지 않았다면 <a href="http://tools.ietf.org/search/rfc2616#section-10.4.7">http status code 406</a>과 body엔 응답 가능한 media type를 명시하여 응답하여야 합니다. 더 자세한 내용은 <code>http content negotiation</code>으로 검색하시어 저도 좀 알려주시기 바랍니다.</p>
+
+<p>위와 같이 <code>Accept</code> header를 적절히 잘 사용하면 하나의 URI로 클라이언트의 요청에 대한 응답을 좀더 유연하게 할 수 있습니다.</p>
+
+<p><a name="crud"></a></p>
+
+<h4>CRUD는 URI에 사용하면 안된다</h4>
+
+<p>과거에 <code>GET</code>, <code>POST</code>만 사용하였을땐 CRUD를 URI에 표시해주어야 했습니다.</p>
+
+<p>예를들면</p>
+
+<pre><code>GET /posts/13/delete HTTP/1.1
+POST /posts/write HTTP/1.1
+GET /delete?id=55 HTTP/1.1
+</code></pre>
+
+<p>하지만 당신은 이제부터 REST API를 설계할 수 있습니다. 뒷부분에 나오는 <a href="#method">HTTP Method의 알맞은 역할</a>을 참조하여 적절한 Method를 사용하여 CRUD는 URI에 사용하지 않기로 합시다.</p>
+
+<p><a name="collectionDocument"></a></p>
+
+<h3>컬렉션과 도큐먼트</h3>
+
+<p>이 글을 보기전 REST 관련된 글을 본적이 있다면 컬렉션(collection)이라고 이야기하는 도큐먼트(document)들의 집합을 들어보았을 겁니다. 도큐먼트는 우리말로 문서로 이해해도 되고, 정보라고 이해해도 무관합니다. 도큐먼트는 엘리먼트(element)라고도 하더라고요. 컬렉션은 정보(문서)들의 집합이 이라고 할 수 있겠네요. 컬렉션과 도큐먼트는 모두 리소스라고 표현할 수 있으며 URI에 나타납니다.</p>
+
+<p>예제를 통해 이해도를 높여보겠습니다.</p>
+
+<pre><code>http://www.remotty.com/sports/soccer
+http://www.remotty.com/sports/soccer/players
+http://www.remotty.com/sports/soccer/players/13/skills
+</code></pre>
+
+<p>위 URI를 요청하면 어떤 응답이 오게 될지 대충 예감이 오시나요&hellip;?</p>
+
+<p><code>http://www.remotty.com/sports</code>는 컬렉션입니다. <code>sports</code>컬렉션에 <code>soccer</code>도큐먼트가 있는거고요. 또 <code>soccer</code>도큐먼트에 <code>player</code>이라는 컬렉션이 존재하는겁니다! <code>players</code> 컬렉션에 뭐 등번호가 <code>13</code>번인 선수가 있나봅니다. 여기서 <code>13</code>은 도큐먼트이고요. 아시겠죠&hellip;?
+조금 더 이야기 해보겠습니다. <code>soccer</code> 도큐먼트와 동일한 수준의 다른 도큐먼트는 뭐가 있을까요&hellip;? <code>baseball</code>, <code>marathon</code> 등이 있겠네요. 그 하위의 <code>players</code>의 컬렉션과 동일한 수준의 컬렉션은 뭐가있을까요&hellip;? <code>rules</code>, <code>leagues</code> 등이 있겠네요. 이제 뭔지 아시겠죠&hellip;?</p>
+
+<p>여기서&hellip; 중요한 법칙이랄꺼 까진 없지만 뭔가 있습니다. 바로 컬렉션은 복수로 사용하네요. 어쩌면 당연하지만 직관적인 REST API를 위해선 단수 복수도 정확하게 지켜주면 좋겠습니다. 요즘은 한글이 URI에 많이 들어가는데 <code>players</code>는 <code>선수들</code>로 하면 되려나요&hellip;?</p>
+
+<p><a name="method"></a></p>
+
+<h3>HTTP Method의 알맞은 역할</h3>
+
+<p>HTTP Method는 여러가지가 있지만 REST API에서는 4개 혹은 5개의 Method만 사용됩니다. <code>POST</code>, <code>GET</code>, <code>PUT</code>, <code>DELETE</code> 이 4가지의 Method를 가지고 <a href="http://ko.wikipedia.org/wiki/CRUD">CRUD</a>를 할 수 있습니다. 그러나 REST API에서 사용되는 개수는 4개 혹은 5개라고 한 이유는 <code>PATCH</code>를 포함하면 5개가 됩니다.</p>
+
+<p>각 Method마다 올바른 역할이 있습니다. 아래 표를 보면서 이해를 높이겠습니다.</p>
+
+<pre><code>+--------------------------------------+------+-----+-----+--------+
+|                  URI                 | POST | GET | PUT | DELETE |
++--------------------------------------+------+-----+-----+--------+
+| http://www.remotty.com/sports        |   1  |  2  |  -  |    -   |
++--------------------------------------+------+-----+-----+--------+
+| http://www.remotty.com/sports/soccer |   -  |  3  |  4  |    5   |
++--------------------------------------+------+-----+-----+--------+
+</code></pre>
+
+<p>text table generator에서 만든 text table인데 한글을 사용하면 깨지므로&hellip; :(</p>
+
+<p>번호를 이용하여 설명하겠습니다.</p>
+
+<ol>
+<li>현재 리소스 보다 한단계 아래에 리소스를 생성합니다. POST Method를 통해 해당 URI를 요청하면 sports 컬렉션에 알맞은 soccer 또는 baseball과 같은 도큐먼트 리소스를 생성합니다.</li>
+<li>현재 리소스를 조회합니다. 보통 컬렉션 리소스를 조회하게되면 하위의 도큐먼트들의 목록과 아주 간단한 정보들을 가져옵니다.</li>
+<li>현재 리소스를 조회 합니다. 도큐먼트 리소스를 조회하게되면 해당 도큐먼트에 대한 자세한 정보들을 가져옵니다.</li>
+<li>현재 리소스를 수정합니다. soccer에 대한 정보를 수정하게 됩니다.</li>
+<li>현재 리소스를 삭제합니다. DELETE Method를 이용하여 현재 URI를 호출하면 sports 컬렉션에서 soccer 도큐먼트가 삭제됩니다.</li>
+</ol>
+
+
+<p>※추가로 주목해볼 만한  Method는 <code>PATCH</code>입니다.
+기존에 REST에 익숙하신분들은 수정(update)을 위한 Method는 <code>PUT</code>가 익숙하실 겁니다. 하지만 앞으로는 <code>PUT</code>대신 <code>PATCH</code>를 자주 써야할꺼 같아요. 자세한 설명은 <a href="http://weblog.rubyonrails.org/2012/2/26/edge-rails-patch-is-the-new-primary-http-method-for-updates/">Edge Rails: PATCH is the new primary HTTP method for updates</a>을 참조해주세요.</p>
+
+<p><a name="responsive"></a></p>
+
+<h3>반응형 웹에서의 REST</h3>
+
+<p>요즘은 정말 다양한 장비들이 존재합니다. 크기 역시 다양합니다. 그래서 요즘 작은 화면의 기기로 포털사이트를 접속해보면 어느 형태로든 <code>m</code>이 붙은걸 볼수 있습니다. 아마 <code>mobile</code>에서 맨앞의 <code>m</code>인것같은데, 화면이 작은 장비에서는 800*600이 넘어가는 사이트를 돌아다니는건 정말 피곤한 일입니다. 그래서 작은 화면용 페이지가 필요한 이유입니다. 네, 여기까지는 좋습니다. 제가 이 부분에서 소개해드리려는 header는 <a href="http://tools.ietf.org/html/rfc2616#section-14.43">User-Agent</a>입니다. 그리고 결론적으로 말씀드리고 싶은 내용은 <code>http://m.remotty.com/abc</code> 또는 <code>http://www.remotty.com/m/abc</code>처럼 사용하지 말자 입니다.</p>
+
+<p>한가지 예를 들어보겠습니다.</p>
+
+<ol>
+<li>철수가 안드로이드로 뉴스를 읽고있음</li>
+<li>재미있는 기사 발견,</li>
+<li>sns로 공유</li>
+<li><code>http://m.remotty.com/fun</code> 공유됨.</li>
+<li>영희가 이번에 새로산 신상 <a href="http://store.apple.com/kr/buy-mac/macbook-pro?product=ME294KH/A&amp;step=config">15형 MacBook Pro Retina</a>을 가지고 sns 보고있음</li>
+<li>철수가 공유한 링크(<code>http://m.remotty.com/fun</code>)클릭.</li>
+<li>영희는 작은화면으로 웹서핑을 하고있는게 아닌데도 불구하고</li>
+<li>모바일에 최적화된 화면으로 뉴스를 읽게됩니다.</li>
+</ol>
+
+
+<p>뭐가 문제인지 감이 오시나요? 이미 많은 웹사이트가 <code>User-Agent</code> header을 사용중입니다. <code>User-Agent</code> header을 적절히 파싱하여 화면이 작은 장비는 모바일에 최적화된 사이트로 이동(redirect)시켜주고 있습니다.</p>
+
+<p>RESTFul한 웹사이트에서는 <code>User-Agent</code>를 이용하여 다른 곳으로 리다이렉트 시켜주는게 아니라 URI는 그대로이지만 화면만 장비에따라 알아서 최적화 되도록 설계해야합니다.</p>
+
+<p>다시말해서 <code>http://www.remotty.com/info</code>와 <code>http://m.remotty.com/info</code>는 사실상 같은 정보를 보여주고 있지만 화면의 형태만 다를 뿐입니다. REST하게 설계할땐 리소스가 같다면 URI는 하나여야 합니다.</p>
+
+<p><a name="i18n"></a></p>
+
+<h3>I18n과 REST</h3>
+
+<p>현재 많은 웹사이트들이 다국어를 지원하고있고, <code>http://www.remotty.com/ko/info</code>나 <code>http://en.remotty.com</code>등과 같이 언어마다 다른 URI를 운영중인 곳이 있습니다. 여기서 소개해드릴 것은 <a href="http://tools.ietf.org/search/rfc3282#section-3">Accept-Language</a> header입니다.</p>
+
+<p>또 한번 예를 들어보겠습니다.</p>
+
+<ol>
+<li>한국인 철수가 뉴스를 읽음.</li>
+<li>재미있는 기사발견,</li>
+<li>sns로 공유</li>
+<li><code>http://ko.remotty.com/fun</code> 공유됨.</li>
+<li>remotty는 다국어가 아주 잘 지원되는 사이트임.</li>
+<li>미국인 Cathy(캐씨)가 sns를 보고있음</li>
+<li>캐씨는 미국인임에도 불구하고,</li>
+<li>한국어로된 뉴스기사를 읽게됩니다.</li>
+</ol>
+
+
+<p>뭐가 문제인지 감이 오시나요? 다국어 지원을 <code>Accept-Language</code>에 맡긴다면 URI는 그대로인데, 사용자의 환경에 따라 알맞은 언어로 응답할 수 있습니다. 물론 <code>Accept-Language</code>만 가지고 다국어를 하면 조금 어색할 수 있을꺼 같습니다. 사용자가 원하는 언어를 설정하게하여 해당 언어를 세션 또는 쿠키 등에 저장하여 보여줄 언어를 선정할때 우선순위를 약간 조정하여 보여주는게 좋은 방법일꺼 같습니다.</p>
+
+<p>지금 약간 이글의 <a href="#extension">확장자를 사용하지 말자</a>와 <a href="#responsive">반응형 웹에서의 REST</a>랑 약간 비슷한 느낌인데요, 모두 결론은 URI는 리소스를 식별하기 위해서 사용되었지, 리소스가 어떻게 보여지느냐는 별도의 header을 이용하여 처리하였습니다. 이 점을 생각하면서 다른 문제들도 좀더 REST하게 설계해야겠습니다.</p>
+
+<p><a name="status"></a></p>
+
+<h3>응답 상태 코드</h3>
+
+<p><a href="http://tools.ietf.org/search/rfc2616#page-39">rfc2616</a>을 살펴보면 많은 종류의 상태코드가 존재합니다. 상태코드를 적절히 잘 사용하면 클라이언트에게 많은 정보를 줄 수 있습니다.</p>
+
+<p><a name="statusSuccess"></a></p>
+
+<h4>성공</h4>
+
+<ul>
+<li><a name="200"></a>200 &ndash; 클라이언트의 요청을 정상적으로 수행하였을때 사용합니다. 응답 바디(body)엔 요청과 관련된 내용을 넣어줍니다. 그리고 200의 응답 바디에 오류 내용을 전송하는데 사용해서는 안된다고 합니다. 오류가 났을땐 40x 응답 코드를 권장합니다.</li>
+<li><a name="201"></a>201 &ndash; 클라이언트가 어떤 리소스 생성을 요청하였고, 해당 리소스가 성공적으로 생성되었을때 사용합니다.</li>
+<li><a name="202"></a>202 &ndash; 클라이언트의 요청이 비동기적으로 처리될때 사용합니다. 응답 바디에 처리되기까지의 시간 등의 정보를 넣어주면 좋다고 합니다.</li>
+<li><a name="204"></a>204 &ndash; 클라이언트의 요청응 정상적으로 수행하였을때 사용합니다. 200과 다른점은 204는 응답 바디가 없을때 사용합니다. 예를들어 DELETE와 같은 요청시에 사용합니다. 클라이언트의 리소스 삭제요청이 성공했지만 부가적으로 응답 바디에 넣어서 알려줄만한 정보가 하나도 없을땐 204를 사용합니다.</li>
+</ul>
+
+
+<p><a name="statusFail"></a></p>
+
+<h4>실패</h4>
+
+<ul>
+<li><a name="400"></a>400 &ndash; 클라이언트의 요청이 부적절할때 사용합니다. 요청 실패시 가장 많이 사용될 상태코드로 예를들어 클라이언트에서 보낸 것들이 서버에서 유효성 검증(validation)을 통과하지 못하였을때 400으로 응답합니다. 응답 바디에 요청이 실패한 이유를 넣어줘야 합니다.</li>
+<li><a name="401"></a>401 &ndash; 클라이언트가 인증되지 않은 상태에서 보호된 리소스를 요청했을때 사용하는 요청입니다. 예를들어 로그인(login)하지 않은 사용자가 로그인했을때에만 요청 가능한 리소스를 요청했을때 401을 응답합니다.</li>
+<li><a name="403"></a>403 &ndash; 사용자 인증상태와 관계 없이 응답하고싶지 않은 리소스를 클라이언트가 요청했을때 사용합니다. 그러나 해당 응답코드 대신 400을 사용할 것을 권고합니다. 그 이유는 일단 403 응답이 왔다는것 자체는 해당 리소스가 존재한다는 뜻입니다. 응답하고싶지 않은 리소스는 존재 여부 조차 감추는게 보안상 좋기때문에 403을 응답해야할 요청에 대해선 그냥 400이나 404를 응답하는게 좋겠습니다.</li>
+<li><a name="404"></a>404 &ndash; 클라이언트가 요청한 리소스가 존재 하지 않을때 사용하는 응답입니다.</li>
+<li><a name="405"></a>405 &ndash; 클라이언트가 요청한 리소스에서는 사용 불가능한 Method를 이용했을때 사용하는 응답입니다. 예를들어 읽기전용 리소스에 DELETE Method를 사용했을때 405 응답을 하면 됩니다.</li>
+</ul>
+
+
+<p><a name="statusEtc"></a></p>
+
+<h4>기타</h4>
+
+<ul>
+<li><a name="301"></a>301 &ndash; 클라이언트가 요청한 리소스에 대한 URI가 변경 되었을때 사용합니다. 응답시 <code>Location</code> header에 변경된 URI를 적어줘야 합니다.</li>
+<li><a name="statusS500uccess"></a>500 &ndash; 서버에 뭔가 문제가 있을때 사용합니다.</li>
+</ul>
+
+
+<p><a href="http://www.hanbit.co.kr/ebook/look.html?isbn=9788979149456">마크 마세가 쓴 REST API 디자인 규칙</a>에 이런 말이 있네요.</p>
+
+<blockquote><p>REST API는 부실한 HTTP 클라이언트에 부합하려는 그 어떤 타협도 해서는 안된다.</p></blockquote>
+
+<p><a name="epilogue"></a></p>
+
+<h3>마치며</h3>
+
+<p>순서가 약간 뒤죽박죽 작성된 느낌이 있네요. 사실 저도 RESTFul한게 좋은건지 나쁜건지 뭔지 아직도 잘 모르는 상태로 작성하였는데, 한가지 확실한건 REST라는 개념(?)이 널리 퍼지고 많은 API들이 RESTFul하다면 REST에서 다루는 내용들은 따로 문서화도 필요없이 자연스레 좀더 체계적인 느낌으로 API를 사용할 수 있을꺼 같은 느낌이 듭니다. 아직 미완성된 글이라 생각합니다. 틀린 내용이나 이해되지 않는 내용이 있으시면 댓글이나 기타 편하신 방법을 통해 적극적으로 글을 완성해주시길 바랍니다.</p>
+
+<p><a name="reference"></a></p>
+
+<h3>참고자료</h3>
+
+<ul>
+<li><a href="http://www.hanbit.co.kr/ebook/look.html?isbn=9788979149456">일관성 있는 웹 서비스 인터페이스 설계를 위한 REST API 디자인 규칙</a></li>
+<li><a href="http://spoqa.github.io/2012/02/27/rest-introduction.html">REST 아키텍처를 훌륭하게 적용하기 위한 몇 가지 디자인 팁</a></li>
+<li><a href="http://spoqa.github.io/2013/06/11/more-restful-interface.html">RESTful API를 설계하기 위한 디자인 팁</a></li>
+<li><a href="http://httpd.apache.org/docs/current/ko/content-negotiation.html">내용협상 (Content Negotiation)</a></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[리모티하게 일하기 2]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/24/rimotihage-ilhagi-2/"/>
+    <updated>2014-01-24T13:49:15+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/24/rimotihage-ilhagi-2</id>
+    <content type="html"><![CDATA[<p>약 한달 전  <a href="http://blog.remotty.com/blog/2013/12/10/remottyhage-ilhagi/">Remotty하게 일하기</a>라는 제목으로, Remotty 그룹의 일하는 방식에 대해 포스팅을 했었다.<br/>
+포스트에서 소개한 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.</p>
+
+<!--more-->
+
+
+<p>나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데<br/>
+가장 큰 문제는 <strong>사용해야 할 도구가 너무 많아 커뮤니케이션이 분산</strong>된다는 것이었다.</p>
+
+<p>페이스북, 트렐로, 구글 드라이브, 에버노트&hellip;<br/>
+모두 다 좋은 도구다. 잘만 활용한다면 좋은 커뮤니케이션 도구로 사용할 수 있다.<br/>
+하지만 개발자들간의 협업에 있어서 소스코드가 제일 중요할 수 밖에 없고,<br/>
+그 커뮤니케이션의 중심에 github가 있는 것은 당연지사.</p>
+
+<p>결국 github로 돌아오게 되더라.<br/>
+이슈 관리도, 일정 관리도, 대화도, 각종 문서 정리도, 대화도&hellip;<br/>
+모든 커뮤니케이션을 github안에서 해결할 수 있는 방법을 찾게 되었다.</p>
+
+<p>그래서 결론을 얘기하면, 현재는 아래와 같은 방식으로 협업을 하고 있다.</p>
+
+<ul>
+<li><p>태스크 관리<br/>
+<del>트렐로</del> github 이슈 + <a href="https://waffle.io/">Waffle</a></p></li>
+<li><p>문서 공유<br/>
+<del>에버노트 or 구글 드라이브</del> github 위키</p></li>
+<li><p>단체 코딩<br/>
+MadEye</p></li>
+<li><p>소스 관리<br/>
+github</p></li>
+<li><p>잡다구리한 이야기들 + 각종 대화 &amp; 논의 + 그 외 모든 의사소통<br/>
+<del>페이스북 포스트 or 메신저</del> <a href="https://www.hipchat.com">HipChat</a></p></li>
+<li><p>기타 파일 공유<br/>
+<del>드롭박스</del> HipChat으로 전달. 파일 관리는 따로 안함.<br/>
+정말 지속적으로 관리할 필요가 있는 파일이 있다면 github에 올려도 될 것 같음</p></li>
+<li><p>오프라인 모임</p>
+
+<ul>
+<li>공식 모임<br/>
+월 1회<br/>
+지난 한달간 진행상황 점검 &amp; 향후 한달 계획 수립<br/>
+각종 의사결정 및 이슈 정리</li>
+<li>비공식 모임<br/>
+매주 토요일<br/>
+그냥 모여서 다 같이 코딩</li>
+</ul>
+</li>
+</ul>
+
+
+<p>여기 <a href="http://blog.remotty.com/blog/2013/12/10/remottyhage-ilhagi/">이전 포스트</a>에 소개되지 않았던 새로운 도구가 등장한다.<br/>
+바로 <a href="https://waffle.io/">Waffle</a>과 <a href="https://www.hipchat.com">HipChat</a>이다.
+이 두가지를 한번 소개해본다.</p>
+
+<h3>Waffle</h3>
+
+<p>쉽게 말해서 github의 이슈들을 dashboard 형태로 보여주는 도구이다.<br/>
+그것이 전부이다.<br/>
+github 이슈는 단순히 목록 형태로 쭉 펼쳐져서 보이기 때문에,<br/>
+원하는 것들을 필터링 해서 보거나 한눈에 dashboard 형태로 보기가 어렵다.<br/>
+그러한 불편함을 해소해주는 도구가 바로 Waffle이다.<br/>
+눈에 보기 쉽게 Column을 만들고 그 안에 github에 등록된 이슈들이 list 형태로 뿌려진다.<br/>
+얼핏 보기엔 trello와 비슷해 보인다.<br/>
+github의 이슈들이 trello의 card 형태로 나타나고, drag&amp;drop으로 쉽게 상태를 변경할 수 있다.<br/>
+Waffle에서 생성한 Column은 github 이슈의 라벨로 나타난다.<br/>
+Waffle에서도 이슈를 등록할 수 있고, 당연히 github 이슈에도 등록이 된다.<br/>
+백날 얘기해봤자 머리속의 상상만으로는 잘 이해가 안된다. 아래 사진을 보면 딱 이해가 될 것이다.</p>
+
+<p><img src="http://blog.remotty.com/images/waffle.png" title="waffle" alt="waffle" /></p>
+
+<h3>HipChat</h3>
+
+<p>기본적으로 메신저는 실시간성이다.<br/>
+온라인상의 누군가에게 메시지를 보내고 그것을 본 누군가는 응답을 한다. 이것이 메신저의 기본 개념.<br/>
+하지만 단체 채팅의 경우는 상황이 좀 다르다.<br/>
+대화가 오고 갈때 온라인상에 없었던 사용자는 그 대화에 참여할 수 없게 되고 그때 오고 갔던 대화의 내용들은 놓치게 된다.<br/>
+물론 스크롤을 쭉~ 올려서 찾아서 읽으면 된다.<br/>
+당연히 그렇게 필요한 사람이 내가 놓친 내용을 꼼꼼히 스스로 찾아 읽으면 되지만, 잘 되지 않는다.<br/>
+그리고 지난 대화들을 찾아서 본다 하더라도 이미 마무리 된 대화를 또다시 개진하려면 좀 뒷북치는 느낌이다. ;;<br/>
+물론 하면 되지만, 대부분의 메신저 도구들은 실시간성에 UI가 맞추어져 있다.</p>
+
+<p>그렇다. 우리에게 필요한 것은 바로 <strong>비동기 채팅</strong>이다.<br/>
+비동기 채팅이란, 한마디로 <strong>&ldquo;로그를 읽는다&rdquo;</strong>라는 개념이다. <strong>대화의 기록</strong>을 보고 자신의 생각을 그냥 얘기하면 된다.<br/>
+IRC가 바로 이러한 비동기 채팅에 적합한 도구이다. 하지만 왠지 irc는 말만 들어도 겁이 난다.(왜일까&hellip; ㅡ,.ㅡ;;)<br/>
+이러한 용도로 최적화 된 툴이 바로 HipChat이다.</p>
+
+<p>HipChat은 개발자들에게 좀 특화된 메신저 도구여서, 대화창에 각종 코드도 쓸 수 있다.<br/>
+&ldquo;/code&#8221;라고 prefix를 붙히면, 뒤에 따라오는 코드는 포맷팅이 되어 읽기 쉽게 나타난다.</p>
+
+<p>뿐만 아니라 github와도 연동을 시킬 수 있어서, github에서 일어나는 모든 event를 hipchat에서 받을 수 있다.<br/>
+hipchat의 api가 공개되어 있어서, github외에 다른 이벤트들도 hipchat에 전달하도록 구현할 수 있다.<br/>
+여러 환경에서 활용 가능하도록, 각 언어별로 library를 제공하고 있다.(참고: <a href="https://www.hipchat.com/docs/api/libraries">HipChat Libraries &amp; Plugins</a>)<br/>
+ruby 코드로 2줄이면 hipchat에 message를 날릴 수 있다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>client = HipChat::Client.new(api_token)
+</span><span class='line'>client['my room'].send('username', 'I talk')</span></code></pre></td></tr></table></div></figure>
+
+
+<p>HipChat이 제공하는 또다른 killer 기능이 있다. 바로 notify 기능이다.<br/>
+대화를 할때 &lsquo;@&rsquo; 표시와 함께 대상자에 대한 mention을 표기할 수 있는데, @로 mention을 날리면 상대방에게 notify가 간다.<br/>
+상대방이 온라인이 아니더라도 mention을 받게 되면 notify가 오게 되고, 그때 대화에 동참하면 된다.<br/>
+그리고 notify는 메일로도 전송되기 때문에, 내가 없는 자리에서 나와 관련된 중요한 대화가 오고 갔는지를 알 수 있다.<br/>
+내가 없는 자리에서 오고 갔던 대화 히스토리에 나에게 mention 표시가 되어 있는 전/후의 내용을 좀 더 주의 깊게 보면 된다.<br/>
+mention은 @all 이런 식으로 사용할 수도 있다. 당연히 모든 멤버에게 mention을 날린다는 의미다.<br/>
+대화 중, 특정 누군가에게 또는 모두에게 공유해야 할 내용이 있을 때, @로 mention을 날리면 된다.</p>
+
+<p>비동기 채팅에 notify 기능이 합쳐지고, 코드에 대한 마크업 기능까지&hellip;<br/>
+remote로 일하는 개발 그룹에 꼭 필요한 도구이다!</p>
+
+<p>하지만 단점이 있다.<br/>
+5명 이상인 경우엔 유료라는 것. (매월 1명당 2$씩)<br/>
+한달에 2$면 커피한잔 가격도 안된다.<br/>
+효과적인 커뮤니케이션을 위해 한달에 커피 한잔 정도는 절약하는건 어떨까? ^^</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[active_model_serializers 젬 사용하기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/31/active-model-serializers/"/>
+    <updated>2013-12-31T19:51:34+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/31/active-model-serializers</id>
+    <content type="html"><![CDATA[<p><code>active_model_serializers</code>젬은 레일스 API 를 작성할 때 JSON 데이터를 만들기 위해 추천되는 젬입니다.</p>
+
+<h1>설치</h1>
+
+<p>Gemfile 에 추가하고 bundle install 합니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem <span class="s1">&#39;active_model_serializers&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+
+
+<!--more-->
+
+
+<h1>Serializer 생성하기</h1>
+
+<p>이후부터 <code>scaffolding</code>이나 <code>model generator</code>를 사용하여 특정 모델을 생성하면 자동으로 <code>serializer</code>가 만들어 집니다.</p>
+
+<p>이미 만들어진 모델에 대해서는 아래와 같이 직접 <code>serializer</code>를 생성할 수 있습니다. 여기서는 <code>Post</code> 모델에 대한 <code>serializer</code>를 생성하는 예를 들었습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rails g serializer post
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이제 <code>app/serializers/post_serializer.rb</code>에서 <code>Post</code> 모델에 대한 <code>serializer</code>를 볼 수 있게 됩니다.</p>
+
+<h1>render :json</h1>
+
+<p>컨트롤러에서 <code>render :json</code>을 사용하면, 우선적으로 해당 객체에 대한 <code>serializer</code>를 찾아보고 있으면 해당 <code>serializer</code>를 사용하게 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'>    <span class="vi">@post</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@post</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>배열</h1>
+
+<p>배열에 대해서도 <code>render :json</code>을 사용할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="k">class</span> <span class="nc">PostsController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">index</span>
+</span><span class='line'>    <span class="vi">@posts</span> <span class="o">=</span> <span class="no">Post</span><span class="o">.</span><span class="n">all</span>
+</span><span class='line'>    <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@posts</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>렌더링되는 결과는 아래와 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;posts&quot;</span><span class="o">:</span>
+</span><span class='line'>    <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Post 1&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello!&quot;</span> <span class="p">},</span>
+</span><span class='line'>      <span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Post 2&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;Goodbye!&quot;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>디폴트로 컨트롤러의 이름이 루트 엘리먼트의 이름이 됩니다. 즉, <code>PostsController</code>는 <code>posts</code>라는 루트노드명을 만들어 줍니다. 또한 아래와 같이 루트노드명을 변경할 수도 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@posts</span><span class="p">,</span> <span class="ss">root</span><span class="p">:</span> <span class="s2">&quot;some_posts&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>루트 엘리먼트를 없애는 방법 4가지</h1>
+
+<ul>
+<li><p>모든 클래스에 대해서 루트 엘리먼트를 사용하지 않는 방법</p>
+
+<p>initializer 파일을 새로 만들어 아래와 같이 추가해 줍니다.</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'>  <span class="c1"># Disable for all serializers (except ArraySerializer)</span>
+</span><span class='line'>  <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># Disable for ArraySerializer</span>
+</span><span class='line'>  <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:ArraySerializer</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>컨트롤러에서 render 옵션으로 지정하는 방법</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@posts</span><span class="p">,</span> <span class="ss">root</span><span class="p">:</span> <span class="kp">false</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>Serializer를 상속받는 방법</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CustomArraySerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:ArraySerializer</span>
+</span><span class='line'>  <span class="nb">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="kp">false</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="c1"># controller:</span>
+</span><span class='line'><span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@posts</span><span class="p">,</span> <span class="ss">serializer</span><span class="p">:</span> <span class="no">CustomArraySerializer</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>컨트로러에 <code>default_serializer_options</code> 메소드를 정의하는 방법</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">def</span> <span class="nf">default_serializer_options</span>
+</span><span class='line'>  <span class="p">{</span>
+</span><span class='line'>    <span class="ss">root</span><span class="p">:</span> <span class="kp">false</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Attributes와 Associations</h1>
+
+<p>serializer 클래스에서는 속성과 관계를 지정할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Attributes</h1>
+
+<p>attributes로 명시한 속성들에 대해서 serializer는 <code>render :json</code> 호출시에 넘겨준 액티브레코드 객체에 대해서 해당 속성들을 찾아보게 됩니다. 이 때 serializer는, <code>ActiveRecord</code> 객체가 속성을 조회하기 위해서는 사용하는 <code>read_attribute_for_serialization</code> 메소드를 이용하게 됩니다.</p>
+
+<p>특정 객체에 대한 속성을 조회해 보기 전에, serializer는 해당 속성과 같은 이름의 메소드가 정의되어 있는지를 알아 보고 있다면 모델 속성을 포함하기 전에 해당 메소드의 결과를 속성으로 포함하게 됩니다.</p>
+
+<p>예를 들면,</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PersonSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span><span class="p">,</span> <span class="ss">:full_name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">full_name</span>
+</span><span class='line'>    <span class="s2">&quot;</span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">first_name</span><span class="si">}</span><span class="s2"> </span><span class="si">#{</span><span class="n">object</span><span class="o">.</span><span class="n">last_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>serializer 메소드 내에서 객체는 <code>object</code>로써 접근하게 됩니다.
+따라서 속성명이 <code>object</code> 라는 이름을 가질 경우 그 이름이 감춰지게 되므로 이 때는 <code>object.object</code>로써 접근할 수 있습니다. 예를 들면,</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">VersionSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attribute</span> <span class="ss">:version_object</span><span class="p">,</span> <span class="ss">key</span><span class="p">:</span> <span class="ss">:object</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">version_object</span>
+</span><span class='line'>    <span class="n">object</span><span class="o">.</span><span class="n">object</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>또한 <code>scope</code> 메소드를 사용할 수 있는데, 이것은 serializer에서 인증상태를 이용할 수 있게 해 줍니다. 디폴트로는 어플리케이션의 current user가 바로 이러한 인증상태에 해당하는 것이지만 다른 것으로 변경할 수도 있습니다.</p>
+
+<p>serializer는 <code>filter</code>라는 메소드를 제공해 줍니다. 이것은 결과에 보여줄 attributes와 associations을 포함하는 배열을 반환해 줍니다. 일반적으로 이것은 <code>current_user</code>에 근거해서 결과를 다양하게 보여주기 위해서 사용합니다. 예를 들면 다음과 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span><span class="p">,</span> <span class="ss">:author</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">scope</span><span class="o">.</span><span class="n">admin?</span>
+</span><span class='line'>      <span class="n">keys</span>
+</span><span class='line'>    <span class="k">else</span>
+</span><span class='line'>      <span class="n">keys</span> <span class="o">-</span> <span class="o">[</span><span class="ss">:author</span><span class="o">]</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>별도의 keys 배열을 추가로 만들 필요없이, <code>keys.delete(:author)</code>를 이용하여 keys 인수를 변경하는 것이 안전할 것입니다. 주의할 것은 in-place 변경을 시도하더라도 변경된 배열을 여전히 반환할 필요가 있다는 것입니다.</p>
+
+<p>액티브레코드 상의 이름과 다른 키를 사용하고 싶을 때는, 다른 이름의 키를 선언하고 메소드를 재정의하면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="c1"># look up subject on the model, but use title in the JSON</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">title</span>
+</span><span class='line'>    <span class="n">object</span><span class="o">.</span><span class="n">subject</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:body</span><span class="p">,</span> <span class="ss">:title</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>JSON 결과물에 메타 정보를 포함하고잘 할 경우에는, <code>:meta</code> 옵션을 사용하면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@posts</span><span class="p">,</span> <span class="ss">serializer</span><span class="p">:</span> <span class="no">CustomArraySerializer</span><span class="p">,</span> <span class="ss">meta</span><span class="p">:</span> <span class="p">{</span><span class="ss">total</span><span class="p">:</span> <span class="mi">10</span><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>그러면 아래와 같은 결과를 보여 줄 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;meta&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;total&quot;</span><span class="o">:</span> <span class="mi">10</span> <span class="p">},</span>
+</span><span class='line'>  <span class="s2">&quot;posts&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Post 1&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello!&quot;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Post 2&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;Goodbye!&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>또한 <code>:meta_key</code> 옵션을 사용하면 메타 키 이름을 변경할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@posts</span><span class="p">,</span> <span class="ss">serializer</span><span class="p">:</span> <span class="no">CustomArraySerializer</span><span class="p">,</span> <span class="ss">meta</span><span class="p">:</span> <span class="p">{</span><span class="ss">total</span><span class="p">:</span> <span class="mi">10</span><span class="p">},</span> <span class="n">meta_key</span><span class="p">:</span> <span class="s1">&#39;meta_object&#39;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>:meta_key</code> 옵션을 사용하면 아래와 같은 결과를 보여 줄 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;meta_object&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="s2">&quot;total&quot;</span><span class="o">:</span> <span class="mi">10</span> <span class="p">},</span>
+</span><span class='line'>  <span class="s2">&quot;posts&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Post 1&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;Hello!&quot;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;Post 2&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;Goodbye!&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이와 같이 메타 정보를 이용할 경우에는, serializer는 <code>{ root: false }</code> 옵션을 가질 수 없습니다. 결국 유효하지 않는 JSON 데이터를 반화하기 때문에 루트 키가 없는 경우에는 메타 정보가 무시될 것입니다.</p>
+
+<p>attribute 직렬화 과정을 직접 로우레벌에서 조작하고자 할 경우에는, <code>attributes</code> 메소드를 덮어쓰기해서 해시를 반환해 주면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PersonSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:first_name</span><span class="p">,</span> <span class="ss">:last_name</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">attributes</span>
+</span><span class='line'>    <span class="nb">hash</span> <span class="o">=</span> <span class="k">super</span>
+</span><span class='line'>    <span class="k">if</span> <span class="n">scope</span><span class="o">.</span><span class="n">admin?</span>
+</span><span class='line'>      <span class="nb">hash</span><span class="o">[</span><span class="s2">&quot;ssn&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">object</span><span class="o">.</span><span class="n">ssn</span>
+</span><span class='line'>      <span class="nb">hash</span><span class="o">[</span><span class="s2">&quot;secret&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">object</span><span class="o">.</span><span class="n">mothers_maiden_name</span>
+</span><span class='line'>    <span class="k">end</span>
+</span><span class='line'>    <span class="nb">hash</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Associations</h1>
+
+<p>association을 사용할 경우, serializer가 해당 association을 찾아보고 연관객체의 각 엘리먼트를 직렬화하게 됩니다. 예를 들어, <code>has_many :comments</code> 라고 지정하면 각 comment 객체에 대해서 CommentSerializer 객체를 만들어서 직렬화하게 되는 것입니다.</p>
+
+<p>디폴트 상태에서는 오리지날 객체에 대해서 선언되어 있는 association을 찾게 됩니다. 그러나 해당 association 이름과 동일한 메소드를 정의하여 반환되는 객체들을 변경할 수 있습니다. 이것은 특정 scope(current_user와 같은)에 국한된 객체들을 반환할 때 사용하면 도움이 될 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># only let the user see comments he created.</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">comments</span>
+</span><span class='line'>    <span class="n">object</span><span class="o">.</span><span class="n">comments</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">created_by</span><span class="p">:</span> <span class="n">scope</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이 경우에도 attributes와 같이 JSON 키를 변경할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="c1"># look up comments, but use +my_comments+ as the key in JSON</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">root</span><span class="p">:</span> <span class="ss">:my_comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>또한 attributes와 같이, <code>filter</code> 메소드를 정의하면, 결과로써 포함할 associations을 지정할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">keys</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:comments</span> <span class="k">if</span> <span class="n">object</span><span class="o">.</span><span class="n">comments_disabled?</span>
+</span><span class='line'>    <span class="n">keys</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>또는</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_one</span> <span class="ss">:author</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">keys</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">keys</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:author</span> <span class="k">unless</span> <span class="n">scope</span><span class="o">.</span><span class="n">admin?</span>
+</span><span class='line'>    <span class="n">keys</span><span class="o">.</span><span class="n">delete</span> <span class="ss">:comments</span> <span class="k">if</span> <span class="n">object</span><span class="o">.</span><span class="n">comments_disabled?</span>
+</span><span class='line'>    <span class="n">keys</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>:serializer</code> 옵션을 이용하여 커스텀 serializer 클래스를 지정할 수 있고 <code>:polymorphic</code> 옵션을 지정하여 해당 association이 polymorphic 이라는 것을 알려줄 수 있습니다.</p>
+
+<p>serializer에서는 <code>belongs_to</code> association을 <code>has_one</code>을 이용하여 포함하게 된다는 것을 주의해야 합니다.</p>
+
+<h1>Embedding Associations</h1>
+
+<p>디폴트 상태에서는 associations가 serializer 객체에 포함(embeded)됩니다. 그래서 하나의 post 가 있다고 가정할 때 다음과 같은 결과를 볼 수 있게 될 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;post&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;New post&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;A body!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;comments&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;what a dumb post&quot;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이러한 결과물은 간단한 경우에는 편리하지만, 복잡한 association이 존재할 경우에는 해당 association 에 대해서 ID이 구성된 배열을 포함하는 것이 더 좋을 것입니다. 이것은 전체적인 퍼포먼스 측면에서도 그렇고 불필요한 중복을 피할 수 있어서 좋습니다.</p>
+
+<p>이를 위해서 <code>embed</code>라는 클래스 메소드를 사용하면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">embed</span> <span class="ss">:ids</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이제 association들이 ID들로 구성된 배열을 포함하게 될 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;post&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;New post&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;A body!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;comment_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>다른 방법으로는 클래스내의 측정 association에 대해서만 ID 또는 객체 배열만을 포함할 수 있게 할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">embed</span><span class="p">:</span> <span class="ss">:objects</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:tags</span><span class="p">,</span> <span class="ss">embed</span><span class="p">:</span> <span class="ss">:ids</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>따라서 JSON 데이터는 다음과 같이 보일 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;post&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;New post&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;A body!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;comments&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>      <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;what a dumb post&quot;</span> <span class="p">}</span>
+</span><span class='line'>    <span class="p">],</span>
+</span><span class='line'>    <span class="s2">&quot;tag_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span>
+</span><span class='line'>  <span class="p">}</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>게다가, ID 만을 포함하는 것 외에도 메인 객체에 데이터를 추가로 포함할 수도 있습니다. 이렇게 하므로써 포함된 정보를 검색하기 위해서 트리구조를 스캔할 필요없이 전체 데이터 패키지를 보다 쉽게 처리할 수 있게 될 것입니다. 또한 객체사이에 (tags와 같이) 공유되는 associations들은 전체 로드시에 단 한번만 전달된다는 것입니다.</p>
+
+<p>아래와 같이 데이터가 포함되도록 명시할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">embed</span> <span class="ss">:ids</span><span class="p">,</span> <span class="kp">include</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이 때 comments 객체가 <code>has_many :tags</code> association이 선언되어 있다고 가정하면, 다음과 같은 JSON 데이터를 얻게 될 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;post&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;New post&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;A body!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;comment_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="s2">&quot;comments&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;what a dumb post&quot;</span><span class="p">,</span> <span class="s2">&quot;tag_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">]</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;i liked it&quot;</span><span class="p">,</span> <span class="s2">&quot;tag_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span> <span class="p">]</span> <span class="p">},</span>
+</span><span class='line'>  <span class="p">],</span>
+</span><span class='line'>  <span class="s2">&quot;tags&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;short&quot;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;whiny&quot;</span> <span class="p">},</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;happy&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위에서와 같이 데이터를 추가로 로드할 경우에는 <code>{ root: false }</code> 옵션을 사용할 수 없습니다. 이 옵션을 지정할 경우에는 유효하지 않은 JSON 데이터를 만들게 되기 때문입니다. 따라서 이 옵션을 지정하게 되면 <code>include</code> 옵션이 작동하지 않게 됩니다.</p>
+
+<p>또한 포함된 객체에 대해서는 참조하는 키외의 다른 루트를 지정할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">embed</span> <span class="ss">:ids</span><span class="p">,</span> <span class="kp">include</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="ss">key</span><span class="p">:</span> <span class="ss">:comment_ids</span><span class="p">,</span> <span class="ss">root</span><span class="p">:</span> <span class="ss">:comment_objects</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이것은 다음과 같은 JSON 데이터를 민들게 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;post&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;New post&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;A body!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;comment_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="mi">1</span> <span class="p">]</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="s2">&quot;comment_objects&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;what a dumb post&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>또한 포함된 객체의 ID외의 다른 속성을 지정할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">PostSerializer</span> <span class="o">&lt;</span> <span class="ss">ActiveModel</span><span class="p">:</span><span class="ss">:Serializer</span>
+</span><span class='line'>  <span class="n">embed</span> <span class="ss">:ids</span><span class="p">,</span> <span class="kp">include</span><span class="p">:</span> <span class="kp">true</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="n">attributes</span> <span class="ss">:id</span><span class="p">,</span> <span class="ss">:title</span><span class="p">,</span> <span class="ss">:body</span>
+</span><span class='line'>  <span class="n">has_many</span> <span class="ss">:comments</span><span class="p">,</span> <span class="n">embed_key</span><span class="p">:</span> <span class="ss">:external_id</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이것은 다음과 같은 JSON 데이터를 만들게 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='javascript'><span class='line'><span class="p">{</span>
+</span><span class='line'>  <span class="s2">&quot;post&quot;</span><span class="o">:</span> <span class="p">{</span>
+</span><span class='line'>    <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;title&quot;</span><span class="o">:</span> <span class="s2">&quot;New post&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;A body!&quot;</span><span class="p">,</span>
+</span><span class='line'>    <span class="s2">&quot;comment_ids&quot;</span><span class="o">:</span> <span class="p">[</span> <span class="s2">&quot;COMM001&quot;</span> <span class="p">]</span>
+</span><span class='line'>  <span class="p">},</span>
+</span><span class='line'>  <span class="s2">&quot;comments&quot;</span><span class="o">:</span> <span class="p">[</span>
+</span><span class='line'>    <span class="p">{</span> <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;external_id&quot;</span><span class="o">:</span> <span class="s2">&quot;COMM001&quot;</span><span class="p">,</span> <span class="s2">&quot;body&quot;</span><span class="o">:</span> <span class="s2">&quot;what a dumb post&quot;</span> <span class="p">}</span>
+</span><span class='line'>  <span class="p">]</span>
+</span><span class='line'><span class="p">}</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>Note: <code>embed :ids</code> 기전은 주로 데이터를 대량으로 처리해서 로컬 저장소에 로드할 경우에 유용합니다. 이와 같은 경우에, 정보검색을 위해서 데이터를 반복적으로 스캔할 필요없이 종류별로 모든 데이터를 쉽게 볼 수 있다는 것은 매우 유용한 기능입니다.</p>
+
+<p>대부분의 경우 간단히 시나리오 하에 데이터 작업을 하고 직접 Ajax 요청을 할 경우에는 아마도 디폴트 상태의 embed 기능을만을 사용하면 될 것입니다.</p>
+
+<h1>Scope 커스터마이징하기</h1>
+
+<p>특정 serializer 클래스에서 대해서, <code>current_user</code> 는 <code>render :json</code> 을 호출할 때 컨트롤러가 해당 serializer에 제공하는 인증 scope에 해당합니다. 디폴트로, 이것은 <code>current_user</code>가 되지만, 컨트롤러에서 <code>serialization_scope</code>을 호출하여 이 scope을 변경할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">ApplicationController</span> <span class="o">&lt;</span> <span class="ss">ActionController</span><span class="p">:</span><span class="ss">:Base</span>
+</span><span class='line'>  <span class="n">serialization_scope</span> <span class="ss">:current_admin</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위의 예는 scope을 <code>current_user</code>에서 <code>current_admin</code>으로 변경하게 될 것입니다.</p>
+
+<p>주목할 것은, 지금까지 볼 때, <code>serialization_scope</code>은 두번째 인수를 지정하여, 해당 scope을 적용할 액션들을 지정할 수 없습니다.</p>
+
+<p>즉, 아래와 같이 액션들을 지정할 수 없다는 것입니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">SomeController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="n">serialization_scope</span> <span class="ss">:current_admin</span><span class="p">,</span> <span class="ss">except</span><span class="p">:</span> <span class="o">[</span><span class="ss">:index</span><span class="p">,</span> <span class="ss">:show</span><span class="o">]</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>따라서 대신에 아래와 같이 처리할 수 있습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">CitiesController</span> <span class="o">&lt;</span> <span class="no">ApplicationController</span>
+</span><span class='line'>  <span class="n">serialization_scope</span> <span class="kp">nil</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">index</span>
+</span><span class='line'>    <span class="vi">@cities</span> <span class="o">=</span> <span class="no">City</span><span class="o">.</span><span class="n">all</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@cities</span><span class="p">,</span> <span class="n">each_serializer</span><span class="p">:</span> <span class="no">CitySerializer</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">show</span>
+</span><span class='line'>    <span class="vi">@city</span> <span class="o">=</span> <span class="no">City</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="n">params</span><span class="o">[</span><span class="ss">:id</span><span class="o">]</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'>    <span class="n">render</span> <span class="ss">json</span><span class="p">:</span> <span class="vi">@city</span><span class="p">,</span> <span class="ss">scope</span><span class="p">:</span> <span class="n">current_admin</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위에 예에서, <code>current_admin</code> 메소드가 데이터베이스에서 현재 사용자를 조회할 필요가 있다고 가정한다면, 이러한 방식의 접근방식을 통해서, <code>serailization_scope</code>값은 <code>nil</code>로 지정하므로써, <code>index</code> 액션이 더 이상 데이터베이스를 조회하기 않고 단지, <code>show</code> 액션만이 해당 메소드를 실행하게 되는 것입니다.</p>
+
+<h1>Testing</h1>
+
+<p>임의의 serializer 클래스를 테스트하기 위해서는, 단지 해당 serializer 클래스에 대해서 <code>.new</code> 메소드를 호출하여 모델 클래스 객체를 넘겨 주면 됩니다.</p>
+
+<h2>MiniTest</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="k">class</span> <span class="nc">TestPostSerializer</span> <span class="o">&lt;</span> <span class="ss">Minitest</span><span class="p">:</span><span class="ss">:Test</span>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">setup</span>
+</span><span class='line'>    <span class="vi">@serializer</span> <span class="o">=</span> <span class="no">PostSerializer</span><span class="o">.</span><span class="n">new</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="ss">title</span><span class="p">:</span> <span class="s1">&#39;some title&#39;</span><span class="p">,</span> <span class="ss">body</span><span class="p">:</span> <span class="s1">&#39;some text&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'>  <span class="k">def</span> <span class="nf">test_special_json_for_api</span>
+</span><span class='line'>    <span class="n">assert_equal</span> <span class="s1">&#39;{&quot;post&quot;:{&quot;id&quot;:123,&quot;title&quot;:&quot;some title&quot;,&quot;body&quot;:&quot;some text&quot;}}&#39;</span><span class="p">,</span> <span class="vi">@serializer</span><span class="o">.</span><span class="n">to_json</span>
+</span><span class='line'>  <span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h2>RSpec</h2>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">describe</span> <span class="no">PostSerializer</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">it</span> <span class="s2">&quot;creates special JSON for the API&quot;</span> <span class="k">do</span>
+</span><span class='line'>    <span class="n">serializer</span> <span class="o">=</span> <span class="no">PostSerializer</span><span class="o">.</span><span class="n">new</span> <span class="no">Post</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="nb">id</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="ss">title</span><span class="p">:</span> <span class="s1">&#39;some title&#39;</span><span class="p">,</span> <span class="ss">body</span><span class="p">:</span> <span class="s1">&#39;some text&#39;</span><span class="p">)</span>
+</span><span class='line'>    <span class="n">expect</span><span class="p">(</span><span class="n">serializer</span><span class="o">.</span><span class="n">to_json</span><span class="p">)</span><span class="o">.</span><span class="n">to</span> <span class="n">eql</span><span class="p">(</span><span class="s1">&#39;{&quot;post&quot;:{&quot;id&quot;:123,&quot;title&quot;:&quot;some title&quot;,&quot;body&quot;:&quot;some text&quot;}}&#39;</span><span class="p">)</span>
+</span><span class='line'>  <span class="k">end</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>수고하셨습니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[hub로 커맨드라인에서 Github pull-request 보내기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/29/hub-and-pull-request/"/>
+    <updated>2013-12-29T15:31:32+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/29/hub-and-pull-request</id>
+    <content type="html"><![CDATA[<p>오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
+
+<!--more-->
+
+
+<p>예를 들어서 다른 사람이 만든 저장소를 자신의 계정에 fork해서 별도로 관리할 수 있고, 이렇게 fork해서 수정한 저장소의 브랜치를 pull-request를 통해서 원래의 저장소에 통합하도록 요청할 수도 있습니다. 이외에도 이슈 관리와 위키를 비롯한 매우 다양한 기능들이 지원됩니다. 이러한 Github의 장점들은 단순히 git을 활용한 좋은 버전관리 시스템이라는 것을 넘어서 프로젝트 관리를 위한 도구로서 Github 서비스를 차별화 시켜줍니다.</p>
+
+<p>하지만 대부분의 기능들은 기본적으로 웹인터페이스로만 사용할 수 있다는 단점이 있습니다. Git의 가장 기본적인 클라이언트 프로그램은 git 명령어로 커맨드라인에서 사용할 수 있습니다. 하지만 Github는 일차적으로 웹서비스로서 부가적인 기능들을 웹을 통해서 제공합니다. GUI나 화면에 익숙한 분들에게는 이러한 면은 또다른 장점이 될 수도 있겠지만, 커맨드 라인에서 직접 git 명령어를 입력하고, 저장소의 상태를 확인하는 사람들에게는 워크 플로우가 웹과 커맨드라인으로 나눠진다는 게 영 장점이지만은 않습니다.</p>
+
+<p>물론 Github에서 제공하는 API를 직접 이용하는 방법도 있긴있겠습니다만, 매우 번거로운 작업입니다. Github에서는 이러한 문제를 해결하기 위해서 저장소 생성, 포크 및 풀리퀘스트 등 주요한 기능을 커맨드라인 인터페이스로 제공해주는 Hub라는 git 명령어의 확장 인터페이스를 제공하고 있습니다. <a href="https://github.com/github/hub">Hub</a>라는 이름은 git + hub = Github 라는 공식에서 나온 이름도 참 앙증맞습니다.</p>
+
+<p>이 글은 Hub를 설치하고 실제 커맨드라인에서 풀리퀘스트를 보내는 과정을 다룹니다. 기본적으로 Github의 풀리퀘스트 기능 정도는 익숙하다는 걸 전제로(최소한 개념 정도는 이해하고 있다는 전제로) 이야기합니다.</p>
+
+<h1>Hub 설치</h1>
+
+<p>먼저 Hub를 사용하기 위해서는 공식 홈페이지를 참조해 프로그램을 설치해줄 필요가 있습니다. 우선 hub는 git과 ruby에 의존적인 프로그램이므로 시스템에 이러한 프로그램들이 있는지 확인해야합니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git -v
+</span><span class='line'>git version 1.8.3.2
+</span><span class='line'><span class="c"># git 1.7.3 이상 필요!</span>
+</span><span class='line'>
+</span><span class='line'><span class="nv">$ </span>ruby -v
+</span><span class='line'>ruby 2.1.0p0 <span class="o">(</span>2013-12-25 revision 44422<span class="o">)</span> <span class="o">[</span>x86_64-linux<span class="o">]</span>
+</span><span class='line'><span class="c"># ruby 1.8.6 이상 필요!</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위의 프로그램들이 설치돼있다면 이제 Hub를 설치할 차례입니다. 맥에서는  Homebrew[^brew]를 이용해 hub를 쉽게 설치할 수 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>brew install hub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>리눅스 계열에서는 소스 코드를 다운로드 받아 직접 설치할 수 있습니다. 아래 과정을 따라 hub를 설치할 수 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git clone git://github.com/github/hub.git
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd </span>hub
+</span><span class='line'><span class="nv">$ </span>rake install
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>설치 시 ruby의 <code>rake</code> 명령어가 지원되어야합니다. <code>rake</code> 명령어가 없다면 <code>gem install rake</code>로 먼저 rake를 설치해주시기 바랍니다. 또한 <code>rake install</code> 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 <code>sudo</code> 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.</p>
+
+<p>설치가 정상적으로 끝났다면 아래와 같이 <code>hub</code> 명령어를 사용할 수 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>hub --version
+</span><span class='line'>git version 1.8.3.2
+</span><span class='line'>hub version 1.11.1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>hub는 <code>hub</code> 명령어를 통해서 독자적으로 사용할 수도 있지만 <code>git</code> 명령어와 통합해서 사용할 수도 있습니다. <code>hub alias</code> 명령어를 실행하면 <code>git</code> 명령어와 통합하는 방법을 알려줍니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="c"># Wrap git automatically by adding the following to ~/.zshrc:</span>
+</span><span class='line'><span class="nb">eval</span> <span class="s2">&quot;$(hub alias -s)&quot;</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>예를 들어 zsh 사용하고 있다면 <code>~/.zshrc</code> 파일에, bash를 사용하고 있다면 <code>~/.bash_profile</code> 파일에 <code>eval "$(hub alias -s)"</code>을 추가해주면 쉘 초기화 시에 git와 hub 명령어를 통합시켜줍니다. git와 hub 명령어는 기능적으로는 겹치지 않으며, hub가 git를 보완하는 역할을 하고 있으므로 이렇게 사용하더라도 별다른 문제가 되지 않습니다.</p>
+
+<p>이제 설치가 끝났으니 쉘을 재실행 시켜줍니다. git 명령어를 통해서 제대로 alias 되었는지 확인합니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git --version
+</span><span class='line'>git version 1.8.3.2
+</span><span class='line'>hub version 1.11.1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>쉘에서 Hub 자동 완성 사용하기</h1>
+
+<p>Hub에서는 쉘에서 명령어 및 옵션 자동 완성을 위한 completion 파일을 제공하고 있습니다. 여기서 zsh을 기준으로 git 명령어의 자동완성을 확장하는 법을 설명합니다. 먼저 hub 자동 완성 파일을 다운로드 받아 적절한 위치(우분투의 경우 기본적으로  <code>usr/local/share/zsh/site-functions</code> 디렉토리. 정확한 위치는 각 운영체제 별 zsh 환경 설정 파일 위치에 따릅니다)에 복사해줍니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>mkdir ~/src
+</span><span class='line'><span class="nv">$ </span><span class="nb">cd</span> ~/src
+</span><span class='line'><span class="nv">$ </span>wget https://raw.github.com/github/hub/master/etc/hub.zsh_completion
+</span><span class='line'><span class="nv">$ </span>sudo mv hub.zsh_completion /usr/share/zsh/site-functions/_hub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>zsh을 다시 실행하면 아래와 같이 hub 명령어 사용시 자동완성이 적용되는 것을 알 수 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>hub pull&lt;TAB&gt;
+</span><span class='line'>pull          -- fetch from and merge with another rep....
+</span><span class='line'>pull-request  -- open a pull request on GitHub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>git</code> 명령어와 통합해서 사용중인 경우에는 .zshrc에 아래 라인을 추가해 git 명령어에서도 hub 명령어의 자동완성을 사용할 수 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>compdef <span class="nv">git</span><span class="o">=</span>hub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>아래와 같이 자동 완성이 적용된 것을 확인할 수 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git pull&lt;TAB&gt;
+</span><span class='line'>pull          -- fetch from and merge with another rep....
+</span><span class='line'>pull-request  -- open a pull request on GitHub
+</span></code></pre></td></tr></table></div></figure>
+
+
+<h1>Hub 사용하기</h1>
+
+<p>Hub의 다양한 명령어에 대해서는 공식 저장소에 간략한 사용법들이 나와있습니다. 여기서는 Hub를 사용해 Github에 저장소를 만들어보고, Github의 핵심 기능중 하나인 풀리퀘스트를 실제로 보내보겠습니다. (단, 여기서는 같은 저장소의 브랜치간에 풀리퀘스트를 보냅니다.)</p>
+
+<p>먼저 Git 저장소를 가진 디렉토리를 하나 생성해줍니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span><span class="nb">pwd</span>
+</span><span class='line'>/home/nacyot/prog/github/nacyot/
+</span><span class='line'><span class="nv">$ </span>mkdir pull-request <span class="o">&amp;&amp;</span> <span class="nb">cd</span> <span class="nv">$_</span>
+</span><span class='line'><span class="nv">$ </span>git init
+</span><span class='line'>Initialized empty Git repository in/home/nacyot/prog/github/nacyot/pull-request/.git/
+</span><span class='line'><span class="nv">$ </span>git create
+</span><span class='line'>Updating origin
+</span><span class='line'>created repository: nacyot/pull-request
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>일반적으로 Git 저장소를 초기화할 때는 <code>git init</code> 명령어를 사용합니다. 여기서는 추가적으로 <code>git create</code> 명령어를 사용했습니다. 이 명령어는 hub를 통해 확장된 명령어로 현재 git 저장소로 Github에 저장소를 생성해줍니다. <code>git remote</code> 원격 저장소 설정이 제대로 되었는지 확인해보겠습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git remote -v
+</span><span class='line'>origin  git@github.com:nacyot/pull-request.git <span class="o">(</span>fetch<span class="o">)</span>
+</span><span class='line'>origin  git@github.com:nacyot/pull-request.git <span class="o">(</span>push<span class="o">)</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이를 통해서 Github <a href="http://github.com/nacyot">nacyot</a> 계정에 <a href="http://github.com/nacyot/pull-request">pull-request 저장소</a>가 추가되었다는 것을 알 수 있습니다.</p>
+
+<p>우선 master 브랜치를 활성화시키기 위해 커밋을 하나 해보겠습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>touch README.md
+</span><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git commit -m<span class="s1">&#39;Add README.md&#39;</span>
+</span><span class='line'><span class="nv">$ </span>git push origin master
+</span><span class='line'>
+</span><span class='line'>Counting objects: 3, <span class="k">done</span>.
+</span><span class='line'>Writing objects: 100% <span class="o">(</span>3/3<span class="o">)</span>, 221 bytes | 0 bytes/s, <span class="k">done</span>.
+</span><span class='line'>Total 3 <span class="o">(</span>delta 0<span class="o">)</span>, reused 0 <span class="o">(</span>delta 0<span class="o">)</span>
+</span><span class='line'>To git@github.com:nacyot/pull-request.git
+</span><span class='line'>* <span class="o">[</span>new branch<span class="o">]</span>      master -&gt; master
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>이 명령어들은 일반적으로 git에서 사용하는 명령어들입니다. 이제 파일들이 정상적으로 추가되었는지를 확인하기 위해 이 저장소의 웹페이지를 띄워보겠습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>git browse
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>git browse</code> 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2013-12-29-hub-and-pull-request/repository.png" alt="repository" /></p>
+
+<p>이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git checkout -b pull-request
+</span><span class='line'><span class="nv">$ </span>git touch hello.rb
+</span><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git commit -m<span class="s1">&#39;Add hello.rb&#39;</span>
+</span><span class='line'><span class="nv">$ </span>git push origin pull-request
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>위의 명령어들 역시 git에서 일반적으로 사용하는 명령어들로 추가적인 설명은 생략하겠습니다. 간단히만 얘기하면 pull-request 브랜치를 만들고 <code>hello.rb</code> 파일을 추가하고 Github 저장소에도 추가했습니다. 이제 nacyot/pull-request 에는 master 브랜치와 pull-request 두 브랜치가 존재합니다.</p>
+
+<p>여기서는 pull-request 브랜치에서 master 브랜치로 풀리퀘스트를 보내겠습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git pull-request
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p><code>git pull-request</code> 명령어를 실행시키면 현재 디렉토리의 github 저장소와 브랜치를 기준으로 풀리퀘스트를 보내기 위한 메시지를 입력할 수 있도록 기본 에디터를 실행해줍니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>First pull-request
+</span><span class='line'>
+</span><span class='line'><span class="c"># Requesting a pull to nacyot:master from nacyot:pull-request</span>
+</span><span class='line'><span class="c">#</span>
+</span><span class='line'><span class="c"># Write a message for this pull request. The first block</span>
+</span><span class='line'><span class="c"># of text is the title and the rest is description.</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>주석을 통해서 풀리퀘스트가 어디로 보내지는지 확인할 수 있습니다. 풀리퀘스트 메시지를 완성하고 저장한 후 에디터를 종료하면 풀리퀘스트가 보내집니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'>https://github.com/nacyot/pull-request/pull/1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.</p>
+
+<p><img src="http://blog.remotty.com/images/2013-12-29-hub-and-pull-request/pull-request.png" alt="pull-request" /></p>
+
+<p><code>git pull-request</code> 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='sh'><span class='line'><span class="nv">$ </span>git pull-request -m <span class="s1">&#39;First pull-request&#39;</span> -b nacyot:master -h nacyot:pull-request
+</span><span class='line'>https://github.com/nacyot/pull-request/pull/1
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>여기서 <code>-m</code> 플래그는 풀리퀘스트 메시지, <code>-b</code> 플래그는 풀리퀘스트 목적지, <code>-h</code> 플래그는 풀리퀘스트를 보내는 브랜치가 됩니다. <code>-b</code>와 <code>-h</code> 플래그는 <code>&lt;계정명&gt;:&lt;브랜치명&gt;</code> 형식으로 기술하며, 저장소는 작업 디렉토리 저장소를 근거로 자동으로 유추됩니다. 마찬가지로 풀리퀘스트에 성공하면 풀리퀘스트의 url을 보여줍니다.</p>
+
+<h1>결론</h1>
+
+<p>여기까지 git 명령어를 hub로 확장해서 커맨드라인에서 Github 작업을 좀 더 편하게 하는 방법을 소개했습니다. hub는 웹에서 해야하는 귀찮은 일들을 많이 덜어주는 프로그램입니다. Github에서 저장소를 만들고 풀리퀘스트를 보내려고 웹상에서 브랜치 지정해주고 하는 일은 간단한 작업이지만 꽤나 번거롭습니다. 특히 해당 &lsquo;저장소&#8217;를 찾아서 들어가는 일도 반복되면 귀찮기만 한 일입니다. hub와 함께 좀 더 즐거운 Github 라이프가 되길 바랍니다 >_&lt;</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[비디오 동영상 쪼개기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/29/split-video/"/>
+    <updated>2013-12-29T07:31:32+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/29/split-video</id>
+    <content type="html"><![CDATA[<p>맥 환경에서는 <code>homebrew</code>를 이용하면 <code>ffmpeg</code>를 쉽게 설치할 수 있습니다.</p>
+
+<!--more-->
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew install ffmpeg</span></code></pre></td></tr></table></div></figure>
+
+
+<p>제법 시간이 걸리지만 기다릴만 합니다.</p>
+
+<p>동영상을 쪼개는 command line 명령과 옵션은 아래와 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y
+</span><span class='line'>  -i [original file name]
+</span><span class='line'>  -vcodec copy -acodec copy -ss 00:00:00 -t 00:25:00 -sn [split1 file name]
+</span><span class='line'>  -vcodec copy -acodec copy -ss 00:25:00 -t 00:54:25 -sn [split2 file name]</span></code></pre></td></tr></table></div></figure>
+
+
+<p>아래에 이를 이용한 예를 소개 합니다.</p>
+
+<p>ex 1) 1시간 44분 25초 크기의 remotty_3rd_hangout.mp4 동영상 파일을 50분 크기로 쪼개고자 할 때.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y -i remotty_3rd_hangout.mp4 -vcodec copy -acodec copy -ss 00:00:00 -t 00:50:00 -sn remotty3_1.mp4 -vcodec copy -acodec copy -ss 00:50:00 -t 01:44:25 -sn remotty3_2.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ex 2) 50분짜리 remotty3_1.mp4 동영상 파일을 25분 크기로 쪼개고자 할 때</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y -i remotty3_1.mp4 -vcodec copy -acodec copy -ss 00:00:00 -t 00:25:00 -sn remotty3_part1.mp4 -vcodec copy -acodec copy -ss 00:25:00 -t 00:50:00 -sn remotty3_part2.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<p>ex 3) 54분 25초 크기의 remotty3_2.mp4 동영상 파일을 25분 크기로 쪼개고자 할 때</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ ffmpeg -v quiet -y -i remotty3_2.mp4 -vcodec copy -acodec copy -ss 00:00:00 -t 00:25:00 -sn remotty3_part3.mp4 -vcodec copy -acodec copy -ss 00:25:00 -t 00:54:25 -sn remotty3_part4.mp4</span></code></pre></td></tr></table></div></figure>
+
+
+<h4>정말 순식간에 re-rendering 과정없이 동영상 파일이 쪼개지는군요. ㅎㅎㅎ</h4>
+
+<p>레퍼런스 : <a href="http://stackoverflow.com/a/19300561/1217633">http://stackoverflow.com/a/19300561/1217633</a></p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[github을 통한 협업]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/23/githubeul-tonghan-hyeobeob/"/>
+    <updated>2013-12-23T22:17:44+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/23/githubeul-tonghan-hyeobeob</id>
+    <content type="html"><![CDATA[<p>github을 통합 협업시 필요한 셋팅입니다.</p>
+
+<!-- more -->
+
+
+<ul>
+<li><p>원본 repository를 본인 계정으로 fork하고 작업합니다.</p></li>
+<li><p>user.name &amp; user.email 설정</p>
+
+<ul>
+<li>github 정보와 동일하게 user.name과 user.email을 설정합니다.</li>
+</ul>
+</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config user.name “subicura<span class="err">&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git config user.email “subicura@subicura.com”
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>upstream 설정</p>
+
+<ul>
+<li>원본 repository와 소스를 동기화 하기 위해 upstream을 설정합니다.</li>
+<li><a href="https://help.github.com/articles/syncing-a-fork">https://help.github.com/articles/syncing-a-fork</a></li>
+</ul>
+</li>
+<li><p>pull request 관련 설정</p>
+
+<ul>
+<li>git의 branch를 이용해서 테스트해볼 수 있습니다.</li>
+<li><a href="https://gist.github.com/piscisaureus/3342247">https://gist.github.com/piscisaureus/3342247</a></li>
+</ul>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[모델 Spec 작성하기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/18/model-spec/"/>
+    <updated>2013-12-18T09:17:57+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/18/model-spec</id>
+    <content type="html"><![CDATA[<p>Rails 어플리케이션에서 모델은 해당 어플리케이션의 주요 핵심 로직으로 구성되어 있습니다.
+따라서, TDD를 이용한 Test 기반 개발을 할 때도 모델에 대한 Test를 중점적으로 시행하는 것은 당연한 일일 것입니다.</p>
+
+<!--more-->
+
+
+<p>이를 위해서는, TDD에 관한 여러 가지 책이 있지만, 저의 경우는 Aaron Sumner의 &ldquo;Everday Rails Testing with RSpec(<a href="https://leanpub.com/everydayrailsrspec">https://leanpub.com/everydayrailsrspec</a>)&#8221;가 쉽게 이해가 되더군요.</p>
+
+<p>이 책의 내용 중 모델 챕터를 보면 쉽게 따라해 볼 수 있습니다.</p>
+
+<p>TDD를 위한 젬 중에 대표적인 것은 <code>RSpec</code> 입니다. 이 젬을 중심으로 TDD를 위한 환경구축을 위해서 Aaron이 추천하는 젬 구성은 아래와 같습니다.</p>
+
+<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+</pre></td><td class='code'><pre><code class='ruby'><span class='line'><span class="n">group</span> <span class="ss">:development</span><span class="p">,</span> <span class="ss">:test</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s2">&quot;rspec-rails&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 2.14.0.rc1&quot;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s2">&quot;factory_girl_rails&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 4.2.1&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">group</span> <span class="ss">:test</span> <span class="k">do</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s2">&quot;faker&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 1.1.2&quot;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s2">&quot;capybara&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 2.1.0&quot;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s2">&quot;database_cleaner&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 1.0.1&quot;</span>
+</span><span class='line'>  <span class="n">gem</span> <span class="s2">&quot;launchy&quot;</span><span class="p">,</span> <span class="s2">&quot;~&gt; 2.3.0&quot;</span>
+</span><span class='line'><span class="k">end</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>각 모델에 대해서는 아래의 3가지 정도를 test해 보면 됩니다.</p>
+
+<ul>
+<li>해당 모델의 <code>create</code> 메소드에 유효한 데이터를 넘겨 주면 에러 없이 모델 객체가 생성됨.</li>
+<li>해당 모델에 유효하지 않는 데이터를 넘겨 주면 유효성 검증에서 실패함.</li>
+<li>해당 모델의 클래스 메소드나 인스턴스 메소드가 원하는 대로 결과를 만들어 냄.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[meeting]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/15/meeting/"/>
+    <updated>2013-12-15T01:07:20+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/15/meeting</id>
+    <content type="html"><![CDATA[<p>오늘 6명(+1명)이 행아웃을 하면서 느낀점입니다.</p>
+
+<!-- more -->
+
+
+<p>행아웃은 리모트로 일하면서 유일하게 얼굴을 보면서 이야기 할 수 있는 시간 입니다.
+흔치 않은 기회(?)라 다양한 이야기를 나누게 되는데 그러다 보니 의도치 않게 시간이 너무 걸립니다.
+2시간을 했다고 하면 6명*2시간=12시간을 미팅하는데 쓴 셈인데..</p>
+
+<p>다음 행아웃에서는 주제를 최소로 하고 페이스북이나 채팅으로 해결할 수 있는 문제는 그 전에 처리하기로 했습니다.
+항상 시간을 효율적으로 쓸 수 있게 노력해야겠습니다 ㅠ</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[install theme]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/install-theme/"/>
+    <updated>2013-12-10T23:00:55+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/install-theme</id>
+    <content type="html"><![CDATA[<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+<!--more-->
+
+
+<p>일단 theme 리스트는 다음 링크에서 확인하시고..</p>
+
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></p>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/</a></p>
+
+<p>설치는 아래와 같이 하면 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd [octopress directory]
+</span><span class='line'>git clone [theme git주소] .themes/[theme 이름]
+</span><span class='line'>rake install['theme 이름']
+</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
+
+
+<p>zsh 사용시 에러가 발생한다면</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>cd [octopress directory]
+</span><span class='line'>git clone [theme git주소] .themes/[theme 이름]
+</span><span class='line'>rake "install[theme 이름]"
+</span><span class='line'>rake generate</span></code></pre></td></tr></table></div></figure>
+
+
+<p>다음과 같이 합니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Insert Author]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/insert-author/"/>
+    <updated>2013-12-10T22:46:31+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/insert-author</id>
+    <content type="html"><![CDATA[<p>octopress는 한 블로그에 글쓴이가 여러명일 경우 작성자를 따로 입력할 수 있습니다.</p>
+
+<!--more-->
+
+
+<p>post글 상단 정보에 <code>author: Your Name</code>을 입력하면 되고</p>
+
+<p>글 수정시에는 author에 이름을 추가하는 식으로 작업하면 될 것 같습니다.</p>
+
+<p>지금 이 글을 예로 들면 다음과 같습니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>---
+</span><span class='line'>layout: post
+</span><span class='line'>title: "Insert Author"
+</span><span class='line'>date: 2013-12-10 22:46:31 +0900
+</span><span class='line'>comments: true
+</span><span class='line'>categories: [octopress]
+</span><span class='line'>author: 김충섭
+</span><span class='line'>---</span></code></pre></td></tr></table></div></figure>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Insert 'more' link]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/insert-more-link/"/>
+    <updated>2013-12-10T22:17:53+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/insert-more-link</id>
+    <content type="html"><![CDATA[<p>블로그 인덱스 페이지에서는 각 포스트의 한 문장만 보이게 방법이 있습니다.
+인덱스 페이지에서 해당 포스트의 모든 내용이 보이면 한 화면에서 여러개의 포스트를 볼 수 없겠죠.</p>
+
+<p>요령은 글 내용 중에서 한 문장이 끝나는 다음 줄에 아래의 표시를 삽입해 주면 인덱스 페이지에서는 자동으로 <code>more</code> 링크가 생성되면 한 문장만 보이게 됩니다. <code>more</code>버튼을 클릭하면 전체 글 내용을 볼 수 있게 됩니다.</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>&lt;!-- more --&gt;</span></code></pre></td></tr></table></div></figure>
+
+
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Remotty하게 일하기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/remottyhage-ilhagi/"/>
+    <updated>2013-12-10T21:27:30+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/remottyhage-ilhagi</id>
+    <content type="html"><![CDATA[<blockquote><p>아래 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.<br/>
+나름 효율적으로 협업을 하기 위해, 각각의 활동에 최적화(?)된 도구를 선정하고 그것을 사용하기로 했었는데<br/>
+가장 큰 문제는 <strong>사용해야 할 도구가 너무 많아 커뮤니케이션이 분산</strong>된다는 것이었다.<br/>
+최근 협업 방식에 대해 <a href="http://blog.remotty.com/blog/2014/01/24/rimotihage-ilhagi-2/">Remotty하게 일하기 2</a>라는 제목으로 새로운 포스트를 올렸다.<br/>
+Remotty 그룹의 협업 방식에 대해서는 <a href="http://blog.remotty.com/blog/2014/01/24/rimotihage-ilhagi-2/">Remotty하게 일하기 2</a> 글을 참조하길 바란다.</p></blockquote>
+
+<p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
+혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
+<a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#58;&#97;&#100;&#109;&#105;&#x6e;&#x40;&#x72;&#x65;&#x6d;&#111;&#x74;&#116;&#x79;&#x2e;&#x63;&#x6f;&#109;">&#97;&#x64;&#109;&#105;&#x6e;&#64;&#114;&#101;&#109;&#111;&#116;&#x74;&#x79;&#46;&#x63;&#x6f;&#109;</a></p>
+
+<!-- more -->
+
+
+<h5>잡다구리한 이야기들</h5>
+
+<p>가벼운 생각들, 각종 팁, 유용한 지식 등 온갖 잡다구리한 정보들은 <strong>페이스북 그룹에 포스팅</strong> 한다.<br/>
+멤버들은 각자 자신의 생각들을 댓글을 통해 등록을 하면서 점점 그 생각들을 발전시켜 나간다.<br/>
+무언가를 결정할 사항이 생겼을 땐, 페이스북 설문조사 기능을 활용한다.<br/>
+아이디어로 이어가고 싶은 것들은 trello에 등록을 하여 점점 구체화시켜 나간다.</p>
+
+<h5>대화 &amp; 논의</h5>
+
+<p>대화를 통해 실시간 논의가 필요한 경우는 가겹게 <strong>페이스북 메신저</strong>를 활용한다.<br/>
+대부분의 이야기들이 페이스북 타임라인에서 오고가기 때문에 페이스북 메신저를 사용하여 대화하는 것이 편리하다.<br/>
+페이스북 메신저를 통한 대화는 시간, 장소에 관계없이 필요성을 느끼는 누군가가 먼저 시작을 하면 된다.<br/>
+좀 더 진지하게 집중적으로 논의를 해야 할 경우엔 <strong>구글 행아웃</strong>을 활용한다.</p>
+
+<h5>태스크 관리</h5>
+
+<p>태스크 관리는 <strong>trello</strong>를 활용한다.<br/>
+Jira, Redmine과 같은 이슈트래커 도구는 태스크 관리 도구로는 쓸데없이 무겁다.<br/>
+태스크 관리 뿐만 아니라, 구체화 시켜나갈 아이디어가 있을때에도 trello에 등록을 한다.</p>
+
+<h5>문서 공유</h5>
+
+<p>문서 공유는 에버노트와 구글드라이브를 사용한다.<br/>
+<strong>임시적인 성격의 문서, 메모등의 글들은 에버노트를 사용</strong>하고, <strong>산출물 성격의 문서들은 구글 드라이브를 사용한</strong>다.<br/>
+에버노트가 문서를 작성하기는 편하지만, 공동 작업이 불가능한 단점이 있다.<br/>
+그래서 산출물 성격의 문서는 구글드라이브로 관리한다.</p>
+
+<h5>기타 파일 공유</h5>
+
+<p>소스코드, 문서 이외의 기타 파일은 <strong>dropbox</strong>를 사용한다.<br/>
+주로 디자이너와 협업을 위한 파일 공유로 많이 사용한다.</p>
+
+<h5>단체코딩</h5>
+
+<p><strong>MadEye</strong>(<a href="https://madeye.io">https://madeye.io</a>)를 통해 정기적으로 단체 코딩을 한다.<br/>
+여러 사람이 같은 화면을 보며 함께 코딩을 할 수 있고, 구글 행아웃과도 연결되기 때문에 서로 대화하면 함께 코딩할 수 있다.<br/>
+굉장히 재밌고 편리하게 pair programming을 할 수 있는 도구이다.</p>
+
+<h5>소스 관리</h5>
+
+<p>소스 관리는 <strong>github</strong>가 정답이다. 이보다 편할 순 없다!</p>
+
+<h5>블로그</h5>
+
+<p>그룹 내에서 습득한 지식은 가능한 tech blog에 정리하여 공유하고 있다.<br/>
+<strong>octopress</strong>를 사용하여 작성을 하고 github page(<a href="http://remotty.github.io">http://remotty.github.io</a>)에 올려 공유한다.</p>
+
+<h4>시도중</h4>
+
+<p>현재 시도중이며 아직 확정되지 않은 방안들입니다.</p>
+
+<h5>1주일에 한번씩 한일/할일 공유</h5>
+
+<p>기본적으로 일주일에 한번 토요일밤에 행아웃을 통해 화상회의를 진행합니다.
+그전에 facebook을 통해 각자 한일과 다음주에 할일을 적습니다.
+이것은 정확하고 강압적으로 적는것이 아니라 우리가 <strong>함께 일하고 있다</strong>라는 걸 상기시켜주는 목적이 더 큽니다.
+부담갖지 말아요~</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[How to make a new post]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/09/how-to-make-a-new-post/"/>
+    <updated>2013-12-09T21:28:37+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/09/how-to-make-a-new-post</id>
+    <content type="html"><![CDATA[<p>Octopress 블로그에 글 작성하는 방법을 정리해 봅니다.</p>
+
+<!-- more -->
+
+
+<ul>
+<li>Github 저장소를 clone 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/remotty.github.io.git
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치로 checkout 합니다.(디폴트 브랜치가 source 임)</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>remotty.github.io
+</span><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>아래의 명령을 실행하여 Github Pages로 배포를 위한 준비작업을 합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install
+</span><span class='line'><span class="nv">$ </span>rake setup_github_pages<span class="o">[</span>git@github.com:remotty/remotty.github.io.git<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>theme를 설치합니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/Octopress-Theme-Slash.git .themes/slash
+</span><span class='line'><span class="nv">$ </span>rake <span class="s2">&quot;install[slash]&quot;</span>
+</span><span class='line'><span class="nv">$ </span>rake generate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>위의 작업을 git clone 시 한번만 수행합니다.</p></li>
+<li><p>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span>title-of-post<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>글을 작성하고 확인해 봅니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake preview
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>글을 작성하고 저장한 후 아래의 명령을 실행하면 바로 Github 저장소로 배포됩니다.</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy 또는 rake push
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.(이 과정을 반드시 수행해야만 합니다.)</li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git add .
+</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s2">&quot;새글 추가함&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
+</span></code></pre></td></tr></table></div></figure>
+
+
+<p>2014년 1월 30일 수정 보완함. 최효성</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shomney Development Stack]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/09/shomney-development-stack/"/>
+    <updated>2013-12-09T20:48:17+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/09/shomney-development-stack</id>
+    <content type="html"><![CDATA[<p>Shomney Development Stack</p>
+
+<ul>
+<li>ruby on rails 4</li>
+<li>angularjs 1.2.x</li>
+<li>sqlite3(dev)/mysql(production)</li>
+<li>bootstrap3</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Getting Started]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/09/getting-started/"/>
+    <updated>2013-12-09T19:16:52+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/09/getting-started</id>
+    <content type="html"><![CDATA[<p>Remotty.com의 Tech Blog를 시작합니다.</p>
+]]></content>
+  </entry>
+  
+</feed>

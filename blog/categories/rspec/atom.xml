@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: RSpec | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/rspec/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-02-01T15:25:46+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[모델 Spec 작성하기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/18/model-spec/"/>
+    <updated>2013-12-18T09:17:57+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/18/model-spec</id>
+    <content type="html"><![CDATA[<p>Rails 어플리케이션에서 모델은 해당 어플리케이션의 주요 핵심 로직으로 구성되어 있습니다.
+따라서, TDD를 이용한 Test 기반 개발을 할 때도 모델에 대한 Test를 중점적으로 시행하는 것은 당연한 일일 것입니다.</p>
+
+<!--more-->
+
+
+<p>이를 위해서는, TDD에 관한 여러 가지 책이 있지만, 저의 경우는 Aaron Sumner의 &ldquo;Everday Rails Testing with RSpec(<a href="https://leanpub.com/everydayrailsrspec">https://leanpub.com/everydayrailsrspec</a>)"가 쉽게 이해가 되더군요.</p>
+
+<p>이 책의 내용 중 모델 챕터를 보면 쉽게 따라해 볼 수 있습니다.</p>
+
+<p>TDD를 위한 젬 중에 대표적인 것은 <code>RSpec</code> 입니다. 이 젬을 중심으로 TDD를 위한 환경구축을 위해서 Aaron이 추천하는 젬 구성은 아래와 같습니다.</p>
+
+<p>``` ruby
+group :development, :test do
+  gem &ldquo;rspec-rails&rdquo;, &ldquo;~> 2.14.0.rc1&rdquo;
+  gem &ldquo;factory_girl_rails&rdquo;, &ldquo;~> 4.2.1&rdquo;
+end</p>
+
+<p>group :test do
+  gem &ldquo;faker&rdquo;, &ldquo;~> 1.1.2&rdquo;
+  gem &ldquo;capybara&rdquo;, &ldquo;~> 2.1.0&rdquo;
+  gem &ldquo;database_cleaner&rdquo;, &ldquo;~> 1.0.1&rdquo;
+  gem &ldquo;launchy&rdquo;, &ldquo;~> 2.3.0&rdquo;
+end
+```</p>
+
+<p>각 모델에 대해서는 아래의 3가지 정도를 test해 보면 됩니다.</p>
+
+<ul>
+<li>해당 모델의 <code>create</code> 메소드에 유효한 데이터를 넘겨 주면 에러 없이 모델 객체가 생성됨.</li>
+<li>해당 모델에 유효하지 않는 데이터를 넘겨 주면 유효성 검증에서 실패함.</li>
+<li>해당 모델의 클래스 메소드나 인스턴스 메소드가 원하는 대로 결과를 만들어 냄.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
