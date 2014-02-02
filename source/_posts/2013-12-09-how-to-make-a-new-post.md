@@ -20,6 +20,7 @@ $ git clone git@github.com:remotty/remotty.github.io.git
 * source 브랜치로 checkout 합니다.(디폴트 브랜치가 source 임)
 
 {% codeblock lang:bash %}
+$ cd remotty.github.io
 $ git checkout source
 {% endcodeblock %}
 
@@ -28,6 +29,14 @@ $ git checkout source
 {% codeblock lang:bash %}
 $ bundle install
 $ rake setup_github_pages[git@github.com:remotty/remotty.github.io.git]
+{% endcodeblock %}
+
+* theme를 설치합니다.
+
+{% codeblock lang:bash %}
+$ git clone git@github.com:remotty/Octopress-Theme-Slash.git .themes/slash
+$ rake "install[slash]"
+$ rake generate
 {% endcodeblock %}
 
 * 위의 작업을 git clone 시 한번만 수행합니다.
