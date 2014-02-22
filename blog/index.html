@@ -7,7 +7,8 @@
 	<meta name="author" content="Remotty Group">
 
 	
-	<meta name="description" content="AngularJS+Rails 프로젝트 구성 Feb 1st, 2014 angularjs rails Comments 최근 프로젝트에서 Rails기반에 AngularJS를 사용한 경험을 공유합니다. 간단하게 frontend/backend의 개념과 angularjs를 &hellip;">
+	<meta name="description" content="How to delecte a post Feb 22nd, 2014 Comments &ldquo;How to make a post&#8221;라는 포스팅은 있음에도 포스팅을 삭제하는 방법이 없어서
+제가 한번 정리해보겠습니다. 만들어진 remotty.github.io의 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -79,6 +80,74 @@
 	
 	<div id="content" class="inner">
 
+
+  
+  <article class="listing">
+    <header>
+  
+  <h1 class="beta">
+    <a href="/blog/2014/02/22/how-to-delecte-a-post/">How to delecte a post</a>
+  </h1>
+  
+
+  
+  <div class="meta clearfix">
+    
+
+
+
+
+
+
+
+
+  
+
+
+<time class="pull-left" datetime="2014-02-22T16:25:14+09:00" pubdate data-updated="true"><i class="icon-calendar"></i> Feb 22<span>nd</span>, 2014</time>
+    
+
+
+
+  
+
+    
+      <a class="pull-right" href="http://blog.remotty.com/blog/2014/02/22/how-to-delecte-a-post/#disqus_thread">
+        Comments <i class="icon-comment"></i>
+      </a>
+    
+  </div>
+  
+</header>
+
+
+
+
+  <p>&ldquo;How to make a post&#8221;라는 포스팅은 있음에도 포스팅을 삭제하는 방법이 없어서
+제가 한번 정리해보겠습니다.</p>
+
+<p>만들어진 remotty.github.io의 디렉토리에서</p>
+
+<p>&ldquo;$ ls source/_posts&#8221;를 통해 지우고자 하는 파일 명을 확인 후</p>
+
+<p>&ldquo;$ git rm source/_posts/지우고자 하는 파일 명&rdquo; 을 통해 파일을 지운다.</p>
+
+<p>&ldquo;$ git status&#8221;을 통해 상태를 확인하고,
+&rdquo;$ git commit -m &ldquo;메세지 내용&rdquo;&ldquo;으로 로깅을 하고</p>
+
+<p>&ldquo;$ git push&#8221;를 통해 소스를 완전히 지운다.</p>
+
+<p>&ldquo;$ rake push&#8221;를 통해 렌드링을 통해 메인 페이지에 포스팅을 지운다.</p>
+
+<p>&ldquo;$ open <a href="http://blog.remotty.com">http://blog.remotty.com</a>&#8220;을 통해 지워졌는지 확인 후 안됬을 경우
+&rdquo;$ rake deploy&#8221; 하고, &ldquo;$ rake gen_deploy&#8221;를 완료 후 다시
+메인 홈페이지를 확인해봅니다.</p>
+
+<p>간단합니다.</p>
+
+
+  </article>
+  <hr>
 
   
   <article class="listing">
@@ -1028,7 +1097,7 @@ Remotty 그룹의 협업 방식에 대해서는 <a href="/blog/2014/01/24/rimoti
 
 <p>이 포스트를 통해 Remotty 그룹에서 협업하는 방식을 소개합니다.<br/>
 혹시 더 효율적이고 세련된 방식으로 일하고 계시거나 알고 계신 분들은 댓글이나 메일로 한수 가르쳐주시면 감사하겠습니다 ^^<br/>
-<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#97;&#100;&#x6d;&#105;&#x6e;&#64;&#x72;&#101;&#x6d;&#111;&#x74;&#116;&#121;&#x2e;&#99;&#x6f;&#109;">&#97;&#100;&#109;&#105;&#x6e;&#x40;&#114;&#101;&#x6d;&#x6f;&#116;&#x74;&#x79;&#x2e;&#99;&#x6f;&#109;</a></p>
+<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#111;&#58;&#x61;&#100;&#109;&#x69;&#x6e;&#64;&#114;&#x65;&#x6d;&#111;&#116;&#116;&#x79;&#x2e;&#99;&#x6f;&#x6d;">&#x61;&#x64;&#x6d;&#x69;&#110;&#x40;&#x72;&#101;&#x6d;&#111;&#x74;&#116;&#121;&#x2e;&#99;&#111;&#x6d;</a></p>
 
 
   <a class="btn pull-right" href="/blog/2013/12/10/remottyhage-ilhagi/">Read on &rarr;</a>
