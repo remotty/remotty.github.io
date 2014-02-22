@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: tip | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/tip/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-02-22T15:41:36+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Insert 'more' link]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/insert-more-link/"/>
+    <updated>2013-12-10T22:17:53+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/insert-more-link</id>
+    <content type="html"><![CDATA[<p>블로그 인덱스 페이지에서는 각 포스트의 한 문장만 보이게 방법이 있습니다.
+인덱스 페이지에서 해당 포스트의 모든 내용이 보이면 한 화면에서 여러개의 포스트를 볼 수 없겠죠.</p>
+
+<p>요령은 글 내용 중에서 한 문장이 끝나는 다음 줄에 아래의 표시를 삽입해 주면 인덱스 페이지에서는 자동으로 <code>more</code> 링크가 생성되면 한 문장만 보이게 됩니다. <code>more</code>버튼을 클릭하면 전체 글 내용을 볼 수 있게 됩니다.</p>
+
+<p>```</p>
+
+<!-- more -->
+
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Shomney Development Stack]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/09/shomney-development-stack/"/>
+    <updated>2013-12-09T20:48:17+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/09/shomney-development-stack</id>
+    <content type="html"><![CDATA[<p>Shomney Development Stack</p>
+
+<ul>
+<li>ruby on rails 4</li>
+<li>angularjs 1.2.x</li>
+<li>sqlite3(dev)/mysql(production)</li>
+<li>bootstrap3</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
