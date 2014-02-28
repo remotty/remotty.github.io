@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: development | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/development/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-02-28T16:20:43+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Shomney Development Stack]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/09/shomney-development-stack/"/>
+    <updated>2013-12-09T20:48:17+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/09/shomney-development-stack</id>
+    <content type="html"><![CDATA[<p>Shomney Development Stack</p>
+
+<ul>
+<li>ruby on rails 4</li>
+<li>angularjs 1.2.x</li>
+<li>sqlite3(dev)/mysql(production)</li>
+<li>bootstrap3</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
