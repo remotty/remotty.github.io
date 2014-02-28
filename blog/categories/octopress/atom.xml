@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: octopress | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/octopress/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-03-01T00:56:48+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[install theme]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/install-theme/"/>
+    <updated>2013-12-10T23:00:55+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/install-theme</id>
+    <content type="html"><![CDATA[<p>octopress에 테마를 추가하는 방법은 아주 간단합니다.</p>
+
+<!--more-->
+
+
+<p>일단 theme 리스트는 다음 링크에서 확인하시고..</p>
+
+<p><a href="https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes">https://github.com/imathis/octopress/wiki/3rd-Party-Octopress-Themes</a></p>
+
+<p><a href="http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/">http://www.evolument.com/blog/2013/03/02/top-10-plus-octopress-themes/</a></p>
+
+<p>설치는 아래와 같이 하면 됩니다.</p>
+
+<p><code>
+cd [octopress directory]
+git clone [theme git주소] .themes/[theme 이름]
+rake install['theme 이름']
+rake generate
+</code></p>
+
+<p>zsh 사용시 에러가 발생한다면</p>
+
+<p><code>
+cd [octopress directory]
+git clone [theme git주소] .themes/[theme 이름]
+rake "install[theme 이름]"
+rake generate
+</code></p>
+
+<p>다음과 같이 합니다.</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Insert Author]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/10/insert-author/"/>
+    <updated>2013-12-10T22:46:31+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/10/insert-author</id>
+    <content type="html"><![CDATA[<p>octopress는 한 블로그에 글쓴이가 여러명일 경우 작성자를 따로 입력할 수 있습니다.</p>
+
+<!--more-->
+
+
+<p>post글 상단 정보에 <code>author: Your Name</code>을 입력하면 되고</p>
+
+<p>글 수정시에는 author에 이름을 추가하는 식으로 작업하면 될 것 같습니다.</p>
+
+<p>지금 이 글을 예로 들면 다음과 같습니다.</p>
+
+<h2>```</h2>
+
+<p>layout: post
+title: &ldquo;Insert Author&rdquo;
+date: 2013-12-10 22:46:31 +0900
+comments: true
+categories: [octopress]</p>
+
+<h2>author: 김충섭</h2>
+
+<p>```</p>
+]]></content>
+  </entry>
+  
+</feed>
