@@ -224,6 +224,7 @@ remotty라는 서버 소켓파일이 생성 되었네요.
 
 실제로 tmux의 이 기능을 이용하여 [Facebook Django](https://www.facebook.com/groups/django/) 그룹에서는 코딩도장을 운영한다고 합니다. 대화는 행아웃으로 하고, 코딩은 각자의 terminal로 하는거죠!
 
+<a name="epilogue"></a>
 ###[맺는말](#epilogue)
 
 저희는 **Remote Work**를 지향하는 조직인 만큼 이러한 원격으로 집단 개발을 가능하게 해주는 도구는 참으로 유용합니다. 이 글을 보시는 분들께서도 여기서 소개해 드린 두가지 도구를 이용하여 멀리있는 친구와도 즐거운 개발 하시길 바랍니다.
