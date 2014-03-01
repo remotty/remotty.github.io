@@ -4,7 +4,7 @@
   <title><![CDATA[Category: octopress | Remotty Tech Blog]]></title>
   <link href="http://blog.remotty.com/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
-  <updated>2014-01-30T20:09:48+09:00</updated>
+  <updated>2014-02-07T14:22:41+09:00</updated>
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -106,7 +106,9 @@ categories: [octopress]</p>
 
 
 <p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>remotty.github.io
+</span><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>
@@ -118,6 +120,19 @@ categories: [octopress]</p>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install
 </span><span class='line'><span class="nv">$ </span>rake setup_github_pages<span class="o">[</span>git@github.com:remotty/remotty.github.io.git<span class="o">]</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div></p>
+
+<ul>
+<li>theme를 설치합니다.</li>
+</ul>
+
+
+<p><div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/Octopress-Theme-Slash.git .themes/slash
+</span><span class='line'><span class="nv">$ </span>rake &amp;ldquo;install<span class="o">[</span>slash<span class="o">]</span>&amp;rdquo;
+</span><span class='line'><span class="nv">$ </span>rake generate
 </span></code></pre></td></tr></table></div></figure></notextile></div></p>
 
 <ul>

@@ -3,11 +3,11 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Categories - Remotty Tech Blog</title>
+	<title>devise_api - Remotty Tech Blog</title>
 	<meta name="author" content="Remotty Group">
 
 	
-	<meta name="description" content="Development [ 1 ] Tip [ 2 ] Octopress [ 3 ] Communication [ 2 ] Remote [ 2 ] Rspec [ 1 ] Tdd [ 1 ] Tools [ 1 ] Video [ 1 ] Git [ 1 ] Github [ 1 ] &hellip;">
+	<meta name="description" content="레일스 프로젝트의 인증관련 젬으로 가장 많이 사용하는 것이 devise 젬이다. 또한, 레일스 API 를 작성할 때는 devise의 token_authenticatable 이라는 strategy module을 사용해야 한다. 그러나, Devise 3.1.x 부터는 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -77,58 +77,90 @@
 	
 		
 	
-	<div id="content" class="inner"><article class="page">
-    
-    <h1 class="title">Categories</h1>
-    
-    <div class="entry-content"><ul>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">Devise_api</h2>
+	<div class="entry-content"><p>레일스 프로젝트의 인증관련 젬으로 가장 많이 사용하는 것이 <a href="https://github.com/plataformatec/devise"><code>devise</code></a> 젬이다.</p>
 
-    <li><a href="/blog/categories/development/">Development</a> [ 1 ]</li>
+<!--more-->
 
-    <li><a href="/blog/categories/tip/">Tip</a> [ 2 ]</li>
 
-    <li><a href="/blog/categories/octopress/">Octopress</a> [ 3 ]</li>
+<p>또한, 레일스 API 를 작성할 때는 <code>devise</code>의 <code>token_authenticatable</code> 이라는 strategy module을 사용해야 한다.</p>
 
-    <li><a href="/blog/categories/communication/">Communication</a> [ 2 ]</li>
+<p>그러나, Devise 3.1.x 부터는 보안기능이 강화되어 <code>TokenAuthenticatable</code>모듈이 deprecated 되었으며, 더 이상 <code>token_atuthenticatable</code>을 사용할 수 없게 되었다. 이에 대한 제세한 내용은 <a href="http://bit.ly/1ik9oan">Devise 3.1: Now with more secure defaults</a>을 참고하기 바란다.</p>
 
-    <li><a href="/blog/categories/remote/">Remote</a> [ 2 ]</li>
+<p>그래서 여기에서는 이러한 문제를 해결하는 방법에 대해서 구글링을 통해 검색한 내용을 근거로 정리해 보도록 하겠다.</p>
 
-    <li><a href="/blog/categories/RSpec/">Rspec</a> [ 1 ]</li>
+<p>위에서 언급했던 블로그의 내용에 의하면 <code>TokenAuthenticatable</code> 모듈에서 제공해 주는 인증 토큰은 digest할 수 없고 어플리케이션마다 필요로하는 보안요구사항이 다양하기 때문에 Devise 3.1.x 부터는 이 모듈를 제거하고 대안으로 <a href="http://bit.ly/LBZwNJ">2개의 해법</a>을 소개하고 있다.</p>
 
-    <li><a href="/blog/categories/TDD/">Tdd</a> [ 1 ]</li>
+<hr>
 
-    <li><a href="/blog/categories/tools/">Tools</a> [ 1 ]</li>
 
-    <li><a href="/blog/categories/video/">Video</a> [ 1 ]</li>
+<p>유용한 링크</p>
 
-    <li><a href="/blog/categories/git/">Git</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/github/">Github</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/hub/">Hub</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/gem/">Gem</a> [ 2 ]</li>
-
-    <li><a href="/blog/categories/rest/">Rest</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/angularjs/">Angularjs</a> [ 2 ]</li>
-
-    <li><a href="/blog/categories/Github/">Github</a> [ 1 ]</li>
-
-    <li><a href="/blog/categories/rails/">Rails</a> [ 1 ]</li>
-
+<ul>
+<li><p><a href="http://bit.ly/LBTSex">API Authentication using Devise (Ruby on Rails)</a></p></li>
+<li><p><a href="http://bit.ly/1ik8Wsv">Remote API Authentication With Rails 3 Using ActiveResource and Devise</a></p></li>
+<li><p><a href="http://bit.ly/1ik99fm">Devsie, token_authenticatable deprecated</a></p></li>
+<li><p><a href="http://bit.ly/1ik9oan">Devise 3.1: Now with more secure defaults</a></p></li>
+<li><p><a href="http://bit.ly/LBZwNJ">Two of the available solutions for TokenAuthenticatable.</a></p></li>
 </ul>
 
 </div>
+
+
+<div class="meta">
+	<div class="date">
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-02-02T10:22:21+09:00" pubdate data-updated="true">Feb 2<span>nd</span>, 2014</time></div>
+	<div class='author'>
+  
+
+최효성
+</div>
+	<div class="tags">
+
+
+	<a class='category' href='/blog/categories/gem/'>gem</a>
+
+
+</div>
+	
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
+	
+</div>
 </article>
+
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
+		
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+		
+		
+		<a class="addthis_button_tweet"></a>
+		
+		
+		
+	</div>
+	
+</div>
+
 
 
 <section id="comment">
-    <h1 class="title">Comments</h1>
+    <h2 class="title">Comments</h2>
     <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
 </section>
-
 </div>
 	<footer id="footer" class="inner">Copyright &copy; 2014
 
@@ -149,8 +181,8 @@
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://blog.remotty.com/blog/categories/index.html';
-        var disqus_url = 'http://blog.remotty.com/blog/categories/index.html';
+        var disqus_identifier = 'http://blog.remotty.com/blog/2014/02/02/devise-api/';
+        var disqus_url = 'http://blog.remotty.com/blog/2014/02/02/devise-api/';
         var disqus_script = 'embed.js';
       
     (function () {
