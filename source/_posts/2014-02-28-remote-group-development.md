@@ -15,7 +15,7 @@ author: 김한기
  - [tmux](#tmux)
  - [맺는말](#epilogue)
 
- 
+<!--more-->
 <a name="prologue"></a>
 ###[머리말](#prologue)
 
@@ -29,11 +29,11 @@ author: 김한기
 설치는 매우 쉽습니다.
 
     $ curl https://madeye.io/install | sh
-    
+
 또는 [Node.js](http://nodejs.org/)가 가능하다면,
 
     $ npm install -g madeye
-    
+
 아마 대부분의 리눅스 혹은 OS X에서 무난하게 설치가 될텐데요, 사용도 아주 간단합니다.
 
 설치가 되었을껀데요, 현시점 최신 버전은
@@ -46,9 +46,9 @@ author: 김한기
     $ madeye --help
 
       Usage: madeye [options]
-    
+
       Options:
-    
+
         -h, --help           output usage information
         -V, --version        output the version number
         -c --clean           Start a new project, instead of reusing an existing one.
@@ -58,19 +58,19 @@ author: 김한기
         --ignorefile [file]  .gitignore style file of patterns to not share with madeye (default .madeyeignore)
         --update             Update MadEye to the latest version and exit.
         -t --terminal        Share your terminal output with MadEye (read-only)
-    
+
       Run madeye in a directory to push its files and subdirectories to madeye.io.
       Give the returned url to your friends, and you can edit the project
       simultaneously.  Type ^C to close the session and disable the online project.
-      
+
 실행법은 이미 아셨겠지만, 설명해보자면... 일단 집단코딩을 하고싶은 프로젝트의 최상위 디렉터리로 이동을 합니다. 그런다음 `$ madeye`를 입력해주면 끝입니다. 너무 간단하죠...?!
 
 실행 하셨다면 아래 와 같은 모습을 보실 수 있을겁니다.
 
-    $ madeye 
+    $ madeye
     View your project with MadEye at https://madeye.io/edit/dvSjfeYZnEwLxiCjt
     Use MadEye within a Google Hangout at https://madeye.io/api/hangout/dvSjfeYZnEwLxiCjt
-    
+
 위 주소 아무거나를 자주 사용하시는 웹 브라우저를 이용해서 접속해보세요. 보이시나요...!?
 
 madeye를 실행했한 디렉터리 하위의 파일 및 디렉터리들이 전부 보이고, 오른쪽엔 수정 및 저장이 가능한 에디터가 보입니다. 이제 이 주소를 같이 코딩하고 싶은 분들께 알려주시면 됩니다. 그럼 다같이 코딩을 할 수가 있어요.
@@ -80,23 +80,23 @@ madeye를 실행했한 디렉터리 하위의 파일 및 디렉터리들이 전�
     $ madeye -t
     View your project with MadEye at https://madeye.io/edit/hjS7SRnpqk3XMurB8
     Use MadEye within a Google Hangout at https://madeye.io/api/hangout/hjS7SRnpqk3XMurB8
-    
+
     ################################################################################
     ## MadEye Terminal    ##########################################################
     ################################################################################
-    
+
     Anything output from this terminal will be shared within in your MadEye session.
     The shared terminal is read-only. Only you can type commands at this shell
     To exit this shell and end your MadEye session type exit
-    
+
     Setting prompt to reflect that you are in a MadEye session
     export PS1="$PS1(madeye) "
-    
+
     export MADEYE_ACTIVE=1
     $ export PS1="$PS1(madeye) "
     $ (madeye)
     $ (madeye) export MADEYE_ACTIVE=1
-    $ (madeye) 
+    $ (madeye)
 
 위와 같이 `-t`옵션을 줘서 생성한 URL은 에디터 아래에 터미널이 보이고, `$ (madeye)`에서 어떠한 내용을 입력했을때 참여하는사람들 모두에게 보여집니다. 행아웃과 같이 사용하면, 얼굴도 볼 수있고, 대화도 할 수있고, 꽤 좋은 에디터로 같이 코딩도 할 수 있고, 거기가 터미널까지...
 
@@ -111,7 +111,7 @@ madeye를 실행했한 디렉터리 하위의 파일 및 디렉터리들이 전�
 
  - [TTY 멀티플랙서 tmux](http://blog.outsider.ne.kr/699)
  - [[cookbook] Tmux 입문자님들을 위해 #1 : 설치, 기본사용방법, session](http://nodeqa.com/nodejs_ref/99)
- 
+
 tmux가 뭔지 아셨나요? 이제 tumx를 이용하여 원격에서 집단으로 개발할때 유용한 기능을 소개해드리겠습니다.
 
 일단 tmux를 이용하여 집단 개발을 하려면 개발하려는 대상 프로젝트의 개발환경이 구성되어있는 서버에 ssh, telnet 같은 도구를 이용하여 참여자들이 접속 할 수 있어야 합니다.
@@ -121,7 +121,7 @@ tmux가 뭔지 아셨나요? 이제 tumx를 이용하여 원격에서 집단으�
 먼저  tmux session을 만들어 볼까요?
 
     $ tmux
-    
+
 끝.
 
 저러면 tmux session이 생겨요. 이제 tmux session이 생겼으니 다른 사람들은 저 session으로 붙으면 됩니다. 어떻게 붙느냐...!?
@@ -129,7 +129,7 @@ tmux가 뭔지 아셨나요? 이제 tumx를 이용하여 원격에서 집단으�
 이렇게 붙으면 됩니다.
 
     $ tmux attach
-    
+
 끝.
 
 session을 생성하는것, 그리고 붙는 방법 둘다 정말 간단하죠?
@@ -155,7 +155,7 @@ session을 생성하는것, 그리고 붙는 방법 둘다 정말 간단하죠?
                    default socket is named default.  This option allows a different socket name to be
                    specified, allowing several independent tmux servers to be run.  Unlike -S a full
                    path is not necessary: the sockets are all created in the same directory.
-            
+
 tmux session을 그냥 생성하게 되면, 즉 `$ tmux`이렇게 입력하면 서버 소켓 파일은 `/tmp/tmux-1000/default`에 생기게 됩니다.
 
 다시말해서 위에서 설명할때 tmux session을 *만든다* 혹은 *생성한다*라는 표현을 사용했는데, 정확히 하자면 *소켓파일을 생성하는 것*이라고 할 수 있죠.
@@ -163,7 +163,7 @@ tmux session을 그냥 생성하게 되면, 즉 `$ tmux`이렇게 입력하면 �
 그런데 `-L`옵션을 사용하면 서버 소켓 파일의 이름을 지정할 수 있습니다.
 
     $ tmux -L remotty
-    
+
 위와 같이 서버 소켓파일을 생성하게되면
 
     $ pwd
@@ -176,7 +176,7 @@ remotty라는 서버 소켓파일이 생성 되었네요.
 이렇게 되면 다른사람들이 붙을때도 `-L`옵션을 사용해서 붙으면 됩니다.
 
     $ tmux -L remotty attach
-    
+
 붙을땐 `attach`를 뒤에 붙이는 것 빼먹으시면 안되고요.
 
 `-L`옵션도 좋지만 서버 소켓 파일 자체를 다른 곳에 생성 하고 싶을때가 있죠. 그럴때 사용하는 옵션이 `-S`옵션 입니다.
@@ -184,11 +184,11 @@ remotty라는 서버 소켓파일이 생성 되었네요.
     -S socket-path
                    Specify a full alternative path to the server socket.  If -S is specified, the
                    default socket directory is not used and any -L flag is ignored.
-                   
+
 `-S`옵션에 대한 설명은 위와 같습니다. 어떻게 사용해야 할 지 아시겠죠?
 
     $ tmux -S /tmp/mydir/haha/hoho/remotty
-    
+
 위 명령을 내리면 서버 소켓 파일은 `/tmp/mydir/haha/hoho`디렉터리에 `remotty`이름으로 생기게 됩니다.
 
 `-S`옵션으로 서버 소켓 파일을 생성했다면 다른 사람들은 모르니까 해당 소켓파일의 위치를 알려주고 붙으라고 하면됩니다.
@@ -200,7 +200,7 @@ remotty라는 서버 소켓파일이 생성 되었네요.
 영희는 이렇게 붙으면 되요.
 
     $ tmux -S /tmp/mydir/haha/hoho/remotty attach
-    
+
 그런데 만약에 두사람이 같은 소켓파일을 생성하면 어떻게 될까요? 간단히 이렇게 생각해 볼 수 있습니다. 같은 서버에 접속한 두 사람이 `$ tmux`명령을 내립니다. 그럼 위에서 설명한 것과 같이 서버 소켓파일 `/tmp/tmux-1000/default`이 생성될텐데요.
 
 이렇게되면 `/tmp/tmux-1000/default`에 두개의 session이 생기게 되는겁니다. 첫번째로 `$ tmux`를 한 사람은 0번 session에 두번째로 `$ tmux`를 한 사람은 1번 session에서 작업을 하게 되는 겁니다.
@@ -210,18 +210,18 @@ remotty라는 서버 소켓파일이 생성 되었네요.
 이렇게 하나의 소켓파일에 여러개의 세션이 생겼고, 누군가 붙으려 아래 명령을 내렸습니다.
 
     $ tmux attach
-    
+
 어느 세션으로 붙게 될까요? 마지막에 생성된 세션에 붙게 됩니다. 즉 3개의 세션이 `/tmp/tmux-1000/default`에 생성되어있으면 2번 세션에 붙게 됩니다.(왜냐하면 세션번호는 0부터 시작하니까...)
 
 그런데 마지막 세션이 아니라 1번 세션에 붙고 싶다면? `-t`옵션을 사용하면 됩니다
 
     $ tmux attach -t 1
-    
+
 서버 소켓 파일 `/home/smart/remotty/abc`의 2번 세션에 붙고 싶다면 `-S`와 `-t`를 같이 사용하면 됩니다.
 
     $ tmux -S /home/smart/remotty/abc -t 2 attach
-    
-이렇게 하면 shell 자체를 공동으로 사용할 수 있게 되는 겁니다. 
+
+이렇게 하면 shell 자체를 공동으로 사용할 수 있게 되는 겁니다.
 
 실제로 tmux의 이 기능을 이용하여 [Facebook Django](https://www.facebook.com/groups/django/) 그룹에서는 코딩도장을 운영한다고 합니다. 대화는 행아웃으로 하고, 코딩은 각자의 terminal로 하는거죠!
 

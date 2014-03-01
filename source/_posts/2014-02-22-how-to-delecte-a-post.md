@@ -3,15 +3,15 @@ layout: post
 title: "How to delecte a post"
 date: 2014-02-22 16:25:14 +0900
 comments: true
-categories: 
+categories:
 author : 임경호
 ---
 
 
 "How to make a post"라는 포스팅은 있음에도 포스팅을 삭제하는 방법이 없어서
 제가 한번 정리해보겠습니다.
-
-만들어진 remotty.github.io의 디렉토리에서 
+<!--more-->
+만들어진 remotty.github.io의 디렉토리에서
 
 "$ ls source/_posts"를 통해 지우고자 하는 파일 명을 확인 후
 
