@@ -1,0 +1,561 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: angularjs | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/angularjs/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-03-02T00:04:22+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[AngularJS+Rails 프로젝트 구성]]></title>
+    <link href="http://blog.remotty.com/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong/"/>
+    <updated>2014-02-01T15:20:32+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong</id>
+    <content type="html"><![CDATA[<p>최근 프로젝트에서 Rails기반에 AngularJS를 사용한 경험을 공유합니다.</p>
+
+<p>간단하게 frontend/backend의 개념과 angularjs를 소개하고 프로젝트를 구성하는 방법을 설명합니다.</p>
+
+<!--more-->
+
+
+<h1>frontend / backend</h1>
+
+<p>지금까지의 웹개발은 서버 프레임워크에서 frontend와 backend를 모두 처리하였습니다. controller에서 요청을 받으면 database와 통신하여 데이터를 가져오고 view를 통해 응답하는 방식입니다.</p>
+
+<p>하지만 최근 iOS와 Android등 모바일앱이 늘어나면서 서버는 API만 처리하고 각 앱에서는 서버로 부터 받은 데이터를 가지고 화면에 표현하는 패턴이 일반화 되었습니다. 복잡한 서버 프레임워크 대신 경량의 서버 프레임워크가 선호되고 frontend와 backend가 철저히 분리되어 개발할 수 있게 된 것입니다.</p>
+
+<p>웹에서도 webapp이라는 이름으로 그러한 흐름이 나타나고 있으며 Angular.js/Backbone.js/Knockout.js 등 다양한 framework이 등장하였습니다.</p>
+
+<h1>AngularJS</h1>
+
+<p>AngularJS는 최근 엄청나게 인기를 끌고 있는 <strong>frontend webapp framework</strong>입니다.
+Google이 만들었다는 점에서 믿고 쓸수 있고 짧은 코드로 빠르고 강력한 웹앱을 만들 수 있습니다.</p>
+
+<ul>
+<li>html/css/js등 static 파일로 구성되어 있고 java/php/.net등 서버쪽 작업은 전혀 필요가 없습니다. 단순히 파일을 그대로 제공만 합니다.</li>
+<li>모든 서버자원은 ajax를 이용하여 API서버를 호출하는 것으로 처리합니다.</li>
+<li>yeoman/grunt/bower를 이용하여 빠르게 프로젝트를 구축하고 개발하고 배포할 수 있습니다.</li>
+</ul>
+
+
+<h1>Rails와 AngularJS 조합하기</h1>
+
+<p>우선..
+<strong>AngularJS 사용 == Rails에서 View를 사용하지 않음</strong>
+이라는 생각으로 접근하면 이해가 빠를것 같습니다.</p>
+
+<p>Rails에서 제공하는 강력한 View Helper의 기능을 사용하지 못한다고? 네 ㅠㅠ 맞습니다. Rails는 오로지 API를 제공하는 역할만 수행하고 View는 철저히 AngularJS에서 처리합니다.</p>
+
+<h2>디렉토리 구조</h2>
+
+<p>기존 rails 디렉토리 구성은 다음과 같습니다</p>
+
+<p><code>
+ㄴ RAILS_ROOT
+  ㄴ app
+  ㄴ bin
+  ㄴ config
+  ㄴ db
+  ㄴ lib
+  ㄴ log
+  ㄴ public
+  ㄴ spec
+  ㄴ tmp
+</code></p>
+
+<p>여기에 AngularJS 소스를 넣기 위해 <code>angular</code>디렉토리와 <code>public</code>디렉토리를 사용합니다.</p>
+
+<p><code>
+ㄴ RAILS_ROOT
+  ㄴ angular (angular와 관련된 소스는 이곳에 저장됩니다.)
+  ㄴ app
+  ㄴ bin
+  ㄴ config
+  ㄴ db
+  ㄴ lib
+  ㄴ log
+  ㄴ public (angular의 최종 dist 파일들이 이곳에 위치합니다.)
+  ㄴ spec
+  ㄴ tmp
+</code></p>
+
+<ul>
+<li>angular 디렉토리 : angular와 관련된 <code>소스</code>파일이 위치합니다. yeoman/grunt/bower 파일과 셋팅이 있고 실제 작업은 여기서 이루어집니다.</li>
+<li>public 디렉토리 : angular작업이 완료되면 소스를 압축(minify)하고 최적화하여 최종 사용자에게 보여질 <code>배포</code>파일을 생성합니다. 이렇게 구성하면 일반적인 rails 배포 방식으로 webapp을 같이 배포할 수 있습니다.</li>
+</ul>
+
+
+<p>사실 angular디렉토리는 rails 프로젝트에 포함되어 있지 않아도 상관없습니다. 따로 프로젝트를 만들고 dist파일을 public디렉토리에 복사해도 되지만 보통 frontend와 backend작업을 동시에 할 경우 같이 관리하는 것이 좀더 편한 것 같습니다.</p>
+
+<h2>RAILS 설정</h2>
+
+<p>rails는 view를 사용하지 않으므로 <a href="https://github.com/rails-api/rails-api">rails-api</a>를 이용합니다.</p>
+
+<p><code>
+$ rails-api new sample
+</code></p>
+
+<h2>AngularJS 설정</h2>
+
+<p><a href="http://yeoman.io/">yeoman</a>을 이용합니다.</p>
+
+<p>ruby/compass/nodejs/generator-angular등을 미리 설치해야합니다.
+설치하는 방법은.. 여기서는 pass!</p>
+
+<p>```
+$ cd sample
+$ mkdir angular
+$ cd angular
+$ yo angular</p>
+
+<pre><code> _-----_
+|       |
+|--(o)--|   .--------------------------.
+</code></pre>
+
+<p>   `&mdash;&mdash;&mdash;&mdash;-´  |    Welcome to Yeoman,    |</p>
+
+<pre><code>( _´U`_ )   |   ladies and gentlemen!  |
+/___A___\   '__________________________'
+ |  ~  |
+</code></pre>
+
+<p>   <strong>&lsquo;.</strong>_.&rsquo;__
+ ´   <code> |° ´ Y</code></p>
+
+<p>Out of the box I include Bootstrap and some AngularJS recommended modules.</p>
+
+<p>[?] Would you like to use Sass (with Compass)? Yes
+[?] Would you like to include Twitter Bootstrap? Yes
+[?] Would you like to use the Sass version of Twitter Bootstrap? Yes
+[?] Which modules would you like to include? (Press <space> to select)
+❯⬢ angular-resource.js
+ ⬢ angular-cookies.js
+ ⬢ angular-sanitize.js
+ ⬢ angular-route.js</p>
+
+<p> &hellip; 생략 &hellip;
+```</p>
+
+<p>추가적으로 npm/bower install을 하면 기본 구성 완료!</p>
+
+<p><code>
+$ npm install
+....
+$ bower install
+....
+</code></p>
+
+<p>서버 실행하기</p>
+
+<p><code>
+$ grunt serve
+...
+</code></p>
+
+<h2>도메인 이슈</h2>
+
+<ul>
+<li>rails server : <a href="http://localhost:3000">http://localhost:3000</a></li>
+<li>grunt server : <a href="http://localhost:9000">http://localhost:9000</a></li>
+</ul>
+
+
+<p>rails서버는 <code>3000</code> port로 동작하고 grunt서버는 <code>9000</code> port로 동작합니다. 따라서 angular에서 rails api를 호출하기 위해서는 <code>http://localhost:3000/api/v1/posts</code>와 같이 호출해야 합니다.</p>
+
+<p>개발환경에서는 그렇게 하면 되는데.. 운영환경은 어떻게 해야 할까요?? 운영에서는 <code>/api/v1/posts</code>와 같이 호출하면 되는데.. 환경에 따라 설정을 분리해야 할까요?</p>
+
+<h3>Frontend Setup</h3>
+
+<p>여기서는 <a href="https://github.com/drewzboto/grunt-connect-proxy">grunt-connect-proxy</a> plugin을 이용합니다.</p>
+
+<p>grunt 서버에서 <code>/api/v1/posts</code>를 호출할 경우 자동으로 <code>localhost:300/api/v1/posts</code>로 연동해줍니다.</p>
+
+<p>먼저 plugin을 설치하고..</p>
+
+<p><code>
+$ npm install grunt-connect-proxy --save-dev
+</code></p>
+
+<p><code>Gruntfile.js</code>에 관련설정을 합니다.</p>
+
+<p>```
+&hellip;</p>
+
+<p>var proxySnippet = require(&lsquo;grunt-connect-proxy/lib/utils&rsquo;).proxyRequest;</p>
+
+<p>&hellip;</p>
+
+<pre><code>connect: {
+  options: {
+    port: 9000,
+    // Change this to '0.0.0.0' to access the server from outside.
+    hostname: 'localhost',
+    livereload: 35729
+  },
+  proxies: [
+    {
+      context: '/api/v1',
+      host: 'localhost',
+      port: 3000,
+      https: false,
+      changeOrigin: false,
+      xforward: false
+    },
+    {
+      context: '/system',
+      host: 'localhost',
+      port: 3000,
+      https: false,
+      changeOrigin: false,
+      xforward: false
+    }
+  ],
+  livereload: {
+    options: {
+      open: true,
+      base: [
+        '.tmp',
+        '&lt;%= yeoman.app %&gt;'
+      ],
+      middleware: function (connect, options) {
+        var middlewares = [];
+        middlewares.push(proxySnippet);
+        options.base.forEach(function(base) {
+          middlewares.push(connect.static(base));
+        });
+        return middlewares;
+      }
+    }
+  },
+</code></pre>
+
+<p>&hellip;</p>
+
+<p>  grunt.registerTask(&lsquo;serve&rsquo;, function (target) {</p>
+
+<pre><code>if (target === 'dist') {
+  return grunt.task.run(['build', 'connect:dist:keepalive']);
+}
+
+grunt.task.run([
+  'clean:server',
+  'concurrent:server',
+  'autoprefixer',
+  'configureProxies',
+  'connect:livereload',
+  'watch'
+]);
+</code></pre>
+
+<p>  });</p>
+
+<p>&hellip;
+```</p>
+
+<h3>Backend Setup</h3>
+
+<p>rails쪽은 CORS 설정을 합니다.</p>
+
+<p><code>Gemfile</code>에 cors gem을 추가합니다.</p>
+
+<p>```</p>
+
+<h1>Rack CORS Middleware</h1>
+
+<p>gem &lsquo;rack-cors&rsquo;, :require => &lsquo;rack/cors&rsquo;
+```</p>
+
+<p>그리고 <code>application.rb</code>에 관련 설정을 추가합니다.</p>
+
+<p>```</p>
+
+<pre><code>config.middleware.use Rack::Cors do
+  allow do
+    origins "*"
+    resource "*", :headers =&gt; :any, :methods =&gt; [:get, :post, :delete, :put, :patch, :options]
+  end
+end
+</code></pre>
+
+<p>```</p>
+
+<p>이제 proxy 설정이 완료되었습니다! 개발이나 운영이나 <code>/api/v1/xxx</code>을 호출하면 됩니다. +_+/</p>
+
+<h4>배포 설정하기</h4>
+
+<p>현재 설정은 angular디렉토리 밑에 <code>dist</code>폴더를 만들고 배포하게 되었습니다. 이부분을 <code>../public</code>으로 배포하게 수정합니다.</p>
+
+<p>역시 <code>Gruntfile</code>을 수정합니다.</p>
+
+<p>```
+&hellip;</p>
+
+<pre><code>yeoman: {
+  // configurable paths
+  app: require('./bower.json').appPath || 'app',
+  dist: '../public'
+},
+</code></pre>
+
+<p>&hellip;</p>
+
+<pre><code>clean: {
+  options: { force: true },
+  dist: {
+    files: [{
+      dot: true,
+      src: [
+        '.tmp',
+        '&lt;%= yeoman.dist %&gt;/*',
+        '!&lt;%= yeoman.dist %&gt;/.git*',
+        '!&lt;%= yeoman.dist %&gt;/system'
+      ]
+    }]
+  },
+  server: '.tmp'
+},
+</code></pre>
+
+<p>&hellip;</p>
+
+<p>```</p>
+
+<p>잘 배포되는지 테스트 해봅니다.</p>
+
+<p><code>
+$ grunt build
+...
+</code></p>
+
+<p><a href="http://localhost:3000">http://localhost:3000</a> 으로 접속해서 angular 화면이 보이면 성공입니다!!</p>
+
+<h3>결론</h3>
+
+<p>이로써 Rails와 AngularJS를 조합하는데 성공했습니다.</p>
+
+<p>사실 가장 기본적인 부분을 연동한 것이며 추후 인증 및 token설정과 관련하여 더 많은 작업이 필요합니다.. ㅠㅠ</p>
+
+<p>그부분은 다음기회에 설명하기로 하고 이만 마칩니다 ㅎㅎ =_=/</p>
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Angularjs Providers]]></title>
+    <link href="http://blog.remotty.com/blog/2014/01/29/angularjs-providers/"/>
+    <updated>2014-01-29T13:55:27+09:00</updated>
+    <id>http://blog.remotty.com/blog/2014/01/29/angularjs-providers</id>
+    <content type="html"><![CDATA[<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
+
+<p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
+
+<!--more-->
+
+
+<p>provider vs factory vs service</p>
+
+<h3>Provider란 무엇인가?</h3>
+
+<p>AngularJS docs 에는 아래와 같이 정의되어 있다.</p>
+
+<blockquote><p>$get 메소드를 가지는 하나의 객체이다. injector는 바로 이 $get 메소드를 호출해서 새로운 서비스를 생성하게 되는 것이다. <code>provider</code>는 설정을 통해서 이와 같은 메소드를 추가할 수 있다.</p></blockquote>
+
+<p>AngularJS는 <code>$provide</code>를 이용해서 새로운 <code>provider</code>를 등록한다. <code>provider</code>는 기본적으로 새로운 인스턴스를 생성하지만 <code>provider</code>당 하나의 인스턴스만 만들게 된다(singleton). <code>$provide</code>는 6개의 메소드를 사용해서 커스텀 <code>provider</code>를 생성하게 되는데, 각각에 대해서 샘플 코드와 함께 설명할 것이다. 아래의 <code>provider</code>는 <code>$provide</code> 상에서 사용할 수 있다.</p>
+
+<ul>
+<li>constant</li>
+<li>value</li>
+<li>service</li>
+<li>factory</li>
+<li>decorator</li>
+<li>provider</li>
+</ul>
+
+
+<h2>Constant</h2>
+
+<p><code>constant(상수)</code>는 모든 곳에 inject(주입)할 수 있다. 상수는 그 값을 변경할 수 없다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.config(function ($provide) {
+  $provide.constant(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;);
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix&rsquo;);
+});
+```</p>
+
+<p>AngularJS는 상수를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<p><code>javascript
+app.constant('movieTitle', 'The Matrix');
+</code></p>
+
+<h2>Value</h2>
+
+<p><code>value</code>는 <code>configuration(설정)</code>로 주입할 수 없지만 값을 변경할 수는 있다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.config(function ($provide) {
+  $provide.value(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;)
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix&rsquo;);
+})
+```</p>
+
+<p>AngularJS는 <code>value</code>를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<p><code>javascript
+app.value('movieTitle', 'The Matrix');
+</code></p>
+
+<h2>Service</h2>
+
+<p><code>service</code>란 주입이 가능한 <code>constructor(생성자)</code>이다. 원할 경우, 함수에 필요한 dependency를 명시할 수 있다. <code>service</code>는 하나의 singleton이기 때문에 AngularJS가 한번만 생성하게 될 것이다. <code>service</code>는 데이터를 공유하는 것 같은 컨트롤러간의 통신을 위한 좋은 방법이다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo; ,[]);</p>
+
+<p>app.config(function ($provide) {
+  $provide.service(&lsquo;movie&rsquo;, function () {</p>
+
+<pre><code>this.title = 'The Matrix';
+</code></pre>
+
+<p>  });
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movie) {
+  expect(movie.title).toEqual(&lsquo;The Matrix&rsquo;);
+});
+<code>``
+AngularJS는</code>service`를 만들기 위한 편리한 방법을 제공해 주어 코드를 단축할 수 있다.</p>
+
+<p><code>javascript
+app.service('movie', function () {
+  this.title = 'The Matrix';
+});
+</code></p>
+
+<h2>Factory</h2>
+
+<p><code>factory</code>는 주입이 가능한 함수이다. <code>factory</code>는 singleton이고 dependency를 함수내에 명시할 수 있다는 점에서 <code>service</code>와 많은 부분에서 흡사하다. 차이점은 <code>factory</code>는 일반 함수를 주입해서 AngularJS가 호출하도록 하는 것이고 <code>service</code>는 <code>constructor</code>를 주입한다는 것이다. <code>constructor</code>는 새로운 객체를 만들기 때문에 <code>service</code>내에서는 <code>new</code> 메소드를 호출하지만, <code>factory</code>를 사용하면 함수가 어떤 형태의 것이라고 반환할 수 있도록 해 준다. 나중에 알게 되겠지만, <code>factory</code>는 <code>$get</code> 메소드만을 가지는 <code>provider</code>이다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.config(function ($provide) {
+  $provide.factory(&lsquo;movie&rsquo;, function () {</p>
+
+<pre><code>return {
+  title: 'The Matrix';
+}
+</code></pre>
+
+<p>  });
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movie) {
+  expect(movie.title).toEqual(&lsquo;The Matrix&rsquo;);
+});
+<code>``
+AngularJS는</code>factory`를 생성하는 편리한 방법을 제고해 주어 아래와 같이 단축할 수 있다.</p>
+
+<p>```javascript
+app.factory(&lsquo;movie&rsquo;, function () {
+  return {</p>
+
+<pre><code>title: 'The Matrix';
+</code></pre>
+
+<p>  }
+});
+```</p>
+
+<h2>Decorator</h2>
+
+<p><code>decorator</code>는 다른 <code>provider</code>를 변경하거나 encapulation할 수 있다. 그러나 하나의 예외가 있는데, <code>constant</code>는 decorate 할 수 없다는 것이다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.value(&lsquo;movieTitle&rsquo;, &lsquo;The Matrix&rsquo;);</p>
+
+<p>app.config(function ($provide) {
+  $provide.decorator(&lsquo;movieTitle&rsquo;, function ($delegate) {</p>
+
+<pre><code>return $delegate + ' - starring Keanu Reeves';
+</code></pre>
+
+<p>  });
+});</p>
+
+<p>app.controller(&lsquo;myController&rsquo;, function (movieTitle) {
+  expect(movieTitle).toEqual(&lsquo;The Matrix &ndash; starring Keanu Reeves&rsquo;);
+});
+```</p>
+
+<h2>Provider</h2>
+
+<p><code>provider</code>는 모든 <code>provider</code> 중에서 가장 유연한 메소드이다. 이 메소드를 이용하면 복잡한 생성 함수에 다양한 옵션을 가지도록 할 수 있다. <code>provider</code>는 실제로 구성을 변경할 수 있는 <code>factory</code>이다. <code>provider</code>는 하나의 객체나 <code>constructor</code>를 취하게 된다.</p>
+
+<p>```javascript
+var app = angular.module(&lsquo;app&rsquo;, []);</p>
+
+<p>app.provider(&lsquo;movie&rsquo;, function () {
+  var version;
+  return {</p>
+
+<pre><code>setVersion: function (value) {
+  version = value;
+},
+$get: function () {
+  return {
+      title: 'The Matrix' + ' ' + version
+  }
+}
+</code></pre>
+
+<p>  }
+});</p>
+
+<p>app.config(function (movieProvider) {
+  movieProvider.setVersion(&lsquo;Reloaded&rsquo;);
+});</p>
+
+<p>app.controller(&lsquo;ctrl&rsquo;, function (movie) {
+  expect(movie.title).toEqual(&lsquo;The Matrix Reloaded&rsquo;);
+});
+```</p>
+
+<h2>요약</h2>
+
+<ul>
+<li>모든 <code>providers</code>들은 단 한번만 인스턴스화 된다. 즉, singleton 이라는 것이다.</li>
+<li><code>constant</code>를 제외한 모든 <code>provider</code>는 decorate할 수 있다.</li>
+<li><code>constant</code>은 어느 곳이나 주입할 수 있는 값을 가지만, 수정할 수 없다.</li>
+<li><code>value</code>는 간단하게 주입할 수 있는 값이다.</li>
+<li><code>service</code>는 주입할 수 있는 <code>constructor</code>이다.</li>
+<li><code>factory</code>는 주입할 수 있는 함수이다.</li>
+<li><code>decorator</code>는 <code>constant</code>를 제외한 모든 <code>provider</code>를 변경하거나 encapuslation할 수 있다.</li>
+<li><code>provider</code>는 구성요소를 설정할 수 있는 <code>factory</code>이다.</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>

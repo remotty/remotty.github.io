@@ -8,8 +8,7 @@
 
 	
 	<meta name="description" content="Octopress 블로그에 글 작성하는 방법을 정리해 봅니다. Github 저장소를 clone 합니다. 1
-$ git clone git@github.com:remotty/remotty.github.io.git source 브랜치로 checkout 합니다. 1
-$ &hellip;">
+$ git clone git@github.com:remotty/remotty.github.io.git source 브랜치로 checkout 합니다.(디폴트 &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -46,7 +45,7 @@ $ &hellip;">
 		<div class="container">
 			<form action="http://google.com/search" method="get">
 				<input type="text" name="q" results="0">
-				<input type="hidden" name="q" value="site:remotty.github.io">
+				<input type="hidden" name="q" value="site:blog.remotty.com">
 			</form>
 		</div>
 	</div>
@@ -71,7 +70,7 @@ $ &hellip;">
 	</div>
 	<form class="search" action="http://google.com/search" method="get">
 		<input class="alignright" type="text" name="q" results="0">
-		<input type="hidden" name="q" value="site:remotty.github.io">
+		<input type="hidden" name="q" value="site:blog.remotty.com">
 	</form>
 </nav>
 
@@ -97,12 +96,14 @@ $ &hellip;">
 
 
 <ul>
-<li>source 브랜치로 checkout 합니다.</li>
+<li>source 브랜치로 checkout 합니다.(디폴트 브랜치가 source 임)</li>
 </ul>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span><span class="nb">cd </span>remotty.github.io
+</span><span class='line'><span class="nv">$ </span>git checkout <span class="nb">source</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -114,17 +115,32 @@ $ &hellip;">
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>bundle install
-</span><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/remotty.github.io.git _deploy
+</span><span class='line'><span class="nv">$ </span>rake setup_github_pages<span class="o">[</span>git@github.com:remotty/remotty.github.io.git<span class="o">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
 <ul>
-<li>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</li>
+<li>theme를 설치합니다.</li>
 </ul>
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git clone git@github.com:remotty/Octopress-Theme-Slash.git .themes/slash
+</span><span class='line'><span class="nv">$ </span>rake <span class="s2">&quot;install[slash]&quot;</span>
+</span><span class='line'><span class="nv">$ </span>rake generate
+</span></code></pre></td></tr></table></div></figure>
+
+
+<ul>
+<li><p>위의 작업을 git clone 시 한번만 수행합니다.</p></li>
+<li><p>새로운 글을 작성하기 위해서는 아래와 같이 명령을 실행합니다.</p></li>
+</ul>
+
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake new_post<span class="o">[</span>title-of-post<span class="o">]</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -134,9 +150,7 @@ $ &hellip;">
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake generate
-</span><span class='line'><span class="nv">$ </span>rake preview
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake preview
 </span></code></pre></td></tr></table></div></figure>
 
 
@@ -146,12 +160,12 @@ $ &hellip;">
 
 
 <figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>rake deploy 또는 rake push
 </span></code></pre></td></tr></table></div></figure>
 
 
 <ul>
-<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.</li>
+<li>source 브랜치의 변경내용을 커밋하고 git push 합니다.(이 과정을 반드시 수행해야만 합니다.)</li>
 </ul>
 
 
@@ -159,12 +173,12 @@ $ &hellip;">
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 </pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git add .
-</span><span class='line'><span class="nv">$ </span>git ci -m <span class="s2">&quot;새글 추가함&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git commit -m <span class="s2">&quot;새글 추가함&quot;</span>
 </span><span class='line'><span class="nv">$ </span>git push origin <span class="nb">source</span>
 </span></code></pre></td></tr></table></div></figure>
 
 
-
+<p>2014년 1월 30일 수정 보완함. 최효성</p>
 </div>
 
 
@@ -241,8 +255,8 @@ $ &hellip;">
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/';
-        var disqus_url = 'http://remotty.github.io/blog/2013/12/09/how-to-make-a-new-post/';
+        var disqus_identifier = 'http://blog.remotty.com/blog/2013/12/09/how-to-make-a-new-post/';
+        var disqus_url = 'http://blog.remotty.com/blog/2013/12/09/how-to-make-a-new-post/';
         var disqus_script = 'embed.js';
       
     (function () {
