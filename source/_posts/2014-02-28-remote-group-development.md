@@ -7,6 +7,9 @@ categories: tmux, madeye
 author: 김한기
 ---
 
+떨어져 있는 사람 혹은 사람들과 같이 개발하고싶을때 어떤 방법을 사용하면 유용할지 소개해드립니다.
+
+<!--more-->
 <a name="tableOfContent"></a>
 ###[목차](#tableOfContent)
 
@@ -15,13 +18,12 @@ author: 김한기
  - [tmux](#tmux)
  - [맺는말](#epilogue)
 
-<!--more-->
 <a name="prologue"></a>
 ###[머리말](#prologue)
 
 혼자가면 빨리 가지만, 같이가면 멀리간다고 하였습니다. 음 별로 관계없는 말이긴 한데, 집단으로 개발(?)하는 방법에 대해서 알아보겠습니다. 그런데... 사실 방법들이 너무 쉬워서 간단히 Getting Started 느낌일꺼 같네요.
 
-<a name="uri"></a>
+<a name="madeye"></a>
 ###[MadEye](#madeye)
 
 [MadEye](https://madeye.io/)가 좋은 점은 행아웃과 연동이 된다는 것입니다. 즉 크롬과 같은 웹 브라우저를 통해서 모든게 가능합니다. 코딩, 대화, 거기다 host하시는분의 terminal까지 볼 수 있습니다.
