@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Rich | Remotty Tech Blog]]></title>
   <link href="http://blog.remotty.com/blog/categories/rich/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
-  <updated>2014-03-01T09:18:13+09:00</updated>
+  <updated>2014-03-01T09:23:33+09:00</updated>
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -14,15 +14,14 @@
 
   
   <entry>
-    <title type="html"><![CDATA[5_things]]></title>
+    <title type="html"><![CDATA[클라이언트단 자바스크립트에 대한 5가지의 놀라우리 만큼 고통스러운 것들[번역]]]></title>
     <link href="http://blog.remotty.com/blog/2014/03/01/5-things/"/>
     <updated>2014-03-01T09:10:01+09:00</updated>
     <id>http://blog.remotty.com/blog/2014/03/01/5-things</id>
-    <content type="html"><![CDATA[<p>[번역]</p>
+    <content type="html"><![CDATA[<p>원본 글 : <a href="http://bit.ly/1fvDV6c.">http://bit.ly/1fvDV6c.</a> By Quinn Slack — February 17, 2014, at 8:43pm UTC</p>
 
-<h2>클라이언트단 자바스크립트에 대한 5가지의 놀라우리 만큼 고통스러운 것들.</h2>
+<!--more-->
 
-<p>원본 글 : <a href="http://bit.ly/1fvDV6c.">http://bit.ly/1fvDV6c.</a> By Quinn Slack — February 17, 2014, at 8:43pm UTC</p>
 
 <hr />
 
