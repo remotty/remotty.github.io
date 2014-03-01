@@ -4,7 +4,7 @@
   <title><![CDATA[Category: gem | Remotty Tech Blog]]></title>
   <link href="http://blog.remotty.com/blog/categories/gem/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
-  <updated>2014-02-07T14:22:41+09:00</updated>
+  <updated>2014-03-01T09:18:13+09:00</updated>
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -12,40 +12,6 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
-  
-  <entry>
-    <title type="html"><![CDATA[devise_api]]></title>
-    <link href="http://blog.remotty.com/blog/2014/02/02/devise-api/"/>
-    <updated>2014-02-02T10:22:21+09:00</updated>
-    <id>http://blog.remotty.com/blog/2014/02/02/devise-api</id>
-    <content type="html"><![CDATA[<p>레일스 프로젝트의 인증관련 젬으로 가장 많이 사용하는 것이 <a href="https://github.com/plataformatec/devise"><code>devise</code></a> 젬이다.</p>
-
-<!--more-->
-
-
-<p>또한, 레일스 API 를 작성할 때는 <code>devise</code>의 <code>token_authenticatable</code> 이라는 strategy module을 사용해야 한다.</p>
-
-<p>그러나, Devise 3.1.x 부터는 보안기능이 강화되어 <code>TokenAuthenticatable</code>모듈이 deprecated 되었으며, 더 이상 <code>token_atuthenticatable</code>을 사용할 수 없게 되었다. 이에 대한 제세한 내용은 <a href="http://bit.ly/1ik9oan">Devise 3.1: Now with more secure defaults</a>을 참고하기 바란다.</p>
-
-<p>그래서 여기에서는 이러한 문제를 해결하는 방법에 대해서 구글링을 통해 검색한 내용을 근거로 정리해 보도록 하겠다.</p>
-
-<p>위에서 언급했던 블로그의 내용에 의하면 <code>TokenAuthenticatable</code> 모듈에서 제공해 주는 인증 토큰은 digest할 수 없고 어플리케이션마다 필요로하는 보안요구사항이 다양하기 때문에 Devise 3.1.x 부터는 이 모듈를 제거하고 대안으로 <a href="http://bit.ly/LBZwNJ">2개의 해법</a>을 소개하고 있다.</p>
-
-<hr>
-
-
-<p>유용한 링크</p>
-
-<ul>
-<li><p><a href="http://bit.ly/LBTSex">API Authentication using Devise (Ruby on Rails)</a></p></li>
-<li><p><a href="http://bit.ly/1ik8Wsv">Remote API Authentication With Rails 3 Using ActiveResource and Devise</a></p></li>
-<li><p><a href="http://bit.ly/1ik99fm">Devsie, token_authenticatable deprecated</a></p></li>
-<li><p><a href="http://bit.ly/1ik9oan">Devise 3.1: Now with more secure defaults</a></p></li>
-<li><p><a href="http://bit.ly/LBZwNJ">Two of the available solutions for TokenAuthenticatable.</a></p></li>
-</ul>
-
-]]></content>
-  </entry>
   
   <entry>
     <title type="html"><![CDATA[active_model_serializers 젬 사용하기]]></title>
