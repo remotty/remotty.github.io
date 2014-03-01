@@ -4,7 +4,7 @@
   <title><![CDATA[Category: remote | Remotty Tech Blog]]></title>
   <link href="http://blog.remotty.com/blog/categories/remote/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
-  <updated>2014-03-01T11:56:36+09:00</updated>
+  <updated>2014-03-01T10:22:01+09:00</updated>
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -29,10 +29,11 @@
 
 <ul>
 <li>github 정보와 동일하게 user.name과 user.email을 설정합니다.
-{% codeblock lang:bash %}
-$ git config user.name “subicura"
-$ git config user.email “subicura@subicura.com”
-{% endcodeblock %}</li>
+<div class='bogus-wrapper'><notextile><figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+</pre></td><td class='code'><pre><code class='bash'><span class='line'><span class="nv">$ </span>git config user.name “subicura<span class="err">&quot;</span>
+</span><span class='line'><span class="nv">$ </span>git config user.email “subicura@subicura.com”
+</span></code></pre></td></tr></table></div></figure></notextile></div></li>
 </ul>
 </li>
 <li><p>upstream 설정</p>

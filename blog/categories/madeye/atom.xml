@@ -4,7 +4,7 @@
   <title><![CDATA[Category: madeye | Remotty Tech Blog]]></title>
   <link href="http://blog.remotty.com/blog/categories/madeye/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
-  <updated>2014-03-01T11:56:36+09:00</updated>
+  <updated>2014-03-01T10:22:01+09:00</updated>
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -18,12 +18,7 @@
     <link href="http://blog.remotty.com/blog/2014/02/28/remote-group-development/"/>
     <updated>2014-02-28T16:19:31+09:00</updated>
     <id>http://blog.remotty.com/blog/2014/02/28/remote-group-development</id>
-    <content type="html"><![CDATA[<p>떨어져 있는 사람 혹은 사람들과 같이 개발하고싶을때 어떤 방법을 사용하면 유용할지 소개해드립니다.</p>
-
-<!--more-->
-
-
-<p><a name="tableOfContent"></a></p>
+    <content type="html"><![CDATA[<p><a name="tableOfContent"></a></p>
 
 <h3><a href="#tableOfContent">목차</a></h3>
 
@@ -35,13 +30,16 @@
 </ul>
 
 
+<!--more-->
+
+
 <p><a name="prologue"></a></p>
 
 <h3><a href="#prologue">머리말</a></h3>
 
 <p>혼자가면 빨리 가지만, 같이가면 멀리간다고 하였습니다. 음 별로 관계없는 말이긴 한데, 집단으로 개발(?)하는 방법에 대해서 알아보겠습니다. 그런데&hellip; 사실 방법들이 너무 쉬워서 간단히 Getting Started 느낌일꺼 같네요.</p>
 
-<p><a name="madeye"></a></p>
+<p><a name="uri"></a></p>
 
 <h3><a href="#madeye">MadEye</a></h3>
 
