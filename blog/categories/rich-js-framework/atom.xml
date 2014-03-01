@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: JS | Remotty Tech Blog]]></title>
-  <link href="http://blog.remotty.com/blog/categories/js/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Rich_JS_Framework | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/rich-js-framework/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
-  <updated>2014-03-01T09:27:41+09:00</updated>
+  <updated>2014-03-01T10:12:58+09:00</updated>
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>

@@ -3,11 +3,14 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Remotty Tech Blog</title>
+	<title>원격으로 집단 개발하기 - Remotty Tech Blog</title>
 	<meta name="author" content="Remotty Group">
 
 	
-	<meta name="description" content=" 원본 글 : http://bit.ly/1fvDV6c. By Quinn Slack — February 17, 2014, at 8:43pm UTC Read on &rarr; Mar 1st, 2014 최효성 Rich_JS_Framework Comments ">
+	<meta name="description" content="목차 머리말
+MadEye
+tmux
+맺는말 머리말 혼자가면 빨리 가지만, 같이가면 멀리간다고 하였습니다. 음 별로 관계없는 말이긴 한데, 집단으로 개발(?)하는 방법에 대해서 알아보겠습니다. 그런데&hellip; 사실 방법들이 너무 쉬워서 간단히 Getting &hellip;">
 	
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -77,67 +80,9 @@
 	
 		
 	
-	<div id="content" class="inner">
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/03/01/5-things/">
-		
-			클라이언트단 자바스크립트에 대한 5가지의 놀라우리 만큼 고통스러운 것들[번역]</a>
-	</h2>
-	<div class="entry-content">
-		<p>원본 글 : <a href="http://bit.ly/1fvDV6c.">http://bit.ly/1fvDV6c.</a> By Quinn Slack — February 17, 2014, at 8:43pm UTC</p>
-
-
-		
-		<a href="/blog/2014/03/01/5-things/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-03-01T09:10:01+09:00" pubdate data-updated="true">Mar 1<span>st</span>, 2014</time></div>
-	<div class='author'>
-  
-
-최효성
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rich-js-framework/'>Rich_JS_Framework</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/03/01/5-things/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/02/28/remote-group-development/">
-		
-			원격으로 집단 개발하기</a>
-	</h2>
-	<div class="entry-content">
-		<p><a name="tableOfContent"></a></p>
+	<div id="content" class="inner"><article class="post">
+	<h2 class="title">원격으로 집단 개발하기</h2>
+	<div class="entry-content"><p><a name="tableOfContent"></a></p>
 
 <h3><a href="#tableOfContent">목차</a></h3>
 
@@ -388,10 +333,7 @@ default remotty
 <h3><a href="#epilogue">맺는말</a></h3>
 
 <p>저희는 <strong>Remote Work</strong>를 지향하는 조직인 만큼 이러한 원격으로 집단 개발을 가능하게 해주는 도구는 참으로 유용합니다. 이 글을 보시는 분들께서도 여기서 소개해 드린 두가지 도구를 이용하여 멀리있는 친구와도 즐거운 개발 하시길 바랍니다.</p>
-
-		
-		
-	</div>
+</div>
 
 
 <div class="meta">
@@ -421,443 +363,33 @@ default remotty
 
 </div>
 	
-	<div class="comments"><a href="/blog/2014/02/28/remote-group-development/#disqus_thread">Comments</a></div>
+	<div class="comments"><a href="#disqus_thread">Comments</a></div>
 	
 </div>
 </article>
 
-
-    <article class="post">
-	<h2 class="title">
+	<div class="share">
+	<div class="addthis_toolbox addthis_default_style ">
 		
-		<a href="/blog/2014/02/22/how-to-delecte-a-post/">
+		<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
 		
-			How to Delecte a Post</a>
-	</h2>
-	<div class="entry-content">
-		<p>&ldquo;How to make a post&#8221;라는 포스팅은 있음에도 포스팅을 삭제하는 방법이 없어서
-제가 한번 정리해보겠습니다.</p>
-
-<p>만들어진 remotty.github.io의 디렉토리에서</p>
-
-<p>&ldquo;$ ls source/_posts&#8221;를 통해 지우고자 하는 파일 명을 확인 후</p>
-
-<p>&ldquo;$ git rm source/_posts/지우고자 하는 파일 명&rdquo; 을 통해 파일을 지운다.</p>
-
-<p>&ldquo;$ git status&#8221;을 통해 상태를 확인하고,
-&rdquo;$ git commit -m &ldquo;메세지 내용&rdquo;&ldquo;으로 로깅을 하고</p>
-
-<p>&ldquo;$ git push&#8221;를 통해 소스를 완전히 지운다.</p>
-
-<p>&ldquo;$ rake push&#8221;를 통해 렌드링을 통해 메인 페이지에 포스팅을 지운다.</p>
-
-<p>&ldquo;$ open <a href="http://blog.remotty.com">http://blog.remotty.com</a>&#8220;을 통해 지워졌는지 확인 후 안됬을 경우
-&rdquo;$ rake deploy&#8221; 하고, &ldquo;$ rake gen_deploy&#8221;를 완료 후 다시
-메인 홈페이지를 확인해봅니다.</p>
-
-<p>간단합니다.</p>
-
+		
+		<a class="addthis_button_tweet"></a>
+		
 		
 		
 	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-22T16:25:14+09:00" pubdate data-updated="true">Feb 22<span>nd</span>, 2014</time></div>
-	<div class='author'>
-  
-
-임경호
-</div>
-	<div class="tags">
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/02/22/how-to-delecte-a-post/#disqus_thread">Comments</a></div>
 	
 </div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong/">
-		
-			AngularJS+Rails 프로젝트 구성</a>
-	</h2>
-	<div class="entry-content">
-		<p>최근 프로젝트에서 Rails기반에 AngularJS를 사용한 경험을 공유합니다.</p>
-
-<p>간단하게 frontend/backend의 개념과 angularjs를 소개하고 프로젝트를 구성하는 방법을 설명합니다.</p>
-
-
-		
-		<a href="/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
 
 
 
-
-
-
-
-
-  
-
-
-<time datetime="2014-02-01T15:20:32+09:00" pubdate data-updated="true">Feb 1<span>st</span>, 2014</time></div>
-	<div class='author'>
-  
-
-subicura
+<section id="comment">
+    <h2 class="title">Comments</h2>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 </div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/angularjs/'>angularjs</a>, <a class='category' href='/blog/categories/rails/'>rails</a>
-
-
+</section>
 </div>
-	
-	<div class="comments"><a href="/blog/2014/02/01/angularjs-plus-rails-peurojegteu-guseong/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/01/30/github-hook-api-slack-sample/">
-		
-			깃허브(Github) 후크 API와 Slack에 알림 전달하기</a>
-	</h2>
-	<div class="entry-content">
-		<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
-
-<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
-
-
-		
-		<a href="/blog/2014/01/30/github-hook-api-slack-sample/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-30T17:30:00+09:00" pubdate data-updated="true">Jan 30<span>th</span>, 2014</time></div>
-	<div class='author'>
-  
-
-nacyot
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/github/'>Github</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/01/30/github-hook-api-slack-sample/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/01/29/angularjs-providers/">
-		
-			Angularjs Providers</a>
-	</h2>
-	<div class="entry-content">
-		<h2><strong>AngularJS에서 Provider 간의 차이점</strong></h2>
-
-<p><a href="http://bit.ly/19ZQTHy">http://bit.ly/19ZQTHy</a> (한글번역)</p>
-
-
-		
-		<a href="/blog/2014/01/29/angularjs-providers/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-29T13:55:27+09:00" pubdate data-updated="true">Jan 29<span>th</span>, 2014</time></div>
-	<div class='author'>
-  
-
-최효성
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/angularjs/'>angularjs</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/01/29/angularjs-providers/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/01/28/lets-study-rest/">
-		
-			RestFul이란 무엇인가?</a>
-	</h2>
-	<div class="entry-content">
-		<p>이 글에서는 <strong><a href="http://ko.wikipedia.org/wiki/REST">REST(Representational State Transfer)</a></strong>에 대해서 알아보겠습니다.</p>
-
-
-		
-		<a href="/blog/2014/01/28/lets-study-rest/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-28T23:55:43+09:00" pubdate data-updated="true">Jan 28<span>th</span>, 2014</time></div>
-	<div class='author'>
-  
-
-김한기
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/rest/'>rest</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/01/28/lets-study-rest/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2014/01/24/rimotihage-ilhagi-2/">
-		
-			리모티하게 일하기 2</a>
-	</h2>
-	<div class="entry-content">
-		<p>약 한달 전  <a href="/blog/2013/12/10/remottyhage-ilhagi/">Remotty하게 일하기</a>라는 제목으로, Remotty 그룹의 일하는 방식에 대해 포스팅을 했었다.<br/>
-포스트에서 소개한 방법대로 약 한달 가량 remote 방식으로 협업을 해보니, 불편한 점이 한두가지가 아니었다.</p>
-
-
-		
-		<a href="/blog/2014/01/24/rimotihage-ilhagi-2/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2014-01-24T13:49:15+09:00" pubdate data-updated="true">Jan 24<span>th</span>, 2014</time></div>
-	<div class='author'>
-  
-
-장재휴
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/communication/'>communication</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2014/01/24/rimotihage-ilhagi-2/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/12/31/active-model-serializers/">
-		
-			Active_model_serializers 젬 사용하기</a>
-	</h2>
-	<div class="entry-content">
-		<p><code>active_model_serializers</code>젬은 레일스 API 를 작성할 때 JSON 데이터를 만들기 위해 추천되는 젬입니다.</p>
-
-<h1>설치</h1>
-
-<p>Gemfile 에 추가하고 bundle install 합니다.</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class='bash'><span class='line'>gem <span class="s1">&#39;active_model_serializers&#39;</span>
-</span></code></pre></td></tr></table></div></figure>
-
-
-
-
-
-		
-		<a href="/blog/2013/12/31/active-model-serializers/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-31T19:51:34+09:00" pubdate data-updated="true">Dec 31<span>st</span>, 2013</time></div>
-	<div class='author'>
-  
-
-최효성
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/gem/'>gem</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/12/31/active-model-serializers/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-
-    <article class="post">
-	<h2 class="title">
-		
-		<a href="/blog/2013/12/29/hub-and-pull-request/">
-		
-			Hub로 커맨드라인에서 Github Pull-request 보내기</a>
-	</h2>
-	<div class="entry-content">
-		<p>오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
-
-
-		
-		<a href="/blog/2013/12/29/hub-and-pull-request/" class="more-link">Read on &rarr;</a>
-	</div>
-
-
-<div class="meta">
-	<div class="date">
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2013-12-29T15:31:32+09:00" pubdate data-updated="true">Dec 29<span>th</span>, 2013</time></div>
-	<div class='author'>
-  
-
-nacyot
-</div>
-	<div class="tags">
-
-
-	<a class='category' href='/blog/categories/git/'>git</a>, <a class='category' href='/blog/categories/github/'>github</a>, <a class='category' href='/blog/categories/hub/'>hub</a>
-
-
-</div>
-	
-	<div class="comments"><a href="/blog/2013/12/29/hub-and-pull-request/#disqus_thread">Comments</a></div>
-	
-</div>
-</article>
-
-<nav id="pagenavi">
-    
-    
-        <a href="/blog/page/2/" class="next">Next</a>
-    
-    <div class="center"><a href="/blog/archives">Blog Archives</a></div>
-</nav></div>
 	<footer id="footer" class="inner">Copyright &copy; 2014
 
     Remotty Group
@@ -876,7 +408,10 @@ nacyot
       var disqus_shortname = 'remotty';
       
         
-        var disqus_script = 'count.js';
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://blog.remotty.com/blog/2014/02/28/remote-group-development/';
+        var disqus_url = 'http://blog.remotty.com/blog/2014/02/28/remote-group-development/';
+        var disqus_script = 'embed.js';
       
     (function () {
       var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
