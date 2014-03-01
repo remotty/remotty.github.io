@@ -1,0 +1,669 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: gem | Remotty Tech Blog]]></title>
+  <link href="http://blog.remotty.com/blog/categories/gem/atom.xml" rel="self"/>
+  <link href="http://blog.remotty.com/"/>
+  <updated>2014-03-01T11:50:17+09:00</updated>
+  <id>http://blog.remotty.com/</id>
+  <author>
+    <name><![CDATA[Remotty Group]]></name>
+    <email><![CDATA[admin@remotty.com]]></email>
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[active_model_serializers 젬 사용하기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/31/active-model-serializers/"/>
+    <updated>2013-12-31T19:51:34+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/31/active-model-serializers</id>
+    <content type="html"><![CDATA[<p><code>active_model_serializers</code>젬은 레일스 API 를 작성할 때 JSON 데이터를 만들기 위해 추천되는 젬입니다.</p>
+
+<h1>설치</h1>
+
+<p>Gemfile 에 추가하고 bundle install 합니다.</p>
+
+<p>{% codeblock lang:bash %}
+gem &lsquo;active_model_serializers&rsquo;
+{% endcodeblock %}</p>
+
+<!--more-->
+
+
+<h1>Serializer 생성하기</h1>
+
+<p>이후부터 <code>scaffolding</code>이나 <code>model generator</code>를 사용하여 특정 모델을 생성하면 자동으로 <code>serializer</code>가 만들어 집니다.</p>
+
+<p>이미 만들어진 모델에 대해서는 아래와 같이 직접 <code>serializer</code>를 생성할 수 있습니다. 여기서는 <code>Post</code> 모델에 대한 <code>serializer</code>를 생성하는 예를 들었습니다.</p>
+
+<p>{% codeblock lang:bash %}
+$ rails g serializer post
+{% endcodeblock %}</p>
+
+<p>이제 <code>app/serializers/post_serializer.rb</code>에서 <code>Post</code> 모델에 대한 <code>serializer</code>를 볼 수 있게 됩니다.</p>
+
+<h1>render :json</h1>
+
+<p>컨트롤러에서 <code>render :json</code>을 사용하면, 우선적으로 해당 객체에 대한 <code>serializer</code>를 찾아보고 있으면 해당 <code>serializer</code>를 사용하게 됩니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostsController &lt; ApplicationController
+  def show</p>
+
+<pre><code>@post = Post.find(params[:id])
+render json: @post
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<h1>배열</h1>
+
+<p>배열에 대해서도 <code>render :json</code>을 사용할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :title, :body
+end</p>
+
+<p>class PostsController &lt; ApplicationController
+  def index</p>
+
+<pre><code>@posts = Post.all
+render json: @posts
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>렌더링되는 결과는 아래와 같습니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;posts&rdquo;:</p>
+
+<pre><code>[
+  { "title": "Post 1", "body": "Hello!" },
+  { "title": "Post 2", "body": "Goodbye!" }
+]
+</code></pre>
+
+<p>}
+{% endcodeblock %}</p>
+
+<p>디폴트로 컨트롤러의 이름이 루트 엘리먼트의 이름이 됩니다. 즉, <code>PostsController</code>는 <code>posts</code>라는 루트노드명을 만들어 줍니다. 또한 아래와 같이 루트노드명을 변경할 수도 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+render json: @posts, root: &ldquo;some_posts&rdquo;
+{% endcodeblock %}</p>
+
+<h1>루트 엘리먼트를 없애는 방법 4가지</h1>
+
+<ul>
+<li><p>모든 클래스에 대해서 루트 엘리먼트를 사용하지 않는 방법</p>
+
+<p>initializer 파일을 새로 만들어 아래와 같이 추가해 줍니다.</p>
+
+<p>{% codeblock lang:ruby %}</p>
+
+<h1>Disable for all serializers (except ArraySerializer)</h1>
+
+<p>ActiveModel::Serializer.root = false</p>
+
+<h1>Disable for ArraySerializer</h1>
+
+<p>ActiveModel::ArraySerializer.root = false
+{% endcodeblock %}</p></li>
+<li><p>컨트롤러에서 render 옵션으로 지정하는 방법</p></li>
+</ul>
+
+
+<p>{% codeblock lang:ruby %}
+render json: @posts, root: false
+{% endcodeblock %}</p>
+
+<ul>
+<li>Serializer를 상속받는 방법</li>
+</ul>
+
+
+<p>{% codeblock lang:ruby %}
+class CustomArraySerializer &lt; ActiveModel::ArraySerializer
+  self.root = false
+end</p>
+
+<h1>controller:</h1>
+
+<p>render json: @posts, serializer: CustomArraySerializer
+{% endcodeblock %}</p>
+
+<ul>
+<li>컨트로러에 <code>default_serializer_options</code> 메소드를 정의하는 방법</li>
+</ul>
+
+
+<p>{% codeblock lang:ruby %}
+def default_serializer_options
+  {</p>
+
+<pre><code>root: false
+</code></pre>
+
+<p>  }
+end
+{% endcodeblock %}</p>
+
+<h1>Attributes와 Associations</h1>
+
+<p>serializer 클래스에서는 속성과 관계를 지정할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body
+  has_many :comments
+end
+{% endcodeblock %}</p>
+
+<h1>Attributes</h1>
+
+<p>attributes로 명시한 속성들에 대해서 serializer는 <code>render :json</code> 호출시에 넘겨준 액티브레코드 객체에 대해서 해당 속성들을 찾아보게 됩니다. 이 때 serializer는, <code>ActiveRecord</code> 객체가 속성을 조회하기 위해서는 사용하는 <code>read_attribute_for_serialization</code> 메소드를 이용하게 됩니다.</p>
+
+<p>특정 객체에 대한 속성을 조회해 보기 전에, serializer는 해당 속성과 같은 이름의 메소드가 정의되어 있는지를 알아 보고 있다면 모델 속성을 포함하기 전에 해당 메소드의 결과를 속성으로 포함하게 됩니다.</p>
+
+<p>예를 들면,</p>
+
+<p>{% codeblock lang:ruby %}
+class PersonSerializer &lt; ActiveModel::Serializer
+  attributes :first_name, :last_name, :full_name</p>
+
+<p>  def full_name</p>
+
+<pre><code>"#{object.first_name} #{object.last_name}"
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>serializer 메소드 내에서 객체는 <code>object</code>로써 접근하게 됩니다.
+따라서 속성명이 <code>object</code> 라는 이름을 가질 경우 그 이름이 감춰지게 되므로 이 때는 <code>object.object</code>로써 접근할 수 있습니다. 예를 들면,</p>
+
+<p>{% codeblock lang:ruby %}
+class VersionSerializer &lt; ActiveModel::Serializer
+  attribute :version_object, key: :object</p>
+
+<p>  def version_object</p>
+
+<pre><code>object.object
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>또한 <code>scope</code> 메소드를 사용할 수 있는데, 이것은 serializer에서 인증상태를 이용할 수 있게 해 줍니다. 디폴트로는 어플리케이션의 current user가 바로 이러한 인증상태에 해당하는 것이지만 다른 것으로 변경할 수도 있습니다.</p>
+
+<p>serializer는 <code>filter</code>라는 메소드를 제공해 줍니다. 이것은 결과에 보여줄 attributes와 associations을 포함하는 배열을 반환해 줍니다. 일반적으로 이것은 <code>current_user</code>에 근거해서 결과를 다양하게 보여주기 위해서 사용합니다. 예를 들면 다음과 같습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body, :author</p>
+
+<p>  def filter(keys)</p>
+
+<pre><code>if scope.admin?
+  keys
+else
+  keys - [:author]
+end
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>별도의 keys 배열을 추가로 만들 필요없이, <code>keys.delete(:author)</code>를 이용하여 keys 인수를 변경하는 것이 안전할 것입니다. 주의할 것은 in-place 변경을 시도하더라도 변경된 배열을 여전히 반환할 필요가 있다는 것입니다.</p>
+
+<p>액티브레코드 상의 이름과 다른 키를 사용하고 싶을 때는, 다른 이름의 키를 선언하고 메소드를 재정의하면 됩니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  # look up subject on the model, but use title in the JSON
+  def title</p>
+
+<pre><code>object.subject
+</code></pre>
+
+<p>  end</p>
+
+<p>  attributes :id, :body, :title
+  has_many :comments
+end
+{% endcodeblock %}</p>
+
+<p>JSON 결과물에 메타 정보를 포함하고잘 할 경우에는, <code>:meta</code> 옵션을 사용하면 됩니다.</p>
+
+<p>{% codeblock lang:ruby %}
+render json: @posts, serializer: CustomArraySerializer, meta: {total: 10}
+{% endcodeblock %}</p>
+
+<p>그러면 아래와 같은 결과를 보여 줄 것입니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;meta&rdquo;: { &ldquo;total&rdquo;: 10 },
+  &ldquo;posts&rdquo;: [</p>
+
+<pre><code>{ "title": "Post 1", "body": "Hello!" },
+{ "title": "Post 2", "body": "Goodbye!" }
+</code></pre>
+
+<p>  ]
+}
+{% endcodeblock %}</p>
+
+<p>또한 <code>:meta_key</code> 옵션을 사용하면 메타 키 이름을 변경할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+render json: @posts, serializer: CustomArraySerializer, meta: {total: 10}, meta_key: &lsquo;meta_object&rsquo;
+{% endcodeblock %}</p>
+
+<p><code>:meta_key</code> 옵션을 사용하면 아래와 같은 결과를 보여 줄 것입니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;meta_object&rdquo;: { &ldquo;total&rdquo;: 10 },
+  &ldquo;posts&rdquo;: [</p>
+
+<pre><code>{ "title": "Post 1", "body": "Hello!" },
+{ "title": "Post 2", "body": "Goodbye!" }
+</code></pre>
+
+<p>  ]
+}
+{% endcodeblock %}</p>
+
+<p>이와 같이 메타 정보를 이용할 경우에는, serializer는 <code>{ root: false }</code> 옵션을 가질 수 없습니다. 결국 유효하지 않는 JSON 데이터를 반화하기 때문에 루트 키가 없는 경우에는 메타 정보가 무시될 것입니다.</p>
+
+<p>attribute 직렬화 과정을 직접 로우레벌에서 조작하고자 할 경우에는, <code>attributes</code> 메소드를 덮어쓰기해서 해시를 반환해 주면 됩니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PersonSerializer &lt; ActiveModel::Serializer
+  attributes :first_name, :last_name</p>
+
+<p>  def attributes</p>
+
+<pre><code>hash = super
+if scope.admin?
+  hash["ssn"] = object.ssn
+  hash["secret"] = object.mothers_maiden_name
+end
+hash
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<h1>Associations</h1>
+
+<p>association을 사용할 경우, serializer가 해당 association을 찾아보고 연관객체의 각 엘리먼트를 직렬화하게 됩니다. 예를 들어, <code>has_many :comments</code> 라고 지정하면 각 comment 객체에 대해서 CommentSerializer 객체를 만들어서 직렬화하게 되는 것입니다.</p>
+
+<p>디폴트 상태에서는 오리지날 객체에 대해서 선언되어 있는 association을 찾게 됩니다. 그러나 해당 association 이름과 동일한 메소드를 정의하여 반환되는 객체들을 변경할 수 있습니다. 이것은 특정 scope(current_user와 같은)에 국한된 객체들을 반환할 때 사용하면 도움이 될 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body
+  has_many :comments</p>
+
+<p>  # only let the user see comments he created.
+  def comments</p>
+
+<pre><code>object.comments.where(created_by: scope)
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>이 경우에도 attributes와 같이 JSON 키를 변경할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body</p>
+
+<p>  # look up comments, but use +my_comments+ as the key in JSON
+  has_many :comments, root: :my_comments
+end
+{% endcodeblock %}</p>
+
+<p>또한 attributes와 같이, <code>filter</code> 메소드를 정의하면, 결과로써 포함할 associations을 지정할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body
+  has_many :comments</p>
+
+<p>  def filter(keys)</p>
+
+<pre><code>keys.delete :comments if object.comments_disabled?
+keys
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>또는</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body
+  has_one :author
+  has_many :comments</p>
+
+<p>  def filter(keys)</p>
+
+<pre><code>keys.delete :author unless scope.admin?
+keys.delete :comments if object.comments_disabled?
+keys
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p><code>:serializer</code> 옵션을 이용하여 커스텀 serializer 클래스를 지정할 수 있고 <code>:polymorphic</code> 옵션을 지정하여 해당 association이 polymorphic 이라는 것을 알려줄 수 있습니다.</p>
+
+<p>serializer에서는 <code>belongs_to</code> association을 <code>has_one</code>을 이용하여 포함하게 된다는 것을 주의해야 합니다.</p>
+
+<h1>Embedding Associations</h1>
+
+<p>디폴트 상태에서는 associations가 serializer 객체에 포함(embeded)됩니다. 그래서 하나의 post 가 있다고 가정할 때 다음과 같은 결과를 볼 수 있게 될 것입니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;post&rdquo;: {</p>
+
+<pre><code>"id": 1,
+"title": "New post",
+"body": "A body!",
+"comments": [
+  { "id": 1, "body": "what a dumb post" }
+]
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
+
+<p>이러한 결과물은 간단한 경우에는 편리하지만, 복잡한 association이 존재할 경우에는 해당 association 에 대해서 ID이 구성된 배열을 포함하는 것이 더 좋을 것입니다. 이것은 전체적인 퍼포먼스 측면에서도 그렇고 불필요한 중복을 피할 수 있어서 좋습니다.</p>
+
+<p>이를 위해서 <code>embed</code>라는 클래스 메소드를 사용하면 됩니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  embed :ids</p>
+
+<p>  attributes :id, :title, :body
+  has_many :comments
+end
+{% endcodeblock %}</p>
+
+<p>이제 association들이 ID들로 구성된 배열을 포함하게 될 것입니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;post&rdquo;: {</p>
+
+<pre><code>"id": 1,
+"title": "New post",
+"body": "A body!",
+"comment_ids": [ 1, 2, 3 ]
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
+
+<p>다른 방법으로는 클래스내의 측정 association에 대해서만 ID 또는 객체 배열만을 포함할 수 있게 할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  attributes :id, :title, :body</p>
+
+<p>  has_many :comments, embed: :objects
+  has_many :tags, embed: :ids
+end
+{% endcodeblock %}</p>
+
+<p>따라서 JSON 데이터는 다음과 같이 보일 것입니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;post&rdquo;: {</p>
+
+<pre><code>"id": 1,
+"title": "New post",
+"body": "A body!",
+"comments": [
+  { "id": 1, "body": "what a dumb post" }
+],
+"tag_ids": [ 1, 2, 3 ]
+</code></pre>
+
+<p>  }
+}
+{% endcodeblock %}</p>
+
+<p>게다가, ID 만을 포함하는 것 외에도 메인 객체에 데이터를 추가로 포함할 수도 있습니다. 이렇게 하므로써 포함된 정보를 검색하기 위해서 트리구조를 스캔할 필요없이 전체 데이터 패키지를 보다 쉽게 처리할 수 있게 될 것입니다. 또한 객체사이에 (tags와 같이) 공유되는 associations들은 전체 로드시에 단 한번만 전달된다는 것입니다.</p>
+
+<p>아래와 같이 데이터가 포함되도록 명시할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  embed :ids, include: true</p>
+
+<p>  attributes :id, :title, :body
+  has_many :comments
+end
+{% endcodeblock %}</p>
+
+<p>이 때 comments 객체가 <code>has_many :tags</code> association이 선언되어 있다고 가정하면, 다음과 같은 JSON 데이터를 얻게 될 것입니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;post&rdquo;: {</p>
+
+<pre><code>"id": 1,
+"title": "New post",
+"body": "A body!",
+"comment_ids": [ 1, 2 ]
+</code></pre>
+
+<p>  },
+  &ldquo;comments&rdquo;: [</p>
+
+<pre><code>{ "id": 1, "body": "what a dumb post", "tag_ids": [ 1, 2 ] },
+{ "id": 2, "body": "i liked it", "tag_ids": [ 1, 3 ] },
+</code></pre>
+
+<p>  ],
+  &ldquo;tags&rdquo;: [</p>
+
+<pre><code>{ "id": 1, "name": "short" },
+{ "id": 2, "name": "whiny" },
+{ "id": 3, "name": "happy" }
+</code></pre>
+
+<p>  ]
+}
+{% endcodeblock %}</p>
+
+<p>위에서와 같이 데이터를 추가로 로드할 경우에는 <code>{ root: false }</code> 옵션을 사용할 수 없습니다. 이 옵션을 지정할 경우에는 유효하지 않은 JSON 데이터를 만들게 되기 때문입니다. 따라서 이 옵션을 지정하게 되면 <code>include</code> 옵션이 작동하지 않게 됩니다.</p>
+
+<p>또한 포함된 객체에 대해서는 참조하는 키외의 다른 루트를 지정할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  embed :ids, include: true</p>
+
+<p>  attributes :id, :title, :body
+  has_many :comments, key: :comment_ids, root: :comment_objects
+end
+{% endcodeblock %}</p>
+
+<p>이것은 다음과 같은 JSON 데이터를 민들게 됩니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;post&rdquo;: {</p>
+
+<pre><code>"id": 1,
+"title": "New post",
+"body": "A body!",
+"comment_ids": [ 1 ]
+</code></pre>
+
+<p>  },
+  &ldquo;comment_objects&rdquo;: [</p>
+
+<pre><code>{ "id": 1, "body": "what a dumb post" }
+</code></pre>
+
+<p>  ]
+}
+{% endcodeblock %}</p>
+
+<p>또한 포함된 객체의 ID외의 다른 속성을 지정할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class PostSerializer &lt; ActiveModel::Serializer
+  embed :ids, include: true</p>
+
+<p>  attributes :id, :title, :body
+  has_many :comments, embed_key: :external_id
+end
+{% endcodeblock %}</p>
+
+<p>이것은 다음과 같은 JSON 데이터를 만들게 됩니다.</p>
+
+<p>{% codeblock lang:javascript %}
+{
+  &ldquo;post&rdquo;: {</p>
+
+<pre><code>"id": 1,
+"title": "New post",
+"body": "A body!",
+"comment_ids": [ "COMM001" ]
+</code></pre>
+
+<p>  },
+  &ldquo;comments&rdquo;: [</p>
+
+<pre><code>{ "id": 1, "external_id": "COMM001", "body": "what a dumb post" }
+</code></pre>
+
+<p>  ]
+}
+{% endcodeblock %}</p>
+
+<p>Note: <code>embed :ids</code> 기전은 주로 데이터를 대량으로 처리해서 로컬 저장소에 로드할 경우에 유용합니다. 이와 같은 경우에, 정보검색을 위해서 데이터를 반복적으로 스캔할 필요없이 종류별로 모든 데이터를 쉽게 볼 수 있다는 것은 매우 유용한 기능입니다.</p>
+
+<p>대부분의 경우 간단히 시나리오 하에 데이터 작업을 하고 직접 Ajax 요청을 할 경우에는 아마도 디폴트 상태의 embed 기능을만을 사용하면 될 것입니다.</p>
+
+<h1>Scope 커스터마이징하기</h1>
+
+<p>특정 serializer 클래스에서 대해서, <code>current_user</code> 는 <code>render :json</code> 을 호출할 때 컨트롤러가 해당 serializer에 제공하는 인증 scope에 해당합니다. 디폴트로, 이것은 <code>current_user</code>가 되지만, 컨트롤러에서 <code>serialization_scope</code>을 호출하여 이 scope을 변경할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class ApplicationController &lt; ActionController::Base
+  serialization_scope :current_admin
+end
+{% endcodeblock %}</p>
+
+<p>위의 예는 scope을 <code>current_user</code>에서 <code>current_admin</code>으로 변경하게 될 것입니다.</p>
+
+<p>주목할 것은, 지금까지 볼 때, <code>serialization_scope</code>은 두번째 인수를 지정하여, 해당 scope을 적용할 액션들을 지정할 수 없습니다.</p>
+
+<p>즉, 아래와 같이 액션들을 지정할 수 없다는 것입니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class SomeController &lt; ApplicationController
+  serialization_scope :current_admin, except: [:index, :show]
+end
+{% endcodeblock %}</p>
+
+<p>따라서 대신에 아래와 같이 처리할 수 있습니다.</p>
+
+<p>{% codeblock lang:ruby %}
+class CitiesController &lt; ApplicationController
+  serialization_scope nil</p>
+
+<p>  def index</p>
+
+<pre><code>@cities = City.all
+
+render json: @cities, each_serializer: CitySerializer
+</code></pre>
+
+<p>  end</p>
+
+<p>  def show</p>
+
+<pre><code>@city = City.find(params[:id])
+
+render json: @city, scope: current_admin
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>위에 예에서, <code>current_admin</code> 메소드가 데이터베이스에서 현재 사용자를 조회할 필요가 있다고 가정한다면, 이러한 방식의 접근방식을 통해서, <code>serailization_scope</code>값은 <code>nil</code>로 지정하므로써, <code>index</code> 액션이 더 이상 데이터베이스를 조회하기 않고 단지, <code>show</code> 액션만이 해당 메소드를 실행하게 되는 것입니다.</p>
+
+<h1>Testing</h1>
+
+<p>임의의 serializer 클래스를 테스트하기 위해서는, 단지 해당 serializer 클래스에 대해서 <code>.new</code> 메소드를 호출하여 모델 클래스 객체를 넘겨 주면 됩니다.</p>
+
+<h2>MiniTest</h2>
+
+<p>{% codeblock lang:ruby %}
+class TestPostSerializer &lt; Minitest::Test
+  def setup</p>
+
+<pre><code>@serializer = PostSerializer.new Post.new(id: 123, title: 'some title', body: 'some text')
+</code></pre>
+
+<p>  end</p>
+
+<p>  def test_special_json_for_api</p>
+
+<pre><code>assert_equal '{"post":{"id":123,"title":"some title","body":"some text"}}', @serializer.to_json
+</code></pre>
+
+<p>  end
+{% endcodeblock %}</p>
+
+<h2>RSpec</h2>
+
+<p>{% codeblock lang:ruby %}
+describe PostSerializer do
+  it &ldquo;creates special JSON for the API&rdquo; do</p>
+
+<pre><code>serializer = PostSerializer.new Post.new(id: 123, title: 'some title', body: 'some text')
+expect(serializer.to_json).to eql('{"post":{"id":123,"title":"some title","body":"some text"}}')
+</code></pre>
+
+<p>  end
+end
+{% endcodeblock %}</p>
+
+<p>수고하셨습니다.</p>
+]]></content>
+  </entry>
+  
+</feed>
