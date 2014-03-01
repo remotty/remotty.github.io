@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[Category: Github | Remotty Tech Blog]]></title>
+  <title><![CDATA[Category: github | Remotty Tech Blog]]></title>
   <link href="http://blog.remotty.com/blog/categories/github/atom.xml" rel="self"/>
   <link href="http://blog.remotty.com/"/>
+<<<<<<< HEAD
   <updated>2014-02-07T14:22:41+09:00</updated>
+=======
+  <updated>2014-03-01T00:56:48+09:00</updated>
+>>>>>>> 2ce8c1a037793ae8bc9936b5fd4574dde46a5092
   <id>http://blog.remotty.com/</id>
   <author>
     <name><![CDATA[Remotty Group]]></name>
@@ -14,256 +18,223 @@
 
   
   <entry>
-    <title type="html"><![CDATA[깃허브(Github) 후크 API와 Slack에 알림 전달하기]]></title>
-    <link href="http://blog.remotty.com/blog/2014/01/30/github-hook-api-slack-sample/"/>
-    <updated>2014-01-30T17:30:00+09:00</updated>
-    <id>http://blog.remotty.com/blog/2014/01/30/github-hook-api-slack-sample</id>
-    <content type="html"><![CDATA[<p>후크(hook)는 특정 이벤트나 작업이 진행될 때 자동적으로 다른 스크립트를 실행시켜줍니다. 깃(Git)에서는 기본적으로 후크를 지원하고 있습니다. 저장소 폴더의 <code>.git/hooks</code>에서 샘플 스크립트와 사용할 수 있는 후크 이벤트들을 확인해볼 수 있습니다.</p>
-
-<p>깃허브(<a href="http://github.com">Github</a>)에서도 이러한 후크 기능을 지원하고 있으며 깃허브와 연동된 부분에 대한 이벤트를 추가적으로 지원하고 있습니다. 대부분의 경우 서비스 후크 기능을 통해서 다른 서비스와의 통합을 쉽게 할 수록 지원하고 있으며, 재미있게도 이렇게 다른 서비스와 통합하는 부분도 공개가 되어있어 관심이 있으시면 <a href="https://github.com/github/github-services">실제 코드</a>를 확인해볼 수도 있습니다. 특히 현재는 웹후크(Webhook) 기능을 추가되어 깃허브에서 서비스 후크를 지원하지 않는 서비스와도 중간에서 매개할 수 있는 서버나 통합기능이 있다면 얼마든지 활용가능합니다.</p>
+    <title type="html"><![CDATA[hub로 커맨드라인에서 Github pull-request 보내기]]></title>
+    <link href="http://blog.remotty.com/blog/2013/12/29/hub-and-pull-request/"/>
+    <updated>2013-12-29T15:31:32+09:00</updated>
+    <id>http://blog.remotty.com/blog/2013/12/29/hub-and-pull-request</id>
+    <content type="html"><![CDATA[<p>오픈소스를 비롯해 git를 사용해 소스 코드의 버전관리를 하는 경우엔 원격 git 저장소로 Github를 많이 사용합니다. Github는 단순히 git 저장소 역할을 하는 것뿐만 아니라 웹 인터페이스를 통해서 저장소를 관리할 수 있게 도와주며, 소스코드를 공유하고 협업하기 위한 다양한 기능을 제공합니다.</p>
 
 <!--more-->
 
 
-<p>후크란 일반적인 API와는 반대 방향으로 작동합니다. 예를 들어 보통 API를 호출하면 어떤 정보를 되돌려줍니다만, 후크는 등록이 되어있으면 어떤 이벤트가 발생할 때 거꾸로 깃허브에서 내가 등록한 Webhook URL로 정보를 보내줍니다. 여기서는 깃허브 Hook API를 조작하는 방법에 대해서 간략히 살펴보고 하나의 예제로 깃헙에서 보내주는 웹후크 알림을 처리할 수 있는 간단한 <a href="http://www.padrinorb.com/">Padrino</a> 서버를 만들어 <a href="https://slack.com/">슬랙(Slack)</a>라는 협엄&amp;채팅 서비스로 알림을 보내는 과정을 다뤄보겠습니다.</p>
+<p>예를 들어서 다른 사람이 만든 저장소를 자신의 계정에 fork해서 별도로 관리할 수 있고, 이렇게 fork해서 수정한 저장소의 브랜치를 pull-request를 통해서 원래의 저장소에 통합하도록 요청할 수도 있습니다. 이외에도 이슈 관리와 위키를 비롯한 매우 다양한 기능들이 지원됩니다. 이러한 Github의 장점들은 단순히 git을 활용한 좋은 버전관리 시스템이라는 것을 넘어서 프로젝트 관리를 위한 도구로서 Github 서비스를 차별화 시켜줍니다.</p>
 
-<h2>깃허브(Githbu) 후크 API</h2>
+<p>하지만 대부분의 기능들은 기본적으로 웹인터페이스로만 사용할 수 있다는 단점이 있습니다. Git의 가장 기본적인 클라이언트 프로그램은 git 명령어로 커맨드라인에서 사용할 수 있습니다. 하지만 Github는 일차적으로 웹서비스로서 부가적인 기능들을 웹을 통해서 제공합니다. GUI나 화면에 익숙한 분들에게는 이러한 면은 또다른 장점이 될 수도 있겠지만, 커맨드 라인에서 직접 git 명령어를 입력하고, 저장소의 상태를 확인하는 사람들에게는 워크 플로우가 웹과 커맨드라인으로 나눠진다는 게 영 장점이지만은 않습니다.</p>
 
-<ul>
-<li><a href="http://developer.github.com/v3/repos/hooks/">Hooks | GitHub API</a></li>
-</ul>
+<p>물론 Github에서 제공하는 API를 직접 이용하는 방법도 있긴있겠습니다만, 매우 번거로운 작업입니다. Github에서는 이러한 문제를 해결하기 위해서 저장소 생성, 포크 및 풀리퀘스트 등 주요한 기능을 커맨드라인 인터페이스로 제공해주는 Hub라는 git 명령어의 확장 인터페이스를 제공하고 있습니다. <a href="https://github.com/github/hub">Hub</a>라는 이름은 git + hub = Github 라는 공식에서 나온 이름도 참 앙증맞습니다.</p>
 
+<p>이 글은 Hub를 설치하고 실제 커맨드라인에서 풀리퀘스트를 보내는 과정을 다룹니다. 기본적으로 Github의 풀리퀘스트 기능 정도는 익숙하다는 걸 전제로(최소한 개념 정도는 이해하고 있다는 전제로) 이야기합니다.</p>
 
-<p>API의 자세한 사항은 깃허브 API 문서에서 확인할 수 있습니다. 여기서는 깃허브에서 지원하는 이벤트 종류와 웹후크를 추가했을 때 어떤 이벤트들이 추가되는지 살펴보겠습니다.</p>
+<h1>Hub 설치</h1>
 
-<h3>지원하는 후크 이벤트 종류</h3>
+<p>먼저 Hub를 사용하기 위해서는 공식 홈페이지를 참조해 프로그램을 설치해줄 필요가 있습니다. 우선 hub는 git과 ruby에 의존적인 프로그램이므로 시스템에 이러한 프로그램들이 있는지 확인해야합니다.</p>
 
-<ul>
-<li>push : 저장소에 푸쉬가 들어왔을 때 발생. 기본 이벤트</li>
-<li>issues: 이슈가 열리거나 닫혔을 때 발생.</li>
-<li>issue_comment: 이슈에 코멘트가 달렸을 때 발생.</li>
-<li>commit_comment: 커밋에 코멘트가 달렸을 때 발생.</li>
-<li>create: 저장소나 브랜치, 태그가 추가되었을 때 발생.</li>
-<li>delete: 브랜치나, 태그가 삭제되었을 때 발생.</li>
-<li>pull_request: 풀리퀘스트가 열리거나 닫혔을 때, 동기화 되었을 때 발생.</li>
-<li>pull_request_review_comment: 풀리퀘스트 리뷰 안의 커밋에 커멘트가 달렸을 때.</li>
-<li>gollum: 위키가 업데이트되었을 때 발생.</li>
-<li>watch: 사용자가 저장소를 와치했을 때 발생.</li>
-<li>release: 릴리즈가 추가되었을 때 발생.</li>
-<li>fork: 저장소가 포크되었을 때 발생.</li>
-<li>member: Organization의 저장소가 아닐 때 멤버가 추가되면 발생.</li>
-<li>public: 저장소가 비공개에서 공개로 전환되었을 때 발생.</li>
-<li>team_add: 저장소에 팀이 추가되었거나 변경되었을 때 발생.</li>
-<li>status: API를 통해 커밋의 상태가 변경되었을 때 발생.</li>
-<li>deployment: API를 통해 저장소의 새로운 배포가 생성되었을 때 발생.</li>
-<li>deployment_status: API를 통해서 저장소의 특정 배포의 상태가 변경되었을 때 발생.</li>
-</ul>
+<p>```sh
+$ git -v
+git version 1.8.3.2</p>
 
+<h1>git 1.7.3 이상 필요!</h1>
 
-<p>이벤트가 발생했을 때 깃허브에서 보내주는 내용은 <a href="http://developer.github.com/v3/activity/events/types/#deploymentevent">Event Types</a>에서 자세히 확인할 수 있으며 배포에 관한 부분은 <a href="http://developer.github.com/v3/repos/deployments/#list-deployment-statuses">Deployments API</a>를 확인하시기 바랍니다.</p>
+<p>$ ruby -v
+ruby 2.1.0p0 (2013-12-25 revision 44422) [x86_64-linux]</p>
 
-<h3>저장소에 웹후크 등록하고 상태 확인하기</h3>
+<h1>ruby 1.8.6 이상 필요!</h1>
 
-<p>깃허브에서 저장소에 웹후크나 서비스 후크를 등록하기 위해서는 저장소의 관리 권한이 있어야합니다. 먼저 저장소의 오른쪽에 보이는 Settings 메뉴에 들어갑니다.</p>
+<p>```</p>
 
-<p><img src="/images/2014-01-30-github-hook-api-slack-sample/settings.png" alt="Github settings" /></p>
+<p>위의 프로그램들이 설치돼있다면 이제 Hub를 설치할 차례입니다. 맥에서는  Homebrew[^brew]를 이용해 hub를 쉽게 설치할 수 있습니다.</p>
 
-<p>들어와서 왼쪽에 보시면 Service Hooks라는 메뉴를 찾을 수 있습니다. Service Hooks 누르면 Github에서 바로 통합 가능한 서비스 리스트들을 전부 확인할 수 있습니다. 채팅 서비스인 <a href="http://hipchat.com/">Hipchat</a>을 비롯해, 빌드 서비스인 <a href="https://circleci.com/">CircleCI</a>, <a href="https://travis-ci.org/">Travis</a>, 코드 매트릭스 관리 서비스인 <a href="https://codeclimate.com/?v=original">Code Climate</a>, 테스트 커버리지 리포트 서비스인 <a href="https://coveralls.io/">Coveralls</a>등 다양한 서비스를 지원하고 있습니다. 여기서는 맨 위에 있는 Webhook URLs를 사용하겠습니다.</p>
-
-<p><img src="/images/2014-01-30-github-hook-api-slack-sample/webhook.png" alt="Webhook" /></p>
-
-<p>Webhook URLs를 클릭하시면 이벤트가 발생했을 때 정보를 받을 URL을 지정할 수 있습니다. 아직 후크 메시지를 받아 처리할 수 있는 서버가 없으므로 여기서는 서버를 등록하면 어떤 식으로 메시지가 오는 지, 어떤 이벤트들을 등록되어있는지 보여드리도록 하겠습니다. Webhook URLs에 <code>notifier.nacyot.com</code>라는 Slack에 깃허브 저장소의 변경사항을 전달해주는 어플리케이션을 등록했다고 가정해보죠.</p>
-
-<p>깃허브에서 저장소에 등록된 후크 정보를 확인하는 API URL은 다음과 같습니다.</p>
-
-<p><code>
-https://api.github.com/repos/&lt;계정이름&gt;/&lt;저장소이름&gt;/hooks
+<p><code>sh
+brew install hub
 </code></p>
 
-<p>이제 <code>curl</code>을 통해서 Github에 Hook가 어떻게 등록되어있는지 요청을 보내보도록하겠습니다. <code>-u</code> 플래그 뒤로는 인증을 할 계정이름을 넣어줍니다.</p>
+<p>리눅스 계열에서는 소스 코드를 다운로드 받아 직접 설치할 수 있습니다. 아래 과정을 따라 hub를 설치할 수 있습니다.</p>
 
-<p>```
-Commend > curl -u nacyot <a href="https://api.github.com/repos/nacyot/slack_notifier/hooks">https://api.github.com/repos/nacyot/slack_notifier/hooks</a>
-Enter host password for user &lsquo;nacyot&rsquo;:
-[
-  {</p>
+<p><code>sh
+$ git clone git://github.com/github/hub.git
+$ cd hub
+$ rake install
+</code></p>
 
-<pre><code>"url": "https://api.github.com/repos/nacyot/bbapi/hooks/1829382",
-"test_url": "https://api.github.com/repos/nacyot/bbapi/hooks/1829382/test",
-"id": 1829382,
-"name": "web",
-"active": true,
-"events": [
-  "push",
-],
-"config": {
-  "url": "notifier.nacyot.com",
-  "content_type": "form",
-  "insecure_ssl": "1"
-},
-"last_response": {
-  "code": 504,
-  "status": "timeout",
-  "message": "Service Timeout"
-},
-"updated_at": "2014-01-28T01:29:02Z",
-"created_at": "2014-01-26T02:27:38Z"
-</code></pre>
+<p>설치 시 ruby의 <code>rake</code> 명령어가 지원되어야합니다. <code>rake</code> 명령어가 없다면 <code>gem install rake</code>로 먼저 rake를 설치해주시기 바랍니다. 또한 <code>rake install</code> 명령어 실행시 기본적으로 메인 시스템 상에 프로그램을 설치하므로 <code>sudo</code> 등을 붙여 관리자 권한으로 설치해야할 수도 있습니다.</p>
 
-<p>  }
-]
+<p>설치가 정상적으로 끝났다면 아래와 같이 <code>hub</code> 명령어를 사용할 수 있습니다.</p>
+
+<p><code>sh
+$ hub --version
+git version 1.8.3.2
+hub version 1.11.1
+</code></p>
+
+<p>hub는 <code>hub</code> 명령어를 통해서 독자적으로 사용할 수도 있지만 <code>git</code> 명령어와 통합해서 사용할 수도 있습니다. <code>hub alias</code> 명령어를 실행하면 <code>git</code> 명령어와 통합하는 방법을 알려줍니다.</p>
+
+<p>```</p>
+
+<h1>Wrap git automatically by adding the following to ~/.zshrc:</h1>
+
+<p>eval &ldquo;$(hub alias -s)&rdquo;
 ```</p>
 
-<p>다음과 같은 응답이 되돌아 옵니다. 이는 현재 등록된 후크의 URL과 어떤 이벤트가 등록되어있는지를 비롯한 여러가지 정보를 담고 있습니다. 특히 주목할 부분은 <code>id</code>와 <code>events</code>그리고 <code>url</code> 부분입니다. 웹에서 지정한대로 정상적으로 등록이 된 걸 알 수 있습니다. 단, 웹에서 등록을 하면 기본 이벤트인 <code>push</code> 이벤트밖에 등록이 되지 않습니다. 그렇다면 이슈에 관련된 이벤트나 위키가 수정되었을 때 알림을 받고자 한다면 어떻게 해야할까요?</p>
+<p>예를 들어 zsh 사용하고 있다면 <code>~/.zshrc</code> 파일에, bash를 사용하고 있다면 <code>~/.bash_profile</code> 파일에 <code>eval "$(hub alias -s)"</code>을 추가해주면 쉘 초기화 시에 git와 hub 명령어를 통합시켜줍니다. git와 hub 명령어는 기능적으로는 겹치지 않으며, hub가 git를 보완하는 역할을 하고 있으므로 이렇게 사용하더라도 별다른 문제가 되지 않습니다.</p>
 
-<p>여기서는 마찬가지로 <code>curl</code>을 사용해 새로운 이벤트를 등록해보겠습니다. 여기서 등록할 이벤트는 <code>issue</code>, <code>issue_comment</code>, 그리고 위키 업데이트를 알려주는 <code>gollum</code> 이벤트입니다.</p>
+<p>이제 설치가 끝났으니 쉘을 재실행 시켜줍니다. git 명령어를 통해서 제대로 alias 되었는지 확인합니다.</p>
 
 <p><code>
-curl -u nacyot https://api.github.com/repos/nacyot/slack_notifier/hooks/1829382 -X PATCH -d '{"add_events": ["issue", "issue_comment", "gollum"] }'
+$ git --version
+git version 1.8.3.2
+hub version 1.11.1
 </code></p>
 
-<p>위에서 후크 정보를 조회했던 <code>curl</code> 정보를 참고로 적당한 형태로 바꿔주시기 바랍니다. 특히 여기서는 <code>/hooks/</code> 뒤에 앞서서 조회했던 후크의 <code>id</code> 값을 집어넣어줘야합니다. 다시 처음 url로 후크 정보를 조회해보면 정상적으로 이벤트들이 추가된 것을 알 수 있습니다.</p>
+<h1>쉘에서 Hub 자동 완성 사용하기</h1>
+
+<p>Hub에서는 쉘에서 명령어 및 옵션 자동 완성을 위한 completion 파일을 제공하고 있습니다. 여기서 zsh을 기준으로 git 명령어의 자동완성을 확장하는 법을 설명합니다. 먼저 hub 자동 완성 파일을 다운로드 받아 적절한 위치(우분투의 경우 기본적으로  <code>usr/local/share/zsh/site-functions</code> 디렉토리. 정확한 위치는 각 운영체제 별 zsh 환경 설정 파일 위치에 따릅니다)에 복사해줍니다.</p>
+
+<p><code>
+$ mkdir ~/src
+$ cd ~/src
+$ wget https://raw.github.com/github/hub/master/etc/hub.zsh_completion
+$ sudo mv hub.zsh_completion /usr/share/zsh/site-functions/_hub
+</code></p>
+
+<p>zsh을 다시 실행하면 아래와 같이 hub 명령어 사용시 자동완성이 적용되는 것을 알 수 있습니다.</p>
+
+<p><code>
+$ hub pull&lt;TAB&gt;
+pull          -- fetch from and merge with another rep....
+pull-request  -- open a pull request on GitHub
+</code></p>
+
+<p><code>git</code> 명령어와 통합해서 사용중인 경우에는 .zshrc에 아래 라인을 추가해 git 명령어에서도 hub 명령어의 자동완성을 사용할 수 있습니다.</p>
+
+<p><code>
+compdef git=hub
+</code></p>
+
+<p>아래와 같이 자동 완성이 적용된 것을 확인할 수 있습니다.</p>
+
+<p><code>
+$ git pull&lt;TAB&gt;
+pull          -- fetch from and merge with another rep....
+pull-request  -- open a pull request on GitHub
+</code></p>
+
+<h1>Hub 사용하기</h1>
+
+<p>Hub의 다양한 명령어에 대해서는 공식 저장소에 간략한 사용법들이 나와있습니다. 여기서는 Hub를 사용해 Github에 저장소를 만들어보고, Github의 핵심 기능중 하나인 풀리퀘스트를 실제로 보내보겠습니다. (단, 여기서는 같은 저장소의 브랜치간에 풀리퀘스트를 보냅니다.)</p>
+
+<p>먼저 Git 저장소를 가진 디렉토리를 하나 생성해줍니다.</p>
+
+<p><code>
+$ pwd
+/home/nacyot/prog/github/nacyot/
+$ mkdir pull-request &amp;&amp; cd $_
+$ git init
+Initialized empty Git repository in/home/nacyot/prog/github/nacyot/pull-request/.git/
+$ git create
+Updating origin
+created repository: nacyot/pull-request
+</code></p>
+
+<p>일반적으로 Git 저장소를 초기화할 때는 <code>git init</code> 명령어를 사용합니다. 여기서는 추가적으로 <code>git create</code> 명령어를 사용했습니다. 이 명령어는 hub를 통해 확장된 명령어로 현재 git 저장소로 Github에 저장소를 생성해줍니다. <code>git remote</code> 원격 저장소 설정이 제대로 되었는지 확인해보겠습니다.</p>
+
+<p><code>
+$ git remote -v
+origin  git@github.com:nacyot/pull-request.git (fetch)
+origin  git@github.com:nacyot/pull-request.git (push)
+</code></p>
+
+<p>이를 통해서 Github <a href="http://github.com/nacyot">nacyot</a> 계정에 <a href="http://github.com/nacyot/pull-request">pull-request 저장소</a>가 추가되었다는 것을 알 수 있습니다.</p>
+
+<p>우선 master 브랜치를 활성화시키기 위해 커밋을 하나 해보겠습니다.</p>
 
 <p>```
-&hellip;</p>
+$ touch README.md
+$ git add .
+$ git commit -m'Add README.md'
+$ git push origin master</p>
 
-<pre><code>"events": [
-  "push",
-  "issue",
-  "issue_comment",
-  "gollum"
-],
-</code></pre>
-
-<p>&hellip;
+<p>Counting objects: 3, done.
+Writing objects: 100% (3/3), 221 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github.com:nacyot/pull-request.git
+* [new branch]      master &ndash;> master
 ```</p>
 
-<p>이제 저장소에서 이슈와 관련 이벤트가 발생하거나 위키에 페이지가 추가되거나 업데이트될 때 알림이 오게 됩니다. 이번엔 실제로 알림이 오는 것을 확인해보겠습니다. 위키 페이지를 하나 생성해보겠습니다.</p>
-
-<p><img src="/images/2014-01-30-github-hook-api-slack-sample/wiki.png" alt="Creating Wiki page" /></p>
-
-<p>이번엔 <code>notifier.nacyot.com</code>에 요청이 들어오는지 확인해보겠습니다.</p>
+<p>이 명령어들은 일반적으로 git에서 사용하는 명령어들입니다. 이제 파일들이 정상적으로 추가되었는지를 확인하기 위해 이 저장소의 웹페이지를 띄워보겠습니다.</p>
 
 <p><code>
-07:15:35 web.1  |   DEBUG -      POST (1.6938s) / - 200 OK
-07:15:35 web.1  | 192.30.252.54 - - [30/Jan/2014 07:15:35] "POST / HTTP/1.1" 200 - 1.6956
+git browse
 </code></p>
 
-<p>정상적으로 들어오네요. 네, 앞서서 이야기했듯이 이 서버가 해주는 역할은 깃허브로부터 후크를 받고 이를 Slack이라는 채팅 서비스에 연결해주는 역할을 합니다.</p>
+<p><code>git browse</code> 명령어도 hub 확장으로 현재 디렉토리에 위치한 git 저장소의 원격 저장소를 근거로 Github 페이지를 찾아 바로 웹브라우져를 열어줍니다. 이 명령어를 통해서 따로 웹브라우져를 실행시키지 않더라도 저장소의 Github 페이지를 바로 확인할 수 있습니다.</p>
 
-<p><img src="/images/2014-01-30-github-hook-api-slack-sample/github_slack.png" alt="Slack Room" /></p>
+<p><img src="/images/2013-12-29-hub-and-pull-request/repository.png" alt="repository" /></p>
 
-<p>채팅방에도 메시지가 잘 들어오는 것을 알 수 있습니다. (시간 차이는 시간 설정 때문에 9시간 차이가 나서 그렇습니다)</p>
+<p>이제 pull-request 브랜치를 만들고 실제로 풀리퀘스트를 보내보도록 하겠습니다.</p>
 
-<h2>Slack과 깃허브 저장소 이벤트 통합</h2>
+<p><code>
+$ git checkout -b pull-request
+$ git touch hello.rb
+$ git add .
+$ git commit -m'Add hello.rb'
+$ git push origin pull-request
+</code></p>
 
-<p>약간 순서가 거꾸로된 듯한 느낌이 들기도 합니다만, 여기서부터는 위에서 다룬 Slack에 메시지를 전달하는 서버에 대해서 다루도록 하겠습니다. 위에서 다룬 이벤트의 종류만 봐도 알 수 있습니다만, 의외로 Github에서는 다양한 이벤트들을 지원하고 있다는 것을 알 수 있습니다. 그리고 이러한 이벤트들이 깃허브 생태계를 구성하는 강력한 원동력이 되고 있습니다. 깃허브에서 서비스 후크로 바로 통합할 수 있는 서비스라면 두 서비스 간의 통합 기능을 이용하는 게 가장 편리합니다. 하지만 원하는 기능을 직접 구현하고 싶다거나 아직 서비스 후크가 갖춰지지 않은 서비스와 통합을 하려는 경우엔 직접 깃허브에서 보내는 메시지를 처리해줄 서버를 만들 필요가 있습니다.</p>
+<p>위의 명령어들 역시 git에서 일반적으로 사용하는 명령어들로 추가적인 설명은 생략하겠습니다. 간단히만 얘기하면 pull-request 브랜치를 만들고 <code>hello.rb</code> 파일을 추가하고 Github 저장소에도 추가했습니다. 이제 nacyot/pull-request 에는 master 브랜치와 pull-request 두 브랜치가 존재합니다.</p>
 
-<p>예를 들어서 제가 속해있는 Remotty 팀에서는 지금까지 힙챗(Hipchat)이라는 협업 채팅 툴을 사용해왔습니다만, 최근에 공개된 Slack이라는 서비스로 갈아탈 준비를 하고 있습니다.<sup id="fnref:1"><a href="#fn:1" rel="footnote">1</a></sup> 하지만 깃허브과 통합을 하는데 약간의 애로사항이 있어서 이전을 포기했습니다. 얼마 전까지만 해도 Webhook을 통해서 Slack 서비스를 연동하면 커밋이 푸쉬되는 알림밖에는 전해주질 않았습니다. Hipchat 같은 경우는 깃허브에서 다루는 거의 모든 이벤트를 전달해줍니다. 특히 이슈와 관련된 부분도 필수적이고, 위키를 적극 사용하고 있었기에 이런 알림이 비활성화되는 것은 치명적인 단점으로 부각될 수밖에 없었습니다. 그리고 조금 더 올라가보면 바로 그런 통합이 가능했기 때문에 Hipchat을 사용하기로 했었으니까요.</p>
+<p>여기서는 pull-request 브랜치에서 master 브랜치로 풀리퀘스트를 보내겠습니다.</p>
 
-<p>이러한 문제에 대해서 슬랙 쪽 통합 방식이 최근에 변경되면서 현재는 이슈와 풀리퀘스트 부분의 알림을 보내주도록 추가가 되었습니다. 원래는 Slack의 hook_url을 직접 추가하는 방식으로 통합을 했습니다만, 최근에는 Github 인증을 하면 Slack에서 hook url을 추가해주고 이슈와 풀리퀘스트 관련 이슈들을 더해줍니다. 이러한 약간의 변화가 다시 슬랙으로 넘어가자는 의견에 힘을 실어주었습니다. 하지만 여전히 위키를 지원해주지 않는 문제가 남아있었습니다.</p>
+<p><code>
+$ git pull-request
+</code></p>
 
-<p>금방 지원해 줄 것 같기는 했습니다만, 당장 필요했던 관계로 직접 알림을 보내주는 서버를 만들기로 했습니다. 현재 루비의 Padrino<sup id="fnref:2"><a href="#fn:2" rel="footnote">2</a></sup>로 만든 깃허브에서 위키 변경 사항 알림 <a href="https://github.com/nacyot/slack_notifier">서버를 slack_notifier</a>라는 이름으로 올려둔 상태입니다. 이 서버가 하는 일은 정말 딱 위키 알림을 Github에서 받고 Slack으로 전달해주는 일뿐입니다.</p>
-
-<p><a href="https://github.com/nacyot/slack_notifier/blob/master/app/controllers/hook.rb">로직</a>도 정말 단순합니다. <code>hook_controller</code>에 다음과 같은 내용이 들어가있을 뿐입니다.</p>
+<p><code>git pull-request</code> 명령어를 실행시키면 현재 디렉토리의 github 저장소와 브랜치를 기준으로 풀리퀘스트를 보내기 위한 메시지를 입력할 수 있도록 기본 에디터를 실행해줍니다.</p>
 
 <p>```
-Slack::Post.configure(</p>
+First pull-request</p>
 
-<pre><code>                  subdomain: params[:subdomain],
-                  token: params[:token],
-                  username: "Github"
-                  )
-</code></pre>
+<h1>Requesting a pull to nacyot:master from nacyot:pull-request</h1>
 
-<p>Slack::Post.post &ldquo;#{login}#{action} &lt;#{url}|#{title}>&rdquo;, &ldquo;#&rdquo; + params[:room]
-```</p>
+<p>#</p>
 
-<p>내부적으로 [slack-post][slack-post]라는 젬을 사용해 깃허브에서 서버의 특정 페이지에 접근하면(이벤트를 알려주면), Slack에 메시지를 보내주는 방식입니다. 현재는 서버에 데이터를 저장하는 기능이 없어서 token과 메시지를 전달할 곳을 전부 Url 인자로 받아서 사용하고 있습니다.</p>
+<h1>Write a message for this pull request. The first block</h1>
 
-<p>자, 그럼 직접 사용해보도록 하죠.</p>
+<h1>of text is the title and the rest is description.</h1>
 
-<h3>도커(Docker) X slack_notifier</h3>
+<p>```</p>
 
-<p>루비 서버를 올리는 게 어려운 일은 아닙니다만, 부가적인 처리 과정이나 설명해질 부분이 많아지므로 해당하는 부분에 대해서는 다루지 않도록 하겠습니다. 여기서는 이러한 과정을 생략하기 위해 이전 포스트에서 이야기했던 [도커(Docker)]를 출동시키겠습니다. 빠밤.</p>
-
-<p>먼저 도커를 설치합니다. (여기서는 우분투를 가정합니다. 필요한 경우 가상머신이나 클라우드 서비스를 사용하시기 바랍니다. Remotty 팀에서도 SKT에서 지원받고 있는 VM을 활용해 개발 지원 서비스들을 운영중에 있습니다)</p>
+<p>주석을 통해서 풀리퀘스트가 어디로 보내지는지 확인할 수 있습니다. 풀리퀘스트 메시지를 완성하고 저장한 후 에디터를 종료하면 풀리퀘스트가 보내집니다.</p>
 
 <p><code>
-$ curl -s https://get.docker.io/ubuntu/ | sudo sh
-...
-$ docker --version
-Client version: 0.7.6
-Go version (client): go1.2
-Git commit (client): bc3b2ec
-Server version: 0.7.6
-Git commit (server): bc3b2ec
-Go version (server): go1.2
-Last stable version: 0.7.6
+https://github.com/nacyot/pull-request/pull/1
 </code></p>
 
-<p>다음으로 어플리케이션을 클론하고 <code>docker build</code>를 수행합니다.</p>
+<p>풀리퀘스트를 보내는데 성공하면 위와 같이 풀리퀘스트의 url을 보여줍니다.</p>
+
+<p><img src="/images/2013-12-29-hub-and-pull-request/pull-request.png" alt="pull-request" /></p>
+
+<p><code>git pull-request</code> 명령어는 아래와 같이 좀 더 명시적으로 사용할 수도 있습니다.</p>
 
 <p><code>
-$ git clone https://github.com/nacyot/slack_notifier
-$ docker build -t nacyot/slack_notifier:latest -q=true ./slack_notifier
-...
-$ docker images
-REPOSITORY              TAG                 IMAGE ID            CREATED             VIRTUAL SIZE
-nacyot/slack_notifier   latest              d35792687e8c        4 days ago          751.1 MB
-ubuntu                  12.04               8dbd9e392a96        9 months ago        128 MB
-ubuntu                  12.10               b750fe79269d        10 months ago       175.3 MB
+$ git pull-request -m 'First pull-request' -b nacyot:master -h nacyot:pull-request
+https://github.com/nacyot/pull-request/pull/1
 </code></p>
 
-<p><code>docker imaegs</code> 명령어로 정상적으로 빌드된 것을 확인할 수 있습니다. 이제 생성한 이미지로부터 실제 어플리케이션 컨테이너를 실행시킵니다.</p>
+<p>여기서 <code>-m</code> 플래그는 풀리퀘스트 메시지, <code>-b</code> 플래그는 풀리퀘스트 목적지, <code>-h</code> 플래그는 풀리퀘스트를 보내는 브랜치가 됩니다. <code>-b</code>와 <code>-h</code> 플래그는 <code>&lt;계정명&gt;:&lt;브랜치명&gt;</code> 형식으로 기술하며, 저장소는 작업 디렉토리 저장소를 근거로 자동으로 유추됩니다. 마찬가지로 풀리퀘스트에 성공하면 풀리퀘스트의 url을 보여줍니다.</p>
 
-<p><code>
-$ docker run -d -p 4000:4000 nacyot/slack_notifier:latest
-7c42ae39691c
-$ docker ps
-CONTAINER ID        IMAGE                         COMMAND                CREATED             STATUS              PORTS                    NAMES
-7c42ae39691c        nacyot/slack_notifier:first   /bin/sh -c bundle ex   4 days ago          Up 2 days           0.0.0.0:4000-&gt;4000/tcp   slack_notifier  
-</code></p>
+<h1>결론</h1>
 
-<p><code>docker ps</code>를 통해서 컨테이너가 정상적으로 실행되고 있는 것을 확인할 수 있습니다. 이제 깃허브에 WebHook을 등록할 차례입니다. 그 전에 먼저 Slack 쪽에서 서비스 등록을 하고 토큰을 생성할 필요가 있습니다.</p>
-
-<p><code>
-http://&lt;SLACK_SUBDOMAI&gt;.slack.com/services/new/incoming-webhook
-</code></p>
-
-<p>위 주소로 접속하시면 incoming-webhook을 바로 등록할 수 있습니다. <code>Add integration</code> 버튼을 누르면 오른쪽에 토큰 정보가 출력됩니다. 토큰 정보를 가지고 아래 URL을 완성합니다.</p>
-
-<p><code>
-http://&lt;서버주소&gt;:4000/hook?subdomain=&lt;SLACK_SUBDOMAIN&gt;&amp;token=&lt;SLACK_TOKEN&gt;&amp;room=&lt;SLACK_ROOM&gt;
-</code></p>
-
-<p>SLACK_ROOM에는 알림을 전달할 채널 이름을 지정합니다. 이제 이 URL을 원하시는 Github 저장소의 WebHook에 등록만 해주면 모든 준비는 완료됩니다. 하지만 여기까지 설정하고 위키를 수정해도 알림은 가지 않습니다. 앞서서 Github API에 대해서 다룬 바 있습니다만, 기본 Hook로는 <code>push</code>밖에 등록이 되지 않기 때문입니다. 이 서버에서 인식할 수 있는 이벤트는 위키를 다루는 <code>gollum</code>밖에 없습니다.</p>
-
-<p><code>
-curl -u &lt;USER_NAME&gt; https://api.github.com/repos/&lt;USER_NAME&gt;/&lt;REPO_NAME&gt;/hooks/&lt;HOOK_ID&gt; -X PATCH -d '{"add_events": ["gollum"] }'
-</code></p>
-
-<p>앞서 다룬 것과 마찬가지 방법으로 <code>gollum</code> 이벤트를 추가해줍니다. 네 이걸로 모든 설정이 끝났습니다. 이제 해당하는 저장소의 위키를 수정해보면 서버에 알림이 가고 서버가 Slack으로 위키를 수정했다는 알림이 가게 됩니다.</p>
-
-<p><img src="/images/2014-01-30-github-hook-api-slack-sample/github_slack.png" alt="Slack Room" /></p>
-
-<p>만약 정상적으로 메시지가 가지 않을 경우엔 Github Webhook 등록 페이지에서 Test Hook 버튼을 누르고 <code>docker logs &lt;CONTAINER_ID&gt;</code> 명령어를 통해서 요청이 정상 전달되는지부터 확인할 필요가 있습니다. 일단 이러한 방법을 통해서 무사히 Slack으로 이전을 마쳤습니다.</p>
-
-<h2>정리</h2>
-
-<p>네, 정리하겠습니다.</p>
-
-<p>이 글에서는 Github Hook API 서버를 다루고 중간에서 깃허브이 전달해주는 메시지를 처리하는 서비스를 소개해보았습니다. 여기서 든 예제는 팀의 필요에 기반해서 만들어진 정말 간단한 예제입니다만, 필요하다면 좀 더 복잡하고 고도화된 서버를 개발할 수도 있을 것입니다.</p>
-<div class="footnotes">
-<hr/>
-<ol>
-<li id="fn:1">
-<p>현재 완전히 이전한 상태입니다.<a href="#fnref:1" rev="footnote">&#8617;</a></p></li>
-<li id="fn:2">
-<p>Padrino는 Sinatra를 확장한 경량 웹프레임워크입니다.<a href="#fnref:2" rev="footnote">&#8617;</a></p></li>
-</ol>
-</div>
-
+<p>여기까지 git 명령어를 hub로 확장해서 커맨드라인에서 Github 작업을 좀 더 편하게 하는 방법을 소개했습니다. hub는 웹에서 해야하는 귀찮은 일들을 많이 덜어주는 프로그램입니다. Github에서 저장소를 만들고 풀리퀘스트를 보내려고 웹상에서 브랜치 지정해주고 하는 일은 간단한 작업이지만 꽤나 번거롭습니다. 특히 해당 &lsquo;저장소'를 찾아서 들어가는 일도 반복되면 귀찮기만 한 일입니다. hub와 함께 좀 더 즐거운 Github 라이프가 되길 바랍니다 >_&lt;</p>
 ]]></content>
   </entry>
   
