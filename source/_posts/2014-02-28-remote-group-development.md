@@ -140,6 +140,11 @@ session을 생성하는것, 그리고 붙는 방법 둘다 정말 간단하죠?
 
 최초에 session을 생성할때 `$ tmux`를 입력하게되면 서버 소켓 파일 `/tmp/tmux-1000/default`를 생성합니다.
 
+※ tmux man page에 보면 아래와 같이 설명되어있습니다.
+
+    tmux stores the server socket in a directory under /tmp (or TMPDIR if set); the default socket is named default.
+
+
 `/tmp`디렉터리에 `tmux-1000`이라는 디렉터리가 있는데, 이건 저의 `uid`가 `1000`이기때문에 `tmux-1000` 디렉터리 밑에 `default`가 생성된겁니다.
 
     $ id
@@ -150,10 +155,6 @@ session을 생성하는것, 그리고 붙는 방법 둘다 정말 간단하죠?
 이하 설명부터는 편의상 모든 사용자는 같은 계정에 로그인한다고 가정합니다.
 
 그리고 나서 다른사람이 똑같이 `$ tmux attach`했을때엔 최초에 누군가 session을 만들당시 생성된 `/tmp/tmux-1000/default`를 이용하여 같은 세션에 붙을 수 있는 겁니다.
-
-※ tmux man page에 보면 아래와 같이 설명되어있습니다.
-
-    tmux stores the server socket in a directory under /tmp (or TMPDIR if set); the default socket is named default.
 
 여기까지만 보면 하나의 세션만 공유가 가능한 것 처럼 보이지만 그렇지 않습니다.
 
