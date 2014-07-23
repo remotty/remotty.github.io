@@ -140,7 +140,8 @@ session을 생성하는것, 그리고 붙는 방법 둘다 정말 간단하죠?
 
 최초에 session을 생성할때 `$ tmux`를 입력하게되면 서버 소켓 파일 `/tmp/tmux-1000/default`를 생성합니다.
 
-※ 서버 소켓 파일이 생성되는 위치에 대한 것은 tmux man page에 보면 이렇게 설명되어 있습니다: `tmux stores the server socket in a directory under /tmp (or TMPDIR if set); the default socket is named default.`
+※ 서버 소켓 파일이 생성되는 위치에 대한 것은 tmux man page에 보면 이렇게 설명되어 있습니다
+> tmux stores the server socket in a directory under /tmp (or TMPDIR if set); the default socket is named default.
 
 `/tmp`디렉터리에 `tmux-1000`이라는 디렉터리가 있는데, 이건 해당 명령을 내리는 사용자의 `uid`가 `1000`이기때문에 `tmux-1000` 디렉터리 밑에 `default`가 생성된겁니다.
 
