@@ -233,7 +233,7 @@ remotty라는 서버 소켓파일이 생성 되었네요.
 
 이렇게 하면 shell 자체를 공동으로 사용할 수 있게 되는 겁니다.
 
-실제로 tmux의 이 기능을 이용하여 [Facebook Django](https://www.facebook.com/groups/django/) 그룹에서는 코딩도장을 운영한다고 합니다. 대화는 행아웃으로 하고, 코딩은 각자의 terminal로 하는거죠!
+실제로 tmux의 이 기능을 이용하여 [Facebook Django](https://www.facebook.com/groups/django/) 그룹에서는 코딩도장을 운영한다고 합니다. 대화는 [구글 행아웃](http://www.google.com/hangouts/)으로 하고, 코딩은 각자의 terminal로 하는거죠!
 
 <a name="epilogue"></a>
 ###[맺는말](#epilogue)
